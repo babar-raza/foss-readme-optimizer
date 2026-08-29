@@ -129,9 +129,17 @@ def _inventory_valid(bundle_dir: Path, expected: dict[str, str]) -> bool:
     listed every artifact while this check counted only the short-path subset, the two
     sets could never be equal, and an intact approved bundle was reported
     `artifact_inventory_invalid`, making `NO_OP_PROVEN` unreachable for exactly the
-    repositories whose names are longest. `enumerate_files()` additionally raises on a
-    traversal error rather than under-reporting, so a genuinely unreadable subtree now
-    fails closed here instead of masquerading as a content mismatch.
+    repositories whose names are longest.
+
+    Two honest caveats. `enumerate_files()` raises on a traversal error where `rglob`
+    swallowed it, but the `except OSError` below still returns `False`, which reaches the
+    same `artifact_inventory_invalid` reason string -- the error is no longer *silent*,
+    yet the caller sees no new signal, so this is not "fail closed" in any stronger sense
+    than before. And the behaviour is not identical to `rglob` in every non-long-path
+    case: `enumerate_files()` stats each entry, so a bundle containing a dangling symlink
+    now evaluates `False` where `rglob`'s `is_file()` filter quietly skipped it. Ordinary
+    bundles, file symlinks, junctions, empty subdirectories and empty bundles are
+    unaffected.
     """
 
     try:

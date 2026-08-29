@@ -727,8 +727,10 @@ def persist_evaluation(
 ) -> RunStateV1:
     """Reconcile the mission record, including releasing a dead session's expired claim.
 
-    `plans/master.md` defines this action as the one that "reconciles graph drift, claims,
-    lifecycle freshness, and component hashes". Claims were the missing half:
+    `plans/idea.md` defines this action as the one that "reconciles graph drift, claims,
+    lifecycle freshness, and component hashes" (`plans/idea.md`, the product-intent
+    document; `plans/master.md` says only that `evaluate` "first reconciles closed-task
+    freshness", which does not mention claims). Claims were the missing half:
     `_recover_expired_claim()` was reachable only from `claim_next_task()`, so an expired
     lease survived every `evaluate`. That matters because `evaluate_mission()` computes
     `eligible = [] if active else _ready_tasks(...)` -- any set `active_task_id` suppresses
@@ -736,8 +738,16 @@ def persist_evaluation(
     `evaluate` -> `status` sequence therefore reported "no eligible work" whenever a worker
     died mid-claim, and only an explicit `claim` could unstick it. Recovery is the same
     append-only transition `claim` already performs, so an operator and an autonomous loop
-    now see the same reconciled truth. An unexpired claim is never touched: recovery is
-    gated on `_claim_expired()`, so a routine evaluation cannot cancel a live worker.
+    now see the same reconciled truth.
+
+    Recovery is gated on `_claim_expired()`, so a lease with time remaining and a
+    well-formed expiry is left alone. That guard is not absolute, and this docstring
+    previously overstated it: `_claim_expired()` returns `True` for a malformed or
+    unparseable `claim_expires_at`, and it compares against the *evaluating* machine's
+    clock, so sufficient skew can release a lease another machine still considers live.
+    Both predate this change on the `claim` path; what is new is that they are now
+    reachable from `evaluate`, which a monitoring loop may call often. Tightening that
+    guard is separate work and is deliberately not attempted here.
     """
 
     def reconcile(state: MissionExecutionStateV1) -> MissionExecutionStateV1:

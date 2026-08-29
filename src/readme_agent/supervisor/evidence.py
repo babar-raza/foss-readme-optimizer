@@ -274,10 +274,15 @@ def assert_evidence_complete(evidence_dir: Path) -> None:
     for line in (evidence_dir / "sha256sums.txt").read_text(encoding="utf-8").splitlines():
         digest, name = line.split("  ", 1)
         expected[name] = digest
+    # Same enumeration the inventory was sealed with -- see `local_poc_cache.py::
+    # _inventory_valid()`. `Path.rglob("*")` silently omits entries past Windows
+    # MAX_PATH, which turned an intact bundle into a "checksum inventory mismatch".
+    from readme_agent.evidence.file_inventory import enumerate_files
+
     actual_files = {
-        path.relative_to(evidence_dir).as_posix()
-        for path in evidence_dir.rglob("*")
-        if path.is_file() and path.name != "sha256sums.txt"
+        relative.as_posix()
+        for relative, physical in enumerate_files(evidence_dir)
+        if physical.name != "sha256sums.txt"
     }
     if set(expected) != actual_files:
         raise RuntimeError(

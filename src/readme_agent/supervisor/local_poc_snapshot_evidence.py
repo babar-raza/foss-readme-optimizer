@@ -10,6 +10,7 @@ from pydantic import ValidationError
 
 from readme_agent import env, paths
 from readme_agent.errors import RepositorySnapshotError
+from readme_agent.evidence.file_inventory import enumerate_files
 from readme_agent.evidence.redaction import redact
 from readme_agent.evidence.writer import (
     refresh_sha256sums,
@@ -131,10 +132,20 @@ def _read_current_readme(snapshot: RepositorySnapshotV1) -> str | None:
 def _is_checksum_valid_intake_only_bundle(bundle_dir: Path) -> bool:
     """Allow snapshot sealing after durable intake created the revision directory first."""
 
-    files = [path for path in bundle_dir.rglob("*") if path.is_file()]
-    if not files or not verify_sha256sums(bundle_dir):
+    # Enumerate through the same helper `evidence/writer.py` seals and verifies with.
+    # `Path.rglob("*")` silently drops anything Win32 cannot open at or beyond MAX_PATH,
+    # and here that failure mode is the dangerous direction: a full bundle whose only
+    # long-path entries are `review/bounded-packet-cache/*` would lose exactly those
+    # entries and be misclassified as intake-only. See `local_poc_cache.py::
+    # _inventory_valid()` for the same defect found first.
+    try:
+        relative_paths = {
+            relative.as_posix() for relative, _physical in enumerate_files(bundle_dir)
+        }
+    except OSError:
         return False
-    relative_paths = {path.relative_to(bundle_dir).as_posix() for path in files}
+    if not relative_paths or not verify_sha256sums(bundle_dir):
+        return False
     return "sha256sums.txt" in relative_paths and all(
         path == "sha256sums.txt" or path.startswith("intake/") for path in relative_paths
     )

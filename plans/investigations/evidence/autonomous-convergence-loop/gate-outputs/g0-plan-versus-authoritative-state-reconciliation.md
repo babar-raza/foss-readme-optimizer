@@ -50,8 +50,15 @@ correct; the expired claim is what blocks it.
 
 ## Conflict 3 — expired-claim recovery is unreachable from the documented path (PROVEN DEFECT)
 
-`plans/master.md` states: "mission `evaluate` reconciles graph drift, claims, lifecycle freshness,
-and component hashes."
+`plans/idea.md:158` states: "mission `evaluate` reconciles graph drift, claims, lifecycle
+freshness, and component hashes."
+
+Correction recorded after independent verification: an earlier revision of this file, and of the
+production docstring it justified, attributed that sentence to `plans/master.md`. It is not there.
+`plans/master.md:476` says only that `evaluate` "first reconciles closed-task freshness", which
+does not mention claims. The defect below is real either way -- the recovery function had one
+caller -- but the "documented behaviour disagrees with actual behaviour" framing rests on the
+product-intent document, not on the architecture plan, and that distinction matters.
 
 Actual: `_recover_expired_claim()` (`supervisor/mission_control.py:166`) has exactly one caller,
 line 756, inside `claim_next_task()`. `persist_evaluation()` updates only `mission_complete` and

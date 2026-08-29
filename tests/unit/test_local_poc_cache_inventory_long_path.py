@@ -31,6 +31,8 @@ import pytest
 from readme_agent.evidence.writer import refresh_sha256sums, verify_sha256sums, win_long_path
 from readme_agent.supervisor.local_poc_cache import _inventory_valid, _load_inventory
 
+_MAX_PATH = 260
+
 
 def _lp(path) -> str:
     return win_long_path(path) if os.name == "nt" else str(path)
@@ -41,9 +43,23 @@ def _make_long_bundle(tmp_path):
     `sha256sums.txt` and `manifest.json` open normally, with a
     `review/bounded-packet-cache/<64-hex>.json` entry that crosses MAX_PATH. That
     asymmetry is the whole point -- the inventory loads fine, so the failure surfaces
-    only as a set mismatch, never as a read error anyone would notice."""
+    only as a set mismatch, never as a read error anyone would notice.
 
-    bundle_dir = tmp_path / ("r" * 40) / ("0" * 40)
+    The padding depth is derived, not hardcoded. `scripts/governance/run_full_pytest.py`
+    deliberately passes a short `--basetemp` (`%TEMP%/ra-p`, "keep this deliberately
+    short"), while a bare `pytest` run gets a much longer one. A fixed number of padding
+    segments therefore lands on the wrong side of 260 depending on which runner invoked
+    the test -- the first version of this fixture used a fixed 40+40 and silently passed
+    standalone while failing inside the canonical suite. Both bounds are asserted below,
+    so the fixture fails loudly rather than quietly testing nothing.
+    """
+
+    suffix = len(os.path.join("review", "bounded-packet-cache", f"{0:064x}.json"))
+    bundle_dir = tmp_path
+    # Grow until the deepest cache entry is at or beyond MAX_PATH, while keeping the
+    # bundle root itself comfortably under it so the inventory still opens normally.
+    while len(os.path.abspath(bundle_dir)) + 1 + suffix < _MAX_PATH:
+        bundle_dir = bundle_dir / ("r" * 40)
     cache_dir = bundle_dir / "review" / "bounded-packet-cache"
     os.makedirs(_lp(cache_dir), exist_ok=True)
     with open(_lp(bundle_dir / "manifest.json"), "w", encoding="utf-8") as handle:
@@ -52,8 +68,9 @@ def _make_long_bundle(tmp_path):
         with open(_lp(cache_dir / f"{index:064x}.json"), "w", encoding="utf-8") as handle:
             handle.write(f'{{"packet": {index}}}')
     entry = cache_dir / f"{0:064x}.json"
-    assert len(os.path.abspath(entry)) > 260, "fixture cache entry must exceed MAX_PATH"
-    assert len(os.path.abspath(bundle_dir / "sha256sums.txt")) < 260, (
+    # `win_long_path`'s own docstring: Win32 rejects a path "at or beyond 260".
+    assert len(os.path.abspath(entry)) >= _MAX_PATH, "fixture cache entry must reach MAX_PATH"
+    assert len(os.path.abspath(bundle_dir / "sha256sums.txt")) < _MAX_PATH, (
         "fixture bundle root must stay under MAX_PATH so the inventory itself still loads"
     )
     return bundle_dir

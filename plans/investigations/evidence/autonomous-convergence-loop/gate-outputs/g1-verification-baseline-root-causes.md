@@ -36,7 +36,7 @@ Added `--all` to `validate_pinned_hash_dedicated_tests.py` (runs every registere
 test regardless of staging) and wired it into CI's `pinned-hashes` job. The staging-scoped default
 remains the pre-commit path, which still catches drift one commit earlier than CI can.
 
-## RC-B — `_inventory_valid` under-enumerates past Windows MAX_PATH (3 tests)
+## RC-B — `_inventory_valid` under-enumerates past Windows MAX_PATH (blocks 3 tests; fixing it resolved 1)
 
 `test_supervisor_loop.py::TestBasicLoop::{test_local_poc_records_snapshot_and_profile_before_later_stages,
 test_local_poc_repairs_revalidates_and_rereviews_before_accepting,
@@ -83,8 +83,21 @@ than masquerading as a content mismatch.
 **Tests.** New `tests/unit/test_local_poc_cache_inventory_long_path.py`: one test proving a bundle
 whose cache entries exceed MAX_PATH validates (with `verify_sha256sums` as the reference oracle),
 and one negative control proving a tampered entry under the same long path is still rejected — so
-the fix cannot degrade into a rubber stamp. Both are Windows-gated, matching the existing
-`test_local_poc_review_cache_preservation.py` precedent.
+the fix cannot degrade into a rubber stamp. Both are Windows-gated.
+
+**Correction after independent verification.** As first committed these two tests passed standalone
+and **failed inside the project's own `run_full_pytest.py`**. That runner deliberately passes a
+short `--basetemp` (`%TEMP%/ra-p`), so the fixture's fixed 40+40 padding landed on exactly 260 and
+its own `> 260` guard tripped. An earlier revision of this file claimed they matched
+`test_local_poc_review_cache_preservation.py`'s precedent; they matched its `skipif` but not its
+padding, which is the part that makes it work. The fixture now *derives* its depth from the
+measured path length so it holds under any `basetemp`, and the guard is `>= 260` to match
+`win_long_path`'s own "at or beyond 260". Verified passing under both a short and a long basetemp.
+
+**Scope correction.** Repairing RC-B resolved one of the three `test_supervisor_loop.py` failures.
+The other two advanced past their original assertion and then failed on a separate, pre-existing
+cause (VER-012 reviewer-double drift), recorded below and in `logs/2026-08-29.md`. RC-A + RC-B +
+RC-C therefore do not account for all five baseline failures on their own.
 
 ## RC-C — validator ignores the producer's `verified_equivalence` narrowing (1 test)
 

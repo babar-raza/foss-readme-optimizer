@@ -2144,8 +2144,9 @@ def test_state_key_is_separate_from_every_product_repository():
 def test_evaluate_recovers_an_expired_claim_and_restores_eligibility():
     """`evaluate` must reconcile claims, not only `claim`.
 
-    `plans/master.md` states that mission `evaluate` "reconciles graph drift, claims,
-    lifecycle freshness, and component hashes". It did not reconcile claims:
+    `plans/idea.md` states that mission `evaluate` "reconciles graph drift, claims,
+    lifecycle freshness, and component hashes" (product intent; `plans/master.md` says
+    only "first reconciles closed-task freshness"). It did not reconcile claims:
     `_recover_expired_claim()` had exactly one caller, inside `claim_next_task()`, while
     `persist_evaluation()` updated only `mission_complete`/`last_evaluated_at`. Because
     `evaluate_mission()` computes `eligible = [] if active else _ready_tasks(...)`, any set
