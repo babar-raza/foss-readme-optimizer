@@ -7,8 +7,9 @@ from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 
 from readme_agent.gitsafety._git import run_git
+from readme_agent.state.cas import save_state_patch
 from readme_agent.state.git_backend import GitStateBackend
-from readme_agent.state.schema import RunStateV1
+from readme_agent.state.schema import DomainStateV1, RunStateV1
 
 
 def _state_worker(remote: str, org_repo: str) -> tuple[str, int, bool, bool]:
@@ -48,6 +49,18 @@ def _cas_worker(remote: str, org_repo: str, expected_version: int) -> str:
             RunStateV1(org_repo=org_repo, accepted_status="GENERATED"),
             expected_version=expected_version,
         ).outcome
+
+
+def _domain_patch_worker(remote: str, org_repo: str, domain: str) -> str:
+    with GitStateBackend(remote=remote) as backend:
+
+        def patch(state):
+            domains = dict(state.domain_states)
+            domains[domain] = DomainStateV1(domain=domain, accepted_status="GENERATED")
+            return state.model_copy(update={"domain_states": domains})
+
+        save_state_patch(backend, org_repo, patch)
+    return domain
 
 
 def _local_fetch_refs() -> list[str]:
@@ -113,3 +126,36 @@ def test_separate_process_workspaces_preserve_same_ref_cas(tmp_path: Path):
         loaded = verifier.load(org_repo)
         assert loaded is not None
         assert loaded.state_version == 2
+
+
+def test_concurrent_different_domain_patches_via_save_state_patch_both_converge(tmp_path: Path):
+    """Companion to the CAS test above: that one proves the raw backend
+    primitive correctly rejects a stale write; this proves the retry-wrapped
+    layer most production code actually calls (accept_trigger,
+    transition_trigger, record_supervisor_state, ...) converges instead of
+    losing one side when two real processes race genuinely different writes
+    against the same ref."""
+    remote = tmp_path / "state.git"
+    initialized = run_git(["init", "--bare", str(remote)], cwd=tmp_path)
+    assert initialized.returncode == 0
+    org_repo = "fixture/concurrent-domains"
+    with GitStateBackend(remote=str(remote)) as seed:
+        saved = seed.save(org_repo, RunStateV1(org_repo=org_repo), expected_version=None)
+        assert saved.new_version == 1
+
+    context = multiprocessing.get_context("spawn")
+    with ProcessPoolExecutor(max_workers=2, mp_context=context) as pool:
+        results = list(
+            pool.map(
+                _domain_patch_worker,
+                [str(remote), str(remote)],
+                [org_repo, org_repo],
+                ["domain-a", "domain-b"],
+            )
+        )
+
+    assert sorted(results) == ["domain-a", "domain-b"]
+    with GitStateBackend(remote=str(remote)) as verifier:
+        loaded = verifier.load(org_repo)
+        assert loaded is not None
+        assert set(loaded.domain_states.keys()) == {"domain-a", "domain-b"}
