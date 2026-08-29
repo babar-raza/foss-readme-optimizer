@@ -1,5 +1,6 @@
 {
+  "artifact": "gate-outputs/gv-independent-verification-cycle1-findings-and-repairs.md",
   "lane": "separate agent that did not implement the work",
   "performed": true,
-  "summary": "An independent verification lane was run against commit 176b679d with an adversarial brief: refute each of the five claims, hunt for weakened checks, prove the new tests are not vacuous, and report the full-suite numbers independently. Its findings are reported in the session transcript alongside this bundle. The implementer's own numbers are stated separately above so the two can be compared rather than conflated."
+  "summary": "Cycle 1 ran an adversarial independent-verification lane against 176b679d: it confirmed both central repairs and found six defects, including that the commit's own new tests failed under the canonical runner, that the MAX_PATH fix was incomplete at two sibling sites (one failing open), and a misattributed citation. All six were repaired in the same cycle; two were recorded as deliberately left open. Its findings are in the cited artifact, not in a session transcript. Cycle 2 ran a second independent lane against cd5b906ba/99a1ad007/af09e2ca8 with a refutation brief; its outcome is recorded in the cycle-2 artifacts alongside the implementer's own numbers so the two can be compared rather than conflated."
 }

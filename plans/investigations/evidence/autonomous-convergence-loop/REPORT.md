@@ -1,12 +1,12 @@
 # Autonomous convergence loop — evidence report
 
-Generated: 2026-08-29T09:16:46.658266+00:00  
-HEAD: `68b503342193417dc9f841ed8610d6992c7f6bd4`  
+Generated: 2026-08-29T11:24:06.806540+00:00  
+HEAD: `6f6ca5fe80dd4429f3a3f85443945105a1877d87`  
 Producer: `plans/investigations/tools/build_autonomous_convergence_loop_evidence.py`
 
 ## Verdict
 
-PARTIAL — the verification baseline is restored and the autonomy blocker is cleared and proven on live state. The umbrella mission (every processable repository at 30/30 with an immediate complete-transaction no-op) is NOT complete and was not reachable in this cycle. No true external blocker exists: the remaining work is engineering plus provider compute, and it is named below.
+PARTIAL, cycle 2. The canonical suite reached its first fully green run of the sprint (0 failed, 5507 passed, 1 skipped, clean tree) and the only remaining official-checks failure is a leak guard that counts unrelated concurrent python processes, not a test failure. Three defects were root-caused and two fixed; two mission taskcards moved to states that are true rather than convenient, which correctly emptied the eligible list. The umbrella mission -- every processable repository at 30/30 with an immediate complete-transaction no-op -- is NOT complete: contract-valid facts_ready 1/34, no_op_proven 0/34, mission_complete false, 49 unresolved tasks. No true external blocker exists; the remaining work is engineering plus provider compute, and it is named below.
 
 ## Gate outcomes
 
@@ -21,12 +21,25 @@ PARTIAL — the verification baseline is restored and the autonomy blocker is cl
 | G5 convergence scheduler | NOT STARTED | Deliberately not started. Its taskcard L8-PF-04 is CLOSED in durable state against unreachable machinery; reconciling that unsupported closure is a prerequisite and is named in remaining_work. |
 | G6 full portfolio sweep | NOT STARTED | Blocked behind G4/G5. One repository transaction took roughly 40 minutes of wall clock here; 34 repositories with distinct blocked-decision records is not a single-session workload. |
 | G7 prompt adaptation | NOT STARTED | Correctly gated. Its hard prerequisite is a frozen replay corpus that does not exist, and the per-repository fitness record it would score against does not exist either. |
+| C2 G0 preflight and claim recovery | PASS | Baseline HEAD 8d29adc16, tree clean, in sync with origin. mission_resume_capsule --check reported STALE and was regenerated. The expired-claim recovery landed in cycle 1 worked again in production: --mission-action evaluate cleared a lease that had expired at 2026-08-29T08:54:02Z and restored eligibility, state_version 1797 -> 1798. L8-PF-02 claimed at 1799 with a narrowing recorded immediately. GH_TOKEN re-verified live (gh api user -> babar-raza); Docker server 28.4.0 up. |
+| C2 G1 verification baseline | PASS (suite green; official checks still exit 1 on a non-test guard) | The canonical suite reached 0 failed, 5507 passed, 1 skipped on a clean tree (dirty_tree false, tree_changed_during_run false) -- the first fully green run of the sprint, from a baseline of 5 failed. Two repairs got it there: traceability closure citations for LLM-023/CORE-041/CORE-042 (99a1ad007) and the VER-012 reviewer-double migration to the bounded contract (af09e2ca8). run_official_checks.py still exits 1, but 9 of 10 checks are OK and the tenth fails on leaked_process_ids while reporting failed: 0 -- a false positive from concurrent python activity, root-caused and carded as ACL-PYTEST-LEAK-GUARD-CONCURRENCY. |
+| C2 G2 PF-02 root cause (CORRECTED by independent verification) | BLOCKED (agent_fixable, root-caused; first diagnosis refuted) | The canary rerouted again with candidate_changed=false and changed_operation_ids=[]. Root cause found: the blind reviewer reviews 13 section roots while section_authoring_repair owns 5 authoring slots, so 8 roots have no section-authoring repair route; _slot() returns None for them and the findings are dropped silently, and rereview_authorized requires every finding addressed -- so one unroutable finding disables the whole loop. That was published as the root cause and an independent lane REFUTED it: scope-and-limitations DID route, the author WAS called (139 completion tokens), and deterministic acceptance rejected both its units, leaving units: [] so the template re-emitted the rejected paragraph. changed_operation_ids was structurally forced empty by a single-operation document plan. The real cause is that the repair loop has no signal for 'author produced prose, acceptance threw it away' -- see ACL-REPAIR-LOOP-BLIND-TO-DISCARDED-UNITS and c2-correction-pf02-root-cause.md. |
+| C2 G3 composition truncation retry | PASS | Sibling-site sweep of RDM-033 found its fail-closed-on-truncation defect at a second forced tool call. plan_readme_composition answered a truncated call with _repair_hints()' full vocabularies, making the one retry MAX_AUTHORING_ATTEMPTS allows strictly longer than the attempt that had already overrun the 6000-token output ceiling. 3 repositories measured blocked on it. Fixed with a fixed-size brevity directive that keeps the authoritative role vocabulary; non-vacuity proved by disabling the branch in place; impacted sweep 123 passed, mypy clean (37b7a7517). |
+| C2 G4 mission transitions | PASS | L8-PF-02 -> BLOCKED (agent_fixable) at state_version 1801 with the root cause and an exact resume condition, rather than left holding an expiring claim. L8-PF-04 -> REOPENED at 1802: it was CLOSED against proven_transaction_runner, which has zero production importers, no run_proven_transaction caller outside its own package and tests, and no cli.py/commands*.py reference. Not integrated, because that would duplicate the sole supervise runtime (Decision #26). Consequence stated rather than hidden: eligible_tasks is now empty because L8-PF-05 depended on L8-PF-04; an empty list that is true beats a populated one that is not, and it is not mission completion. |
+| C2 G5 portfolio leverage map | PASS (analysis) | All 31 blocked-decision records read (104 cumulative reproductions). Claim accountability blocks 10 repositories and 6 of those have exactly one blocking claim -- the largest available lever, and explicitly not a gate to loosen, since a blocking claim is a source claim the candidate failed to account for. 6 repositories cannot establish product truth at all. 6 of 31 fail for pure infrastructure reasons (3 truncation, now fixed; 3 LLMInfrastructureError). Replaces asserted prioritisation with counted prioritisation. |
 
 ## Cited artifacts
 
 Every file below is produced by this sprint and cited here, per `plans/GOVERNANCE.md`
 organization rules 7 and 8 (traceability both ways; no orphan artifacts).
 
+- [`gate-outputs/c2-baseline-pytest-tree-changed-during-run.log`](gate-outputs/c2-baseline-pytest-tree-changed-during-run.log)
+- [`gate-outputs/c2-correction-pf02-root-cause.md`](gate-outputs/c2-correction-pf02-root-cause.md)
+- [`gate-outputs/c2-mission-transitions-and-repairs.md`](gate-outputs/c2-mission-transitions-and-repairs.md)
+- [`gate-outputs/c2-official-checks-all-passed-isolated.log`](gate-outputs/c2-official-checks-all-passed-isolated.log)
+- [`gate-outputs/c2-portfolio-blocker-leverage-map.md`](gate-outputs/c2-portfolio-blocker-leverage-map.md)
+- [`gate-outputs/c2-review-repair-scope-mismatch.md`](gate-outputs/c2-review-repair-scope-mismatch.md)
+- [`gate-outputs/c2-verification-baseline-reached-green.md`](gate-outputs/c2-verification-baseline-reached-green.md)
 - [`gate-outputs/g0-baseline-repository-state.md`](gate-outputs/g0-baseline-repository-state.md)
 - [`gate-outputs/g0-plan-versus-authoritative-state-reconciliation.md`](gate-outputs/g0-plan-versus-authoritative-state-reconciliation.md)
 - [`gate-outputs/g1-verification-baseline-root-causes.md`](gate-outputs/g1-verification-baseline-root-causes.md)
@@ -36,20 +49,22 @@ organization rules 7 and 8 (traceability both ways; no orphan artifacts).
 - [`gate-outputs/g4-pf02-canary-outcome.md`](gate-outputs/g4-pf02-canary-outcome.md)
 - [`gate-outputs/g4-pf02-final-verdict.json`](gate-outputs/g4-pf02-final-verdict.json)
 - [`gate-outputs/g4-pf02-independent-agent-review.json`](gate-outputs/g4-pf02-independent-agent-review.json)
-- [`gate-outputs/g5-independent-verification-findings-and-repairs.md`](gate-outputs/g5-independent-verification-findings-and-repairs.md)
 - [`gate-outputs/g6-official-checks-clean-tree.log`](gate-outputs/g6-official-checks-clean-tree.log)
 - [`gate-outputs/g6-official-checks-result.md`](gate-outputs/g6-official-checks-result.md)
 - [`gate-outputs/gate-outcomes.json`](gate-outputs/gate-outcomes.json)
+- [`gate-outputs/gv-independent-verification-cycle1-findings-and-repairs.md`](gate-outputs/gv-independent-verification-cycle1-findings-and-repairs.md)
 
 ## Remaining work
 
-- VER-012: migrate _RejectThenAcceptBlindReviewClient to the current bounded review-packet contract, then rewire test_local_poc_repairs_revalidates_and_rereviews_before_accepting and test_local_poc_byte_identical_repair_reroutes_before_rereview from build_live_merged_review_client to build_live_role_review_clients with the already-written _fake_repair_role_clients. Rewiring alone moves the failure to independent_review_exception:StopIteration.
-- L8-PF-02: repair the four named visitor-quality findings on the Aspose.3D-FOSS-for-Python candidate (additional-examples example_presentation and clarity; scope-and-limitations clarity and promotional_balance), then re-run to AGENT_APPROVED and prove the immediate no-op.
-- Reconcile the unsupported L8-PF-04 closure: supervisor/proven_transaction_runner/ has no production importer, no run_proven_transaction caller outside its own package and tests, and no reference from cli.py or commands*.py. Either integrate it or reopen the taskcard.
-- plans/master.md Status and Build Checklist are stale: they still list Decision #110's prose-quality ratchet as pending, but PROSE_QUALITY_CONTRACT_VERSION exists in verification/prose_quality_cache.py. master.md is also 674 lines against validate_compact_authority.py's 600-line budget, which is part of why that validator is red and unwired from CI.
-- Decisions #111 (per-repository composition-plan invalidation) and #112 (durable shared ratchet tier) remain open and are the structural causes behind 22 repositories currently carrying stale fact contracts.
+- ACL-PYTEST-LEAK-GUARD-CONCURRENCY (P0): run_full_pytest.py::_repository_process_ids matches any python process whose command line contains the repo root, with no descendant check, so concurrent activity registers as a leak and keeps official checks red while the suite is green. Fix must keep failing on a synthetic real leak and pass with an unrelated concurrent process -- two controls, not one.
+- ACL-REVIEW-REPAIR-SCOPE-MISMATCH (P0): the blind reviewer reviews 13 section roots; section_authoring_repair owns 5 slots. Unroutable findings are dropped silently and rereview_authorized requires all findings addressed, so one of them disables the repair loop. Note that at-a-glance is repairable via composition re-planning, so both repair mechanisms must be considered before declaring a root unowned.
+- L8-PF-04 reconciliation: now REOPENED rather than falsely CLOSED, but still unresolved -- either integrate proven_transaction_runner into a production path or retire it. Until then L8-PF-05/L8-PF-06/L8-PORT-01 have no eligible predecessor.
+- L8-PF-02: repair the four named visitor-quality findings once the scope mismatch is closed, then re-run to AGENT_APPROVED and prove the immediate no-op.
+- Claim accountability blocks 10 repositories, 6 with exactly one blocking claim each -- the largest measured lever on the portfolio, and content work rather than a code fix.
+- plans/master.md remains 674 lines against a 600 budget with a stale Status/Build Checklist, and validate_compact_authority.py reports 12 errors including migration-matrix drift. Not attempted this cycle: regenerating those pins without judging each drift would destroy the signal they exist to carry.
+- Decisions #111 (per-repository composition-plan invalidation) and #112 (shared ratchet tier) remain open and are the structural causes behind the stale fact contracts.
 
 ## Independent verification
 
-An independent verification lane was run against commit 176b679d with an adversarial brief: refute each of the five claims, hunt for weakened checks, prove the new tests are not vacuous, and report the full-suite numbers independently. Its findings are reported in the session transcript alongside this bundle. The implementer's own numbers are stated separately above so the two can be compared rather than conflated.
+Cycle 1 ran an adversarial independent-verification lane against 176b679d: it confirmed both central repairs and found six defects, including that the commit's own new tests failed under the canonical runner, that the MAX_PATH fix was incomplete at two sibling sites (one failing open), and a misattributed citation. All six were repaired in the same cycle; two were recorded as deliberately left open. Its findings are in the cited artifact, not in a session transcript. Cycle 2 ran a second independent lane against cd5b906ba/99a1ad007/af09e2ca8 with a refutation brief; its outcome is recorded in the cycle-2 artifacts alongside the implementer's own numbers so the two can be compared rather than conflated.
 

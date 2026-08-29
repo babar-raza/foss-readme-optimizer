@@ -1,6 +1,14 @@
 {
   "commits": [
-    "176b679dbbcdeae38b6088d48ae7f5a19029679c"
+    "176b679dbbcdeae38b6088d48ae7f5a19029679c",
+    "65935a5eae151df75149b132c95d6425a9e669d9",
+    "68b503342193417dc9f841ed8610d6992c7f6bd4",
+    "8d29adc1640cae34f78ac5d1930aefbc56eeb56e",
+    "cd5b906baf2488743623b5746ceae46c0db156ea",
+    "99a1ad0073a7b7158964e4224edea30a4c6b0177",
+    "af09e2ca81c9c87a9c8483f3f35d93bd0b4ad9f2",
+    "37b7a7517f4cf9c43fc9bbd9eaffa5836c3d8d88",
+    "3310543c6ee2c46e98c0416185a9dd50d91e4583"
   ],
   "kind": "first_boundary_removal",
   "state_versions": [
@@ -10,8 +18,12 @@
     1794,
     1795,
     1796,
-    1797
+    1797,
+    1798,
+    1799,
+    1801,
+    1802
   ],
-  "summary": "Cleared the stale-lease deadlock that made every dependency-ready task invisible, and removed the MAX_PATH enumeration defect that made NO_OP_PROVEN unreachable on this platform; then advanced L8-PF-02's first failing boundary from infrastructure to four named visitor-quality findings.",
+  "summary": "Cycle 1 cleared the stale-lease deadlock and the MAX_PATH defect that made NO_OP_PROVEN unreachable. Cycle 2 took the canonical suite to its first fully green run, root-caused why PF-02's repair loop cannot close (reviewer scope 13 roots vs repair scope 5 slots), fixed RDM-033's truncation defect at its second call site, and replaced two convenient taskcard statuses with true ones.",
   "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
 }
