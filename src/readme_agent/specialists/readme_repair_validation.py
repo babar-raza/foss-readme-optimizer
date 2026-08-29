@@ -12,11 +12,13 @@ from readme_agent.specialists.independent_readme_review import (
     IndependentReadmeReviewResultV1,
 )
 from readme_agent.specialists.readme_repair_contracts import (
+    AuthorSignal,
     RepairAttemptReceiptV1,
     RepairFindingRequestV1,
     RepairFindingResolutionV1,
     RepairTextDeltaV1,
 )
+from readme_agent.specialists.section_authoring_slot_map import authoring_slot_for_section
 
 
 def repair_findings(review: IndependentReadmeReviewResultV1) -> list[RepairFindingRequestV1]:
@@ -133,6 +135,7 @@ def build_repair_attempt_receipt(
                 bound_operation_ids=bound,
                 changed_bound_operation_ids=changed_bound,
                 status=("addressed_pending_rereview" if addressed else "unresolved_unchanged"),
+                author_signal=_author_signal(finding, repaired_context),
             )
         )
     addressed_ids = sorted(
@@ -177,6 +180,36 @@ def finalize_repair_receipt(
             "reviewer_call_count_after_rereview": reviewer_call_count,
         }
     )
+
+
+def _author_signal(finding: RepairFindingRequestV1, repaired_context: dict) -> AuthorSignal | None:
+    """Distinguish "no repair route", "route exists but wasn't exercised this
+    round", "the author was called and every unit was deterministically
+    rejected", and "the author produced units" -- the signal
+    ACL-REPAIR-LOOP-BLIND-TO-DISCARDED-UNITS found missing. A candidate can
+    legitimately stay byte-identical after a correctly-routed, correctly-
+    reauthored section when deterministic acceptance rejects every proposed
+    unit; before this, that looked identical to "nothing was attempted"."""
+
+    slot = authoring_slot_for_section(finding.section)
+    if slot is None:
+        return "no_authoring_route"
+    document = repaired_context.get("section_authoring_document")
+    if not document:
+        return "not_attempted"
+    outcome = next(
+        (item for item in document.get("outcomes", []) if item.get("target_section_id") == slot),
+        None,
+    )
+    if outcome is None or outcome.get("reused_from_cache"):
+        return "not_attempted"
+    result = outcome.get("result") or {}
+    receipt = outcome.get("receipt") or {}
+    if result.get("units"):
+        return "attempted_produced_units"
+    if receipt.get("deterministically_rejected_unit_sha256"):
+        return "attempted_all_units_rejected"
+    return None
 
 
 def _operations(context: dict) -> dict[str, dict]:

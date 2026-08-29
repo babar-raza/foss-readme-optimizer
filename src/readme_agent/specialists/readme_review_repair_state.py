@@ -47,11 +47,17 @@ def reroute_unchanged_repair(
 ) -> dict:
     """Reopen composition when a repair cannot prove a relevant operation change."""
 
+    unresolved_signals = {
+        resolution.finding_id: resolution.author_signal
+        for resolution in receipt.finding_resolutions
+        if resolution.status == "unresolved_unchanged" and resolution.author_signal is not None
+    }
     reason = (
         "agent_fixable: reviewer-directed repair did not materially change every responsible "
         f"span/operation; before={receipt.before_candidate_sha256} "
         f"after={receipt.after_candidate_sha256}; "
         f"unresolved={','.join(receipt.unresolved_finding_ids)}"
+        + (f"; unresolved_reasons={unresolved_signals}" if unresolved_signals else "")
     )
     if backend is not None:
         transition_readme_poc_status(

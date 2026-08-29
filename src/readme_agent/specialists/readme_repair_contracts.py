@@ -11,6 +11,14 @@ class _StrictModel(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
 
+AuthorSignal = Literal[
+    "no_authoring_route",
+    "not_attempted",
+    "attempted_all_units_rejected",
+    "attempted_produced_units",
+]
+
+
 class RepairFindingRequestV1(_StrictModel):
     """Normalized repair authority extracted from grounded reviewer records."""
 
@@ -45,6 +53,11 @@ class RepairFindingResolutionV1(_StrictModel):
     bound_operation_ids: list[str]
     changed_bound_operation_ids: list[str]
     status: Literal["addressed_pending_rereview", "unresolved_unchanged"]
+    # Purely diagnostic (ACL-REPAIR-LOOP-BLIND-TO-DISCARDED-UNITS): never read by
+    # `rereview_authorized`/`unresolved_finding_ids`, so it cannot change what gets
+    # accepted -- only whether a reader can tell *why* an unresolved finding stayed
+    # unresolved, instead of re-deriving it by hand from cache JSON every time.
+    author_signal: AuthorSignal | None = None
 
 
 class RepairAttemptReceiptV1(_StrictModel):

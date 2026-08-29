@@ -299,3 +299,151 @@ def test_stale_reviewer_candidate_hash_is_rejected_before_composition():
 
     with pytest.raises(ValueError, match="stale against the source candidate"):
         validate_repair_source_binding(review, BEFORE)
+
+
+def _slotted_review(section: str) -> SimpleNamespace:
+    finding = SimpleNamespace(
+        finding_id="quality.slotted-finding",
+        section=section,
+        criterion="clarity",
+        quoted_candidate_span="Generic overview.",
+        required_repair="Rewrite this section.",
+        disposition="requires_repair",
+    )
+    return SimpleNamespace(
+        blind_quality_review=SimpleNamespace(findings=[finding]),
+        factual_plan_review=SimpleNamespace(findings=[]),
+        failed_criteria=["clarity"],
+        sections_affected=[section],
+        required_repair=finding.required_repair,
+        verdict="REJECT_REPAIRABLE",
+    )
+
+
+def _outcome(*, slot: str, reused: bool, units: list, rejected: list) -> dict:
+    return {
+        "target_section_id": slot,
+        "reused_from_cache": reused,
+        "result": {"units": units, "omitted": []},
+        "receipt": {"deterministically_rejected_unit_sha256": rejected},
+    }
+
+
+class TestAuthorSignal:
+    """ACL-REPAIR-LOOP-BLIND-TO-DISCARDED-UNITS: the repair receipt must name
+    why an unresolved finding stayed unresolved, without changing whether it
+    counts as unresolved."""
+
+    def test_no_authoring_route_for_a_section_with_no_slot(self):
+        # "Overview" is not one of the 6 reviewer-section names mapped to an
+        # authoring slot (ACL-REVIEW-REPAIR-SCOPE-MISMATCH).
+        receipt = build_repair_attempt_receipt(
+            prior_context=_context(BEFORE, "Generic overview."),
+            repaired_context=_context(BEFORE, "Generic overview."),
+            review=_grounded_review(),
+            repair_attempt=1,
+            reviewer_call_count=1,
+        )
+        assert receipt.finding_resolutions[0].author_signal == "no_authoring_route"
+
+    def test_not_attempted_when_no_section_authoring_document_present(self):
+        prior = _context(BEFORE, "Generic overview.")
+        repaired = _context(BEFORE, "Generic overview.")
+        receipt = build_repair_attempt_receipt(
+            prior_context=prior,
+            repaired_context=repaired,
+            review=_slotted_review("scope-and-limitations"),
+            repair_attempt=1,
+            reviewer_call_count=1,
+        )
+        assert receipt.finding_resolutions[0].author_signal == "not_attempted"
+
+    def test_not_attempted_when_the_matching_outcome_was_reused_from_cache(self):
+        repaired = _context(BEFORE, "Generic overview.")
+        repaired["section_authoring_document"] = {
+            "outcomes": [
+                _outcome(slot="scope_and_limitations", reused=True, units=[], rejected=["deadbeef"])
+            ]
+        }
+        receipt = build_repair_attempt_receipt(
+            prior_context=_context(BEFORE, "Generic overview."),
+            repaired_context=repaired,
+            review=_slotted_review("scope-and-limitations"),
+            repair_attempt=1,
+            reviewer_call_count=1,
+        )
+        assert receipt.finding_resolutions[0].author_signal == "not_attempted"
+
+    def test_attempted_all_units_rejected_when_deterministic_acceptance_discards_everything(self):
+        repaired = _context(BEFORE, "Generic overview.")
+        repaired["section_authoring_document"] = {
+            "outcomes": [
+                _outcome(
+                    slot="scope_and_limitations",
+                    reused=False,
+                    units=[],
+                    rejected=["deadbeef"],
+                )
+            ]
+        }
+        receipt = build_repair_attempt_receipt(
+            prior_context=_context(BEFORE, "Generic overview."),
+            repaired_context=repaired,
+            review=_slotted_review("scope-and-limitations"),
+            repair_attempt=1,
+            reviewer_call_count=1,
+        )
+        resolution = receipt.finding_resolutions[0]
+        assert resolution.author_signal == "attempted_all_units_rejected"
+        # This is the exact scenario the correction found: correctly routed,
+        # correctly reauthored, still unresolved -- and now it says why.
+        assert resolution.status == "unresolved_unchanged"
+
+    def test_attempted_produced_units_when_the_author_succeeded(self):
+        repaired = _context(BEFORE, "Generic overview.")
+        repaired["section_authoring_document"] = {
+            "outcomes": [
+                _outcome(
+                    slot="scope_and_limitations",
+                    reused=False,
+                    units=[{"heading": "Scope", "text": "New prose.", "fact_ids": ["f1"]}],
+                    rejected=[],
+                )
+            ]
+        }
+        receipt = build_repair_attempt_receipt(
+            prior_context=_context(BEFORE, "Generic overview."),
+            repaired_context=repaired,
+            review=_slotted_review("scope-and-limitations"),
+            repair_attempt=1,
+            reviewer_call_count=1,
+        )
+        assert receipt.finding_resolutions[0].author_signal == "attempted_produced_units"
+
+    def test_reroute_reason_names_the_author_signal_for_unresolved_findings(self):
+        from readme_agent.specialists.readme_review_repair_state import reroute_unchanged_repair
+
+        repaired = _context(BEFORE, "Generic overview.")
+        repaired["section_authoring_document"] = {
+            "outcomes": [
+                _outcome(
+                    slot="scope_and_limitations", reused=False, units=[], rejected=["deadbeef"]
+                )
+            ]
+        }
+        review = _slotted_review("scope-and-limitations")
+        receipt = build_repair_attempt_receipt(
+            prior_context=_context(BEFORE, "Generic overview."),
+            repaired_context=repaired,
+            review=review,
+            repair_attempt=1,
+            reviewer_call_count=1,
+        )
+        escalation = reroute_unchanged_repair(
+            org_repo="org/repo",
+            backend=None,
+            review=review,
+            receipt=receipt,
+            observed_by="test",
+        )
+        assert "attempted_all_units_rejected" in escalation["reason"]

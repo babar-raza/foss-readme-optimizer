@@ -15,22 +15,10 @@ from readme_agent.specialists.readme_repair_validation import repair_findings
 from readme_agent.specialists.section_authoring_cache import default_section_authoring_cache_dir
 from readme_agent.specialists.section_authoring_contracts import SectionAuthoringDocumentV1
 from readme_agent.specialists.section_authoring_document import author_and_persist_readme_sections
+from readme_agent.specialists.section_authoring_slot_map import authoring_slot_for_section
 from readme_agent.specialists.section_cluster_authoring import SectionClusterAuthorClientLike
 
-_REVIEW_SECTION_TO_AUTHORING_SLOT = {
-    "summary": "summary",
-    "front-matter": "summary",
-    "key-capabilities": "key_capabilities",
-    "capabilities": "key_capabilities",
-    "installation": "installation",
-    "quick-start": "quick_start",
-    "scope-and-limitations": "scope_and_limitations",
-    "limitations": "scope_and_limitations",
-}
-
-
-def _slot(value: str) -> str | None:
-    return _REVIEW_SECTION_TO_AUTHORING_SLOT.get(value.strip().casefold().replace("_", "-"))
+_slot = authoring_slot_for_section
 
 
 def _repair_specs(
