@@ -8,7 +8,7 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
-    "active_task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
+    "active_task_id": null,
     "approach_control": {
       "attempts": [
         {
@@ -2921,11 +2921,12 @@
         {
           "evidence_refs": [
             "plans/investigations/evidence/autonomous-convergence-loop/gate-outputs/g1-verification-baseline-root-causes.md",
-            "plans/investigations/evidence/autonomous-convergence-loop/gate-outputs/g4-pf02-canary-outcome.md"
+            "plans/investigations/evidence/autonomous-convergence-loop/gate-outputs/g4-pf02-canary-outcome.md",
+            "claim lease expired"
           ],
           "fingerprint": "575755e2661c6eb5faf207f17de1db58a59b52b12510ecfa56f061b187ca3552",
           "last_material_narrowing_at": "2026-08-29T08:42:15.556764+00:00",
-          "outcome": "in_progress",
+          "outcome": "effective",
           "started_at": "2026-08-29T08:10:24.994076+00:00",
           "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
         }
@@ -4659,10 +4660,10 @@
       "total_repository_lanes": 1
     },
     "certification_complete": false,
-    "claim_expires_at": "2026-08-29T08:54:02.678090+00:00",
-    "claim_id": "8a1b77ffe8504f39bee0cf40180547ba",
-    "claimed_at": "2026-08-29T08:24:02.678090+00:00",
-    "claimed_by": "readme-agent-supervisor",
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "concurrent_goal_ids": [],
     "delivery_complete": false,
     "goal_activation_graph_sha256": "c35b261f185f73711d105cf794116cefa3130da3b3b820bf7188613c177ad042",
@@ -5273,7 +5274,7 @@
     ],
     "graph_sha256": "c35b261f185f73711d105cf794116cefa3130da3b3b820bf7188613c177ad042",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-29T08:42:15.556796+00:00",
+    "last_evaluated_at": "2026-08-29T10:21:59.152068+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -5455,7 +5456,7 @@
       "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION": "CLOSED",
       "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "CLOSED",
       "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION": "CLOSED",
-      "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "IN_PROGRESS",
+      "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "REGRESSED",
       "L8-PF-03-SEALED-CANDIDATE-NO-OP": "CLOSED",
       "L8-PF-04-MINIMAL-GRAPH-RUNNER": "CLOSED",
       "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "REGRESSED",
@@ -18454,6 +18455,15 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "mission-claim-recovery",
+        "occurred_at": "2026-08-29T10:21:59.152102+00:00",
+        "reason": "claim lease expired before a terminal verification state",
+        "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
+        "to_status": "REGRESSED"
       }
     ]
   },
@@ -18463,7 +18473,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1797,
+  "state_version": 1798,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
