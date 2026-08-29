@@ -1,6 +1,6 @@
 # Mission resume capsule (derived — regenerate, never hand-edit)
 
-Regenerated: 2026-08-28T11:06:31+00:00
+Regenerated: 2026-08-29T10:21:17+00:00
 Rebuild: `.venv/Scripts/python scripts/governance/mission_resume_capsule.py`
 Staleness check (run at session start; exit 1 = stale): same command with `--check`.
 
@@ -29,14 +29,14 @@ factuality/preservation/grounding gates to raise pass counts.
 
 ## Repository
 
-- branch `main` @ `d8795bbdbe6d51778956c1daf8cddf1642c8b00f`
+- branch `main` @ `8d29adc1640cae34f78ac5d1930aefbc56eeb56e`
 - protected pre-existing dirt: `plans/requirements.md` (CRLF-only); untracked
   `plans/claude/moonlit-juggling-flurry.md` is `forbidden_paths` reference material.
 
 ## Durable mission state (local store)
 
 - `mission__LEVEL8-CENTRAL-REPOSITORY-PRESENTATION` — state: mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION v10 (2026-08-19T01:20:16+05:00)
-- newest state ref write: 2026-08-28T15:55:14+05:00
+- newest state ref write: 2026-08-29T13:39:28+05:00
 
 ## Portfolio (from `runs/readme-poc/portfolio-summary.json`)
 
