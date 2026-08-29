@@ -13,6 +13,11 @@ from readme_agent.state.agile_execution_schema import (
 )
 from readme_agent.state.git_backend import default_state_backend
 from readme_agent.state.schema import MissionTaskStatus
+from readme_agent.supervisor.growth_ceiling import (
+    compute_growth_ceiling,
+    format_growth_ceiling,
+    record_no_op_proven_observation,
+)
 from readme_agent.supervisor.mission_control import (
     claim_next_task,
     evaluate_mission,
@@ -215,6 +220,13 @@ def run_mission_command(args: argparse.Namespace) -> int:
     print(f"delivery_complete: {str(evaluation.delivery_complete).lower()}")
     print(f"certification_complete: {str(evaluation.certification_complete).lower()}")
     print(f"mission_complete: {str(evaluation.mission_complete).lower()}")
+    if scoreboard is not None:
+        try:
+            ceiling = compute_growth_ceiling(no_op_proven=scoreboard.no_op_proven)
+            print(format_growth_ceiling(ceiling))
+            record_no_op_proven_observation(scoreboard.no_op_proven)
+        except Exception as exc:  # noqa: BLE001 - must never break mission status
+            print(f"growth_ceiling: unavailable ({exc!r})", file=sys.stderr)
     if action == "status" and drifted:
         print(
             "error: durable mission state is stale against the loaded task graph", file=sys.stderr
