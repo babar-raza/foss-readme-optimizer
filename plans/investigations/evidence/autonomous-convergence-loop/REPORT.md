@@ -1,12 +1,12 @@
 # Autonomous convergence loop — evidence report
 
-Generated: 2026-08-29T11:24:06.806540+00:00  
-HEAD: `6f6ca5fe80dd4429f3a3f85443945105a1877d87`  
+Generated: 2026-08-29T11:42:23.658558+00:00  
+HEAD: `40cd0e5a0dabe1291e3d38cd9351b332ae02bcb5`  
 Producer: `plans/investigations/tools/build_autonomous_convergence_loop_evidence.py`
 
 ## Verdict
 
-PARTIAL, cycle 2. The canonical suite reached its first fully green run of the sprint (0 failed, 5507 passed, 1 skipped, clean tree) and the only remaining official-checks failure is a leak guard that counts unrelated concurrent python processes, not a test failure. Three defects were root-caused and two fixed; two mission taskcards moved to states that are true rather than convenient, which correctly emptied the eligible list. The umbrella mission -- every processable repository at 30/30 with an immediate complete-transaction no-op -- is NOT complete: contract-valid facts_ready 1/34, no_op_proven 0/34, mission_complete false, 49 unresolved tasks. No true external blocker exists; the remaining work is engineering plus provider compute, and it is named below.
+PARTIAL, cycle 2. The canonical suite reached its first fully green run of the sprint, and run_official_checks.py then passed ALL TEN checks at exit 0 with a clean tree and leaked_process_ids empty (0 failed, 5509 passed, 1 skipped). The identical commit had exited 1 earlier purely because other python processes were touching the repository during the run, which is the proof for ACL-PYTEST-LEAK-GUARD-CONCURRENCY rather than a test failure. Three defects were root-caused and two fixed; two mission taskcards moved to states that are true rather than convenient, which correctly emptied the eligible list. The umbrella mission -- every processable repository at 30/30 with an immediate complete-transaction no-op -- is NOT complete: contract-valid facts_ready 1/34, no_op_proven 0/34, mission_complete false, 49 unresolved tasks. No true external blocker exists; the remaining work is engineering plus provider compute, and it is named below.
 
 ## Gate outcomes
 
@@ -27,6 +27,7 @@ PARTIAL, cycle 2. The canonical suite reached its first fully green run of the s
 | C2 G3 composition truncation retry | PASS | Sibling-site sweep of RDM-033 found its fail-closed-on-truncation defect at a second forced tool call. plan_readme_composition answered a truncated call with _repair_hints()' full vocabularies, making the one retry MAX_AUTHORING_ATTEMPTS allows strictly longer than the attempt that had already overrun the 6000-token output ceiling. 3 repositories measured blocked on it. Fixed with a fixed-size brevity directive that keeps the authoritative role vocabulary; non-vacuity proved by disabling the branch in place; impacted sweep 123 passed, mypy clean (37b7a7517). |
 | C2 G4 mission transitions | PASS | L8-PF-02 -> BLOCKED (agent_fixable) at state_version 1801 with the root cause and an exact resume condition, rather than left holding an expiring claim. L8-PF-04 -> REOPENED at 1802: it was CLOSED against proven_transaction_runner, which has zero production importers, no run_proven_transaction caller outside its own package and tests, and no cli.py/commands*.py reference. Not integrated, because that would duplicate the sole supervise runtime (Decision #26). Consequence stated rather than hidden: eligible_tasks is now empty because L8-PF-05 depended on L8-PF-04; an empty list that is true beats a populated one that is not, and it is not mission completion. |
 | C2 G5 portfolio leverage map | PASS (analysis) | All 31 blocked-decision records read (104 cumulative reproductions). Claim accountability blocks 10 repositories and 6 of those have exactly one blocking claim -- the largest available lever, and explicitly not a gate to loosen, since a blocking claim is a source claim the candidate failed to account for. 6 repositories cannot establish product truth at all. 6 of 31 fail for pure infrastructure reasons (3 truncation, now fixed; 3 LLMInfrastructureError). Replaces asserted prioritisation with counted prioritisation. |
+| C2 G6 CI (Linux) reconciliation | PARTIAL | CI was checked for the first time at the end of this session and had been red on main continuously -- at the sprint baseline 8d29adc16 and well before it -- while the same suite was green on Windows, so every local 'green' claim this cycle made was a Windows-only claim. pinned-hashes stayed green; the test matrix failed 6 on all three Python versions. Both causes were platform assumptions in fixtures, not regressions: five tests hardcoded snapshot_root='C:/tmp/widget', which PurePosixPath does not consider absolute, and one long-path fixture built a fixed depth and read 'assert 236 > 260' on Linux -- the same defect the verification lane found on Windows as 'assert 260 > 260'. CI measured the fix working: 6 failed at 3310543c6, 5 failed at 6f6ca5fe8. The portability fix (daaf18b01) reuses the idiom test_curated_readme_evidence.py:1807 already established, and CI then measured 5 failed -> 1 failed. The one remaining Linux failure is test_state_git_backend_local_parallel.py::test_separate_process_workspaces_preserve_same_ref_cas, which is unrelated to any change here, passes on Windows (0 failed locally at the same commit), and is carded as ACL-CAS-LOST-UPDATE-ON-LINUX. |
 
 ## Cited artifacts
 
@@ -37,6 +38,7 @@ organization rules 7 and 8 (traceability both ways; no orphan artifacts).
 - [`gate-outputs/c2-correction-pf02-root-cause.md`](gate-outputs/c2-correction-pf02-root-cause.md)
 - [`gate-outputs/c2-mission-transitions-and-repairs.md`](gate-outputs/c2-mission-transitions-and-repairs.md)
 - [`gate-outputs/c2-official-checks-all-passed-isolated.log`](gate-outputs/c2-official-checks-all-passed-isolated.log)
+- [`gate-outputs/c2-official-checks-final-head-all-passed.log`](gate-outputs/c2-official-checks-final-head-all-passed.log)
 - [`gate-outputs/c2-portfolio-blocker-leverage-map.md`](gate-outputs/c2-portfolio-blocker-leverage-map.md)
 - [`gate-outputs/c2-review-repair-scope-mismatch.md`](gate-outputs/c2-review-repair-scope-mismatch.md)
 - [`gate-outputs/c2-verification-baseline-reached-green.md`](gate-outputs/c2-verification-baseline-reached-green.md)
