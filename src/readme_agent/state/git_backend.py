@@ -575,11 +575,21 @@ class GitStateBackend:
                 update={"org_repo": org_repo, "state_version": new_version}
             )
             payload = json.dumps(new_state.model_dump(mode="json"), indent=2, sort_keys=True) + "\n"
+            # Two racing writers computing the identical target state (same
+            # tree, parent, pinned commit identity) would otherwise build a
+            # byte-identical commit. Git pushes that as a silent no-op
+            # ("Everything up-to-date"), not a rejection -- both writers see
+            # `push.returncode == 0` and believe they won the CAS, even though
+            # only one of them may be entitled to (ACL-CAS-LOST-UPDATE-ON-LINUX,
+            # reproduced under CPU-constrained concurrency). A per-attempt nonce
+            # in the message -- not the persisted state.json payload -- makes
+            # every attempt's commit distinct so git's real non-fast-forward
+            # check can tell two racing attempts apart.
             commit_sha = _write_commit(
                 tree_path="state.json",
                 payload=payload,
                 parent_sha=parent_sha,
-                message=f"state: {org_repo} v{new_version}",
+                message=f"state: {org_repo} v{new_version} #{uuid4().hex[:12]}",
                 cwd=self._git_cwd,
             )
 
@@ -782,11 +792,16 @@ class GitStateBackend:
                 payload = (
                     json.dumps(updated.model_dump(mode="json"), indent=2, sort_keys=True) + "\n"
                 )
+                # Same collision class as `save()` above: this is the one
+                # global (not per-repo) ref, so two writers independently
+                # disabling the same job with the same status is a realistic
+                # race, not a hypothetical one. Nonce the message so identical
+                # target state never collapses to a byte-identical commit.
                 commit_sha = _write_commit(
                     tree_path="model_routes.json",
                     payload=payload,
                     parent_sha=sha,
-                    message=f"model-route: {status.job} -> {status.status}",
+                    message=f"model-route: {status.job} -> {status.status} #{uuid4().hex[:12]}",
                     cwd=self._git_cwd,
                 )
                 push = _push_remote_with_retry(
