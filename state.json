@@ -5292,8 +5292,8 @@
       }
     ],
     "graph_sha256": "34113abfe6de170224f755553271e70831543867bb2db4acb52eea74e246f483",
-    "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-29T11:06:51.614222+00:00",
+    "infrastructure_tasks_since_visible_delivery": 1,
+    "last_evaluated_at": "2026-08-29T11:07:13.241277+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -5398,31 +5398,7 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": {
-      "campaign_id": "CAMP-GATE-A-PORTFOLIO",
-      "core_contribution": {
-        "kind": "first_boundary_removal",
-        "summary": "Prove the complete transaction is portable before fleet execution."
-      },
-      "goal_ids": [
-        "GOAL-README",
-        "GOAL-AUTONOMY",
-        "GOAL-DELIVERY"
-      ],
-      "immediate_goal_id": "DELIVERY-SEVEN-ECOSYSTEM-CANARIES",
-      "immediate_outcome": "Accept and no-op-prove one current repository per supported ecosystem.",
-      "repository_scope": [
-        "platform:python",
-        "platform:net",
-        "platform:java",
-        "platform:cpp",
-        "platform:typescript",
-        "platform:rust",
-        "platform:go"
-      ],
-      "stage_goal_id": "GOAL-V0B-POST-PYTHON-SLICES",
-      "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
-    },
+    "next_task": null,
     "parallelism_control": {
       "calibration_active": false,
       "observations": [],
@@ -5484,7 +5460,7 @@
       "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION": "CLOSED",
       "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "BLOCKED",
       "L8-PF-03-SEALED-CANDIDATE-NO-OP": "CLOSED",
-      "L8-PF-04-MINIMAL-GRAPH-RUNNER": "CLOSED",
+      "L8-PF-04-MINIMAL-GRAPH-RUNNER": "REOPENED",
       "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "REGRESSED",
       "L8-PF-06-REGISTRY-FREEZE-AND-FACT-WARMUP": "TODO",
       "L8-PF-07-AUTONOMOUS-PUBLICATION-READINESS": "TODO",
@@ -18508,6 +18484,15 @@
         "reason": "agent_fixable, root-caused not merely observed. Live canary at source revision d9f3bfe50d47 reached CANDIDATE_GENERATED and DETERMINISTIC_VALIDATED (deterministic_validation_passed=true, factual ACCEPT), then the blind visitor reviewer returned REJECT_REPAIRABLE on 4 findings and the repair rerouted with candidate_changed=false, changed_operation_ids=[]. Root cause: the reviewer reviews 13 section roots while section_authoring_repair owns 5 authoring slots; 2 of the 4 findings are in additional-examples, which has no slot, so _slot() returns None and they are dropped silently, and rereview_authorized requires every finding addressed. Exact resume condition: close ACL-REVIEW-REPAIR-SCOPE-MISMATCH (surface or route unroutable findings), then repair additional-examples example_presentation+clarity and scope-and-limitations clarity+promotional_balance, then re-run to AGENT_APPROVED and prove the immediate no-op. See plans/claude/autonomous-convergence-loop.md.",
         "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
         "to_status": "BLOCKED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "CLOSED",
+        "observed_by": "readme-agent-supervisor",
+        "occurred_at": "2026-08-29T11:07:13.241288+00:00",
+        "reason": "Unsupported closure: proven_transaction_runner has zero production importers, no run_proven_transaction caller outside its own package and tests, and no cli.py/commands*.py reference. Verified at HEAD 37b7a7517. Not integrating -- that would duplicate the supervise runtime (Decision #26). Reopened per plan card ACL-PF04-CLOSURE-RECONCILIATION.",
+        "task_id": "L8-PF-04-MINIMAL-GRAPH-RUNNER",
+        "to_status": "REOPENED"
       }
     ]
   },
@@ -18517,7 +18502,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1801,
+  "state_version": 1802,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
