@@ -328,6 +328,22 @@ jobs:
           cache-dependency-path: requirements-lock.txt
       - run: pip install -r requirements-lock.txt
       - run: pip install -e . --no-deps
+      - name: Restore durable composition evidence
+        # CAS-CACHE-001 (2026-08-29): composition/review/repair evidence is
+        # content-addressed and immutable per input, so it is exactly the
+        # shape actions/cache is built for -- distinct from Decision #35's
+        # rejection of Actions cache for *mutable* durable state (claims,
+        # leases), which stays on GitStateBackend unchanged. This restore is
+        # opportunistic, never authoritative: the existing fingerprint check
+        # inside supervise itself independently re-validates any restored
+        # bundle before trusting it, so a stale or missed restore can waste
+        # work but can never cause a false accept.
+        uses: actions/cache@v4
+        with:
+          path: runs/readme-poc/${{ matrix.owner }}__${{ matrix.name }}/
+          key: readme-poc-evidence-${{ matrix.repo }}-${{ hashFiles('src/readme_agent/**/*.py', 'data/aspose_com_links.json', 'data/aspose_org_links.json', 'prompts/**') }}
+          restore-keys: |
+            readme-poc-evidence-${{ matrix.repo }}-
       - name: Bind isolated ACT state remote
         if: ${{ needs.recover.outputs.is_act_proof == 'true' }}
         run: |
@@ -378,12 +394,20 @@ jobs:
               --resume-trigger-key "${{ matrix.dedup_key }}" \
               --no-registry-heal --execution-profile github_observe
           fi
+      - name: Record document_template_hash shadow observation
+        # Decision #111/CORE-039 needs a measured flip rate before any scoping
+        # cutover, not a guess. Purely observational (GOV-034); never affects
+        # this job's outcome or the composition path it observes.
+        if: ${{ always() }}
+        run: python scripts/governance/log_document_template_hash_observation.py || true
       - uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
           retention-days: 30
           name: recovery-evidence-${{ matrix.owner }}__${{ matrix.name }}-${{ github.run_id }}
-          path: runs/evidence/${{ github.run_id }}/${{ matrix.owner }}__${{ matrix.name }}/
+          path: |
+            runs/evidence/${{ github.run_id }}/${{ matrix.owner }}__${{ matrix.name }}/
+            runs/observability/
       # Runner-readiness Finding #3 (2026-08-18): evidence alone never carried
       # the candidate itself, so a human had no way to retrieve a
       # runner-produced README. Many matrix repos won't have reached
@@ -558,6 +582,17 @@ jobs:
           cache-dependency-path: requirements-lock.txt
       - run: pip install -r requirements-lock.txt
       - run: pip install -e . --no-deps
+      - name: Restore durable composition evidence
+        # CAS-CACHE-001 (2026-08-29): see the identical step in the `resume`
+        # job above for the full rationale. Opportunistic restore only; the
+        # fingerprint check inside supervise remains the sole authority on
+        # whether a restored bundle is actually reusable.
+        uses: actions/cache@v4
+        with:
+          path: runs/readme-poc/${{ matrix.owner }}__${{ matrix.name }}/
+          key: readme-poc-evidence-${{ matrix.repo }}-${{ hashFiles('src/readme_agent/**/*.py', 'data/aspose_com_links.json', 'data/aspose_org_links.json', 'prompts/**') }}
+          restore-keys: |
+            readme-poc-evidence-${{ matrix.repo }}-
       - name: Bind isolated ACT state remote
         if: ${{ needs.plan.outputs.is_act_proof == 'true' }}
         run: |
@@ -617,12 +652,20 @@ jobs:
             readme-agent supervise --repo "${{ matrix.repo }}" \
               --no-registry-heal --execution-profile github_observe
           fi
+      - name: Record document_template_hash shadow observation
+        # Decision #111/CORE-039 needs a measured flip rate before any scoping
+        # cutover, not a guess. Purely observational (GOV-034); never affects
+        # this job's outcome or the composition path it observes.
+        if: ${{ always() }}
+        run: python scripts/governance/log_document_template_hash_observation.py || true
       - uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
           retention-days: 30
           name: run-evidence-${{ matrix.owner }}__${{ matrix.name }}-${{ github.run_id }}
-          path: runs/evidence/${{ github.run_id }}/${{ matrix.owner }}__${{ matrix.name }}/
+          path: |
+            runs/evidence/${{ github.run_id }}/${{ matrix.owner }}__${{ matrix.name }}/
+            runs/observability/
       # Runner-readiness Finding #3 (2026-08-18): evidence alone never carried
       # the candidate itself, so a human had no way to retrieve a
       # runner-produced README. Many matrix repos won't have reached
