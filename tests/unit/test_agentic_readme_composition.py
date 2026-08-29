@@ -8,7 +8,7 @@ from pathlib import Path
 
 import pytest
 
-from readme_agent.errors import LLMError
+from readme_agent.errors import LLMError, LLMTruncatedResponseError
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.llm.generation_prompts import build_readme_composition_tool_schema
 from readme_agent.llm.schema import LLMResponseMeta
@@ -2626,3 +2626,123 @@ def test_agentic_plan_fails_closed_after_bounded_semantic_retries():
             assessment,
             client=_client(invalid, invalid, invalid),
         )
+
+
+def test_truncated_composition_retries_more_concisely_instead_of_with_more_instructions():
+    """A truncated forced tool call must not be answered with a longer prompt.
+
+    `_repair_hints()` answers schema/grounding failures by appending the full
+    section-decision, phrase-option and diagram-role vocabularies. Applied to a
+    truncation -- which means the model ran out of *output* space -- that made the one
+    retry `MAX_AUTHORING_ATTEMPTS` allows strictly longer than the attempt that already
+    overran, with nothing asking for brevity. Three portfolio repositories were blocked
+    on exactly this (Cells-.NET, Cells-Go, PDF-Cpp).
+    """
+
+    facts, revision = _facts()
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    valid = _cover_assessment(_draft(facts), assessment)
+    messages_seen: list[list[dict]] = []
+
+    class TruncateThenSucceedClient:
+        calls = 0
+
+        def call(self, messages, tool_schema):
+            messages_seen.append(messages)
+            type(self).calls += 1
+            if type(self).calls == 1:
+                raise LLMTruncatedResponseError(
+                    "forced tool call response was truncated: Expecting ',' delimiter",
+                    finish_reason="length",
+                    completion_tokens=6000,
+                )
+            return ForcedToolResult(
+                arguments=_tool_arguments(valid),
+                meta=LLMResponseMeta(model="fixture-author"),
+            )
+
+    plan = plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=TruncateThenSucceedClient(),
+    )
+
+    assert plan.attempt_count == 2
+    assert len(messages_seen) == 2
+    first_prompt = messages_seen[0][-1]["content"]
+    retry_prompt = messages_seen[1][-1]["content"]
+
+    # The retry asks for brevity...
+    assert "ran out of space" in retry_prompt
+    assert "write noticeably less" in retry_prompt
+    # ...and does NOT append `_repair_hints()`' section-decision and phrase-option
+    # blocks, which are the parts that grow with the repository and made the old retry
+    # longer than the attempt that had already overrun its output budget.
+    assert "Include exactly one section_decision" not in retry_prompt
+    # The authoritative label vocabulary is still there: withholding it to save space
+    # would trade a truncation failure for a grounding failure on invented labels.
+    assert "AUTHORITATIVE DIAGRAM ROLE VOCABULARY" in retry_prompt
+    # Growth is bounded by the fixed-size brevity directive, not by repository size.
+    assert len(retry_prompt) - len(first_prompt) < 1500, (
+        "a truncation retry must not grow with repository size",
+        len(first_prompt),
+        len(retry_prompt),
+    )
+
+
+def test_non_truncation_failure_still_gets_the_full_deterministic_repair_hints():
+    """Negative control: only truncation takes the conciseness path.
+
+    A schema/grounding failure must still receive `_repair_hints()`' explicit
+    vocabularies -- that is how the model is told what it got wrong.
+    """
+
+    facts, revision = _facts()
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    invalid = _cover_assessment(_draft(facts), assessment)
+    invalid["overview_sentences"][0]["supporting_fact_ids"] = ["invented:fact"]
+    valid = _cover_assessment(_draft(facts), assessment)
+    messages_seen: list[list[dict]] = []
+    results = iter(
+        [
+            ForcedToolResult(
+                arguments=_tool_arguments(invalid),
+                meta=LLMResponseMeta(model="fixture-author"),
+            ),
+            ForcedToolResult(
+                arguments=_tool_arguments(valid),
+                meta=LLMResponseMeta(model="fixture-author"),
+            ),
+        ]
+    )
+
+    class CapturingClient:
+        def call(self, messages, tool_schema):
+            messages_seen.append(messages)
+            return next(results)
+
+    plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=CapturingClient(),
+    )
+
+    retry_prompt = messages_seen[1][-1]["content"]
+    assert "Include exactly one section_decision" in retry_prompt
+    assert "ran out of space" not in retry_prompt

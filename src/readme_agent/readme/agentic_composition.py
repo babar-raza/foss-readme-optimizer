@@ -8,7 +8,7 @@ import json
 from pydantic import ValidationError
 
 from readme_agent import env
-from readme_agent.errors import LLMError
+from readme_agent.errors import LLMError, LLMTruncatedResponseError
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.llm.generation_prompts import (
     build_readme_composition_messages,
@@ -31,6 +31,7 @@ from readme_agent.readme.agentic_composition_inputs import (
     composition_input_sha256,
     do_not_claim_payloads,
     independent_repair_hints,
+    truncation_repair_hint,
 )
 from readme_agent.readme.agentic_composition_models import (
     MAX_AUTHORING_ATTEMPTS,
@@ -235,6 +236,36 @@ def plan_readme_composition(
                     raise last_error from exc
                 draft = draft.model_copy(update={"opening_summary": fallback})
                 validate_composition_draft(draft, assessment, facts)
+            elif isinstance(last_error, LLMTruncatedResponseError):
+                # A truncated forced tool call ran out of *output* space; it is not a
+                # schema or grounding failure. `_repair_hints()` answers those by
+                # appending the full section-decision, phrase-option and diagram-role
+                # vocabularies -- which makes the retry prompt strictly longer than the
+                # attempt that already overran, with nothing telling the model to write
+                # less. With MAX_AUTHORING_ATTEMPTS == 2 that single retry was the only
+                # one, so truncation was effectively unrecoverable: three portfolio
+                # repositories sat blocked on it (Cells-.NET, Cells-Go, PDF-Cpp),
+                # truncating at 5184/7402/10698 characters of tool arguments.
+                #
+                # Answer it the way `section_cluster_authoring.py` already answers the
+                # same error on its own retry loop -- a conciseness directive, and no
+                # added vocabulary bulk.
+                #
+                # `role_guidance` is deliberately KEPT. It is the authoritative label
+                # vocabulary, and dropping it to save prompt space would just trade a
+                # truncation failure for a grounding failure on invented labels. Only
+                # `_repair_hints()`' section-decision and phrase-option blocks are
+                # withheld, and those are the parts that grow with the repository.
+                repair_hints_section = "\n\n".join(
+                    hint
+                    for hint in (
+                        independent_hints,
+                        role_guidance,
+                        truncation_repair_hint(attempt=attempt + 1),
+                    )
+                    if hint
+                )
+                continue
             else:
                 deterministic_repair_hints = _repair_hints(
                     last_error,

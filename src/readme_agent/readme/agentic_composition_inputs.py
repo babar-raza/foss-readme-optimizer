@@ -387,3 +387,17 @@ def composition_input_sha256(payload: dict) -> str:
 
     encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
     return hashlib.sha256(encoded).hexdigest()
+
+
+def truncation_repair_hint(*, attempt: int) -> str:
+    """Answer a truncated forced tool call with brevity, not with more instructions."""
+
+    return (
+        f"REPAIR ATTEMPT {attempt}. Your previous submission was cut off before it "
+        "finished writing -- the response ran out of space and could not be parsed. "
+        "Call submit_readme_composition_plan again with the same structure and the same "
+        "fact IDs, but write noticeably less: shorter section rationales, shorter "
+        "opening_summary, fewer diagram nodes where a role allows it, and no optional "
+        "elaboration. Completeness of the required fields matters more than detail in "
+        "any one of them."
+    )
