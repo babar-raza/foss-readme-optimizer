@@ -17,9 +17,20 @@ from readme_agent.llm.verifier_client import LiveForcedToolClient
 
 DEFAULT_MAX_TOKENS = 2400
 BLIND_REVIEW_MAX_TOKENS = 3_000
-FACTUAL_REVIEW_MAX_TOKENS = 12_000
+# Fleet fan-out sweep (2026-08-29): a large-API-surface repository
+# (Cells-Python) truncated a factual_readme_plan_review response and burned
+# 25 repeated calls before failing -- the same "reviewer repeatedly failed
+# the same way" shape independently observed on Cells-Cpp's
+# GroundedRoleFailure. max_tokens is a generation ceiling, not a reservation
+# most providers bill for unused headroom on, so raising it costs nothing
+# for the calls that already fit; it directly removes the wall for the ones
+# that don't. The retry loop itself does not yet distinguish a truncation
+# from an ungrounded-finding failure and keeps retrying identically either
+# way -- a real, separate gap, not fixed here; this is a bounded mitigation
+# for the immediate ceiling, not a claim that the retry design is now right.
+FACTUAL_REVIEW_MAX_TOKENS = 18_000
 MERGED_REVIEW_MAX_TOKENS = 4_000
-TRUSTED_REVIEW_MAX_TOKENS = 12_000
+TRUSTED_REVIEW_MAX_TOKENS = 18_000
 
 
 class LiveIndependentReviewClient:
