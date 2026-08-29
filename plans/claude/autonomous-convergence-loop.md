@@ -39,6 +39,7 @@ points here so no competing copy exists. It does **not** supersede `plans/master
 | H21 | Restored `reviewer_call_count_before/after == 1/2`, dropped a near-vacuous `>= 2` assertion, removed two dead merged-reviewer doubles, and derived the depth in CORE-041's cited long-path test. | The relational assertions were weaker than the literals they replaced (those counters are round counts, stable under bounded review); `>= 2` was cleared by a single round of ~18 packet calls; and the cited CORE-041 proof failed `assert 260 > 260` under the canonical short basetemp run serially. | independent verification, cycle 2 |
 | H22 | Recorded the first fully green official-checks run: **exit 0, all ten checks OK, `leaked_process_ids: []`, 5509 passed / 0 failed, clean tree** at `3310543c6`. | Same code and commit as the run that failed; the only difference was that nothing else touched the repository. That is the proof for `ACL-PYTEST-LEAK-GUARD-CONCURRENCY`. | `official-checks-isolated.log` |
 | H23 | **Checked CI for the first time this session and found it red on Linux since before the sprint.** Fixed both causes. | "Official checks pass" was a Windows-only claim. The Linux runners failed 6: five `test_external_fact_block_adapters` tests, because the `_snapshot()` fixture hardcodes `snapshot_root="C:/tmp/widget"` and `PurePosixPath('C:/tmp/widget').is_absolute()` is **False**; plus the same long-path test the verifier flagged, failing `assert 236 > 260` there. The derive-depth fix cleared the sixth (measured 6 → 5), and the portability fix reuses the idiom `test_curated_readme_evidence.py:1807` already established. | CI runs 33249439761, 33250041179 |
+| H24 | Added `ACL-CAS-LOST-UPDATE-ON-LINUX` (P0) and recorded the final measured state. | The portability fix took CI 5 failed -> 1. The one remaining Linux failure is a concurrent-CAS test returning `['saved','saved']` where exactly one writer must see `stale` — untouched by this sprint, green on Windows, and a lost update on the property the durable-state model rests on. Final local official checks at `bde7d7d37`: **all ten OK, exit 0, 0 failed / 5509 passed, TREE CLEAN, `leaked_process_ids: []`**. | CI 33250290143/33250344649; `c2-official-checks-final-head-all-passed.log` |
 
 ---
 
@@ -502,6 +503,22 @@ No insertion is required to start work. Current free slots: **5**.
 - **Allowed actions** `specialists/readme_repair_validation.py`, `specialists/readme_review_repair*.py`, `specialists/section_cluster_authoring.py`, `tests/`
 - **Forbidden actions** relaxing deterministic acceptance so units survive; treating a rejected unit as accepted
 - **Closeout rules** The fix is a signal, not a loosened gate
+
+### `ACL-CAS-LOST-UPDATE-ON-LINUX`
+
+- **Title** Two concurrent CAS writers both reported `saved` against the same expected version
+- **Source audit finding** CI, cycle 2 (runs 33250290143 and 33250344649, both on `main`)
+- **Why it matters** `tests/integration/test_state_git_backend_local_parallel.py::test_separate_process_workspaces_preserve_same_ref_cas` spawns two processes that each call `save(..., expected_version=1)` on the same ref and asserts `sorted(outcomes) == ["saved", "stale"]`. On the Linux runners it returned `['saved', 'saved']`. `_cas_worker` returns `SaveResult.outcome` directly with no exception handling, so that is `save()` genuinely reporting success twice against a version that could only be current for one of them — a lost update on the compare-and-set that the entire durable-state model rests on. `save()` decides staleness from `_fetch_remote_sha()` (`git_backend.py:559`), so a fetch that does not observe the peer's just-pushed ref would produce exactly this.
+- **Current status** `blocker` · **Priority** P0 · **Lane owner** `verification-baseline`
+- **Dependencies** none. **Not caused by anything in this sprint** — nothing in these nine commits touches the state backend.
+- **Required work** Reproduce on Linux, then determine whether the fetch underlying the staleness check can observe a stale ref, and whether the guarantee needs the push's own rejection rather than a pre-read comparison. Do not "fix" the test.
+- **Required verification** The reproduction runs many times without a false `saved`; a deliberately induced concurrent write is still rejected
+- **Required evidence** The failing CI logs, a local Linux reproduction, and the before/after outcome distribution over repeated runs
+- **Acceptance criteria** Two concurrent writers against the same expected version never both report `saved`
+- **Stop conditions** If it proves to be pure runner timing with no reachable lost update, say so with the measurement — but do not assume that; it passed twice and failed twice on the same day
+- **Allowed actions** `src/readme_agent/state/git_backend.py`, `tests/integration/`
+- **Forbidden actions** relaxing or deleting the assertion; marking it flaky without a measurement
+- **Closeout rules** This is the property every durable store in this project depends on; "probably a flake" is not a closure
 
 ### `ACL-PREMISE-GUARD-SUBSTRING-BRITTLENESS`
 

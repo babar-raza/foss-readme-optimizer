@@ -44,16 +44,17 @@ CYCLE2_GATES = [
     },
     {
         "gate": "C2 G1 verification baseline",
-        "outcome": "PASS (suite green; official checks still exit 1 on a non-test guard)",
+        "outcome": "PASS (suite green; official checks later proven green in isolation)",
         "detail": (
             "The canonical suite reached 0 failed, 5507 passed, 1 skipped on a clean tree "
             "(dirty_tree false, tree_changed_during_run false) -- the first fully green run of "
             "the sprint, from a baseline of 5 failed. Two repairs got it there: traceability "
             "closure citations for LLM-023/CORE-041/CORE-042 (99a1ad007) and the VER-012 "
-            "reviewer-double migration to the bounded contract (af09e2ca8). run_official_checks.py "
-            "still exits 1, but 9 of 10 checks are OK and the tenth fails on leaked_process_ids "
-            "while reporting failed: 0 -- a false positive from concurrent python activity, "
-            "root-caused and carded as ACL-PYTEST-LEAK-GUARD-CONCURRENCY."
+            "reviewer-double migration to the bounded contract (af09e2ca8). At that moment "
+            "run_official_checks.py still exited 1, on leaked_process_ids while reporting "
+            "failed: 0; a later isolated run of the same code passed all ten checks at exit 0 "
+            "with leaked_process_ids empty, proving that was concurrency, not a leak. Carded as "
+            "ACL-PYTEST-LEAK-GUARD-CONCURRENCY, which stays open."
         ),
     },
     {
@@ -115,12 +116,36 @@ CYCLE2_GATES = [
             "with counted prioritisation."
         ),
     },
+    {
+        "gate": "C2 G6 CI (Linux) reconciliation",
+        "outcome": "PARTIAL",
+        "detail": (
+            "CI was checked for the first time at the end of this session and had been red on main "
+            "continuously -- at the sprint baseline 8d29adc16 and well before it -- while the same "
+            "suite was green on Windows, so every local 'green' claim this cycle made was a "
+            "Windows-only claim. pinned-hashes stayed green; the test matrix failed 6 on all "
+            "three Python versions. Both causes were platform assumptions in fixtures, not "
+            "regressions: five tests hardcoded snapshot_root='C:/tmp/widget', which PurePosixPath "
+            "does not consider absolute, and one long-path fixture built a fixed depth and read "
+            "'assert 236 > 260' on Linux -- the same defect the verification lane found "
+            "on Windows as 'assert 260 > 260'. CI measured the fix working: 6 failed at "
+            "3310543c6, 5 failed at 6f6ca5fe8. The portability fix (daaf18b01) reuses the idiom "
+            "test_curated_readme_evidence.py:1807 already established, and CI then measured "
+            "5 failed -> 1 failed. The one remaining Linux failure is "
+            "test_state_git_backend_local_parallel.py::"
+            "test_separate_process_workspaces_preserve_same_ref_cas, which is unrelated to any "
+            "change here, passes on Windows (0 failed locally at the same commit), and is carded "
+            "as ACL-CAS-LOST-UPDATE-ON-LINUX."
+        ),
+    },
 ]
 
 VERDICT = (
-    "PARTIAL, cycle 2. The canonical suite reached its first fully green run of the sprint "
-    "(0 failed, 5507 passed, 1 skipped, clean tree) and the only remaining official-checks failure "
-    "is a leak guard that counts unrelated concurrent python processes, not a test failure. Three "
+    "PARTIAL, cycle 2. The canonical suite reached its first fully green run of the sprint, and "
+    "run_official_checks.py then passed ALL TEN checks at exit 0 with a clean tree and "
+    "leaked_process_ids empty (0 failed, 5509 passed, 1 skipped). The identical commit had exited "
+    "1 earlier purely because other python processes were touching the repository during the run, "
+    "which is the proof for ACL-PYTEST-LEAK-GUARD-CONCURRENCY rather than a test failure. Three "
     "defects were root-caused and two fixed; two mission taskcards moved to states that "
     "are true rather than convenient, which correctly emptied the eligible list. The umbrella "
     "mission -- every processable repository at 30/30 with an immediate complete-transaction no-op "
