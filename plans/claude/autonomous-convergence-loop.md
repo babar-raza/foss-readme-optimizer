@@ -30,6 +30,11 @@ points here so no competing copy exists. It does **not** supersede `plans/master
 | H12 | Added `ACL-CLAIM-LEASE-HYGIENE` as the first executable card. | The current claim on `L8-PF-02` by `readme-agent-supervisor` expired at `2026-08-29T08:54:02Z`. Any resumed run starts inside the exact deadlock this sprint fixed. | Live state read, this run |
 | H13 | Replaced "human review" and "ask the human" phrasing throughout with the standing-authority position: no item in this plan needs external authority (§13). | Required review point: do not treat the human as a blocker unless the action truly requires external authority or credentials the agent cannot access. | GOVERNANCE rule 19; Decision #107 |
 | H14 | Preserved unchanged: sprint identity, gate letters G0–G7, lane names, the seven proposed requirement IDs, the proof chain, the rollback table, and the single-go execution prompt (repaired in place, not rewritten). | Preservation rule. | — |
+| H15 | **Cycle 2.** Marked `ACL-CLAIM-LEASE-HYGIENE`, `ACL-TRACEABILITY-ROW-EVIDENCE-REPAIR` and `ACL-VER012-REVIEWER-DOUBLE-MIGRATION` `completed_verified`, and updated §9 to the measured result. | The canonical suite reached **0 failed, 5507 passed, 1 skipped** on a clean tree — the first fully green suite of the sprint. | `run_full_pytest.py` JSON with `dirty_tree: false`, `tree_changed_during_run: false` |
+| H16 | Added `ACL-PYTEST-LEAK-GUARD-CONCURRENCY`. The sole remaining official-checks failure is a false positive, not a test failure. | `run_full_pytest.py::_repository_process_ids` matches **any** python process whose command line contains the repo root, with no parent/descendant check, so any concurrent python activity registers as a leak. Two runs leaked exactly as many PIDs as there were concurrent processes. | source read + measured PID correspondence |
+| H17 | Added `ACL-REVIEW-REPAIR-SCOPE-MISMATCH` and rewrote the PF-02 diagnosis around it. | The blind reviewer reviews **13** section roots; the repair layer owns **5** authoring slots. 8 of 13 have no repair path, and `rereview_authorized` requires *every* finding addressed — so one finding in any of those 8 permanently disables that repository's repair loop. | `bounded-review-plan.json` (14 packets, 13 roots) vs `_SECTION_FIELDS` (5 slots) |
+| H18 | Added `ACL-COMPOSITION-TRUNCATION-RETRY` — **fixed in cycle 2**, recorded under RDM-033 as a sibling site. | `plan_readme_composition` answered a truncated call with `_repair_hints()`' full vocabularies, making the one permitted retry longer than the attempt that had already overrun the 6000-token output ceiling. 3 repositories measured blocked on it. | 3 blocked-decision records truncating at 5184/7402/10698 chars |
+| H19 | Added §4.3, the measured portfolio blocker leverage map. | Prioritisation in this plan had been asserted rather than measured. | all 31 `blocked-decision.json` records, 104 cumulative reproductions |
 
 ---
 
@@ -116,8 +121,35 @@ between the two is the 22 repositories carrying stale fact contracts (A5).
 
 ### 4.2 Unresolved item summary
 
-18 taskcards in §5. Status distribution: 2 `blocker`, 3 `partially_done`, 1 `claimed_unproven`,
-1 `completed_but_weakly_verified`, 8 `not_attempted`, 3 `follow_up`.
+21 taskcards in §5. Cycle 2 closed three (`ACL-CLAIM-LEASE-HYGIENE`,
+`ACL-TRACEABILITY-ROW-EVIDENCE-REPAIR`, `ACL-VER012-REVIEWER-DOUBLE-MIGRATION`) and added three
+(`ACL-PYTEST-LEAK-GUARD-CONCURRENCY`, `ACL-REVIEW-REPAIR-SCOPE-MISMATCH`,
+`ACL-COMPOSITION-TRUNCATION-RETRY` — the last already fixed).
+
+### 4.3 Portfolio blocker leverage map (measured)
+
+From all 31 `runs/readme-poc/*/blocked-decision.json` records, 104 cumulative live reproductions.
+This replaces asserted prioritisation with counted prioritisation.
+
+| Blocked cause | Repos | Note |
+|---|---|---|
+| **claim accountability** | **10** | all at `FACTS_READY`; **6 have exactly ONE blocking claim** |
+| `product_truth_not_ready:BLOCKED_MISSING_EVIDENCE` | 6 | cannot establish product truth at all |
+| `LLMTruncatedResponseError` (composition) | 3 | fixed in cycle 2 — `ACL-COMPOSITION-TRUNCATION-RETRY` |
+| `LLMInfrastructureError` (forced tool call after retries) | 3 | provider reliability, not content |
+| `composition.segmen…` | 2 | |
+| bounded aggregate grounding failed | 1 | `api-reference` findings — the same scope mismatch as H17 |
+| candidate persistence `ValueError` | 1 | stale stage receipt owned by a different `work_id` |
+| compiled presentation invalid | 1 | |
+| `check_unqualified` / `template.section` / `verified_omissions` / `presentation.forma` / `unauthorized prote` | 1 each | |
+
+Status distribution: 20 `FACTS_READY`, 8 `BLOCKED_MISSING_EVIDENCE`, 1 `SYSTEM_FAILURE`,
+1 `README_ASSESSED`, 1 `DETERMINISTIC_VALIDATION_FAILED`.
+
+**Leverage reading.** Claim accountability is the single largest lever at 10 repositories, and six
+of those need exactly one claim resolved. It is emphatically **not** a gate to loosen: a blocking
+claim is a source claim the candidate failed to account for, which is the preservation property the
+whole product rests on. The lever is to resolve or record those claims, never to stop counting them.
 
 ---
 
@@ -151,7 +183,7 @@ No insertion is required to start work. Current free slots: **5**.
 - **Title** Clear and re-establish the mission claim before any execution
 - **Source audit finding** A14 — claim on `L8-PF-02` by `readme-agent-supervisor` expired `2026-08-29T08:54:02Z`
 - **Why it matters** The mission is sitting in exactly the stale-lease shape this sprint diagnosed. Any agent that resumes without clearing it sees "no eligible work" and stops, or works without a valid lease and burns the attempt. Two burned attempts burn the task.
-- **Current status** `blocker` · **Priority** P0 · **Lane owner** `first-complete-candidate` (coordinator)
+- **Current status** `completed_verified` (cycle 2) · **Priority** P0 · **Lane owner** `first-complete-candidate` (coordinator)
 - **Dependencies** none — this is the first executable card
 - **Required work** Run `--mission-action evaluate` (which now recovers expired claims), confirm eligibility is restored, then `--mission-action claim --mission-task-id L8-PF-02-COMPLETE-CANDIDATE-SEAM --mission-observer readme-agent-supervisor`. Record the narrowing immediately on claim. Re-claim before every 30-minute lease boundary; never let a lease lapse mid-work.
 - **Required verification** `--mission-action status` shows `active_task_id=L8-PF-02-…`, a `claim_expires_at` in the future, and `graph_drift: false`
@@ -183,7 +215,7 @@ No insertion is required to start work. Current free slots: **5**.
 - **Title** Migrate the reviewer double to the current bounded review-packet contract
 - **Source audit finding** A1, A6 — 2 remaining failures; naive rewiring yields `StopIteration`
 - **Why it matters** These are the last two failures in the canonical suite. Until they are green, `run_official_checks.py` cannot exit 0 on pytest, and every later gate inherits an untrustworthy verification signal.
-- **Current status** `partially_done` · **Priority** P0 · **Lane owner** `verification-baseline`
+- **Current status** `completed_verified` (cycle 2) · **Priority** P0 · **Lane owner** `verification-baseline`
 - **Dependencies** none (independent of the live lane)
 - **Required work** Migrate `_RejectThenAcceptBlindReviewClient` to the current bounded review-packet contract **first**. Then rewire `test_local_poc_repairs_revalidates_and_rereviews_before_accepting` and `test_local_poc_byte_identical_repair_reroutes_before_rereview` from `build_live_merged_review_client` to `build_live_role_review_clients`, using the already-written `_fake_repair_role_clients`. Rewiring before migrating moves the failure to `independent_review_exception:StopIteration` — that was tried and reverted rather than left as a half-migration.
 - **Required verification** `scripts/governance/run_full_pytest.py` — **the canonical runner, not a bare `pytest`** (rule H7). Target: 0 failed.
@@ -199,7 +231,7 @@ No insertion is required to start work. Current free slots: **5**.
 - **Title** Give `LLM-023`, `CORE-041`, `CORE-042` real traceability evidence
 - **Source audit finding** A11 — `traceability_matrix.py --check` exits 1 on three `IMPLEMENTED` rows citing neither a pytest node nor a committed artifact
 - **Why it matters** This is one of the ten official checks. It keeps `run_official_checks.py` red independently of any other work, so no gate in this plan can honestly report a clean official-checks pass until it is fixed. It is also the exact class of unevidenced closure this sprint exists to eliminate.
-- **Current status** `blocker` · **Priority** P0 · **Lane owner** `verification-baseline`
+- **Current status** `completed_verified` (cycle 2) · **Priority** P0 · **Lane owner** `verification-baseline`
 - **Dependencies** none
 - **Required work** For each of the three rows (commits `3e4da1b88`, `67f66f6d9`, `f1efd83a2`, all predating this sprint): either cite a real pytest node id or a committed evidence artifact, or downgrade the row's status to what the evidence actually supports. Do not invent a citation.
 - **Required verification** `.venv/Scripts/python plans/investigations/tools/traceability_matrix.py --check` exits 0
@@ -418,6 +450,54 @@ No insertion is required to start work. Current free slots: **5**.
 - **Forbidden actions** widening the narrowing to make a test pass
 - **Closeout rules** A negative control that cannot fail is not a control (§11 rule 3)
 
+### `ACL-PYTEST-LEAK-GUARD-CONCURRENCY`
+
+- **Title** Stop the pytest leak guard from failing on unrelated concurrent processes
+- **Source audit finding** Cycle 2. Official checks exit 1 with `bounded full pytest: FAILED (exit 1)` while that same run records `outcome_counts: {failed: 0, passed: 5507, skipped: 1}` and `exit_code: 0`. The sole cause is `leaked_process_ids`.
+- **Why it matters** This is the only thing standing between this project and its first green official-checks run, and it fails for a reason unrelated to code quality. `run_full_pytest.py::_repository_process_ids` matches **any** python/pytest process whose command line contains the repository root, with no parent or descendant check at all — so a second agent, a second terminal, or an IDE test runner is counted as a leak. Measured twice: a run during concurrent diagnostics leaked 2 PIDs, and a run during the independent-verification lane leaked exactly the 2 PIDs that lane was running.
+- **Current status** `blocker` · **Priority** P0 · **Lane owner** `verification-baseline`
+- **Dependencies** none
+- **Required work** Make the guard distinguish descendants of the launched pytest process from unrelated concurrent processes. **Do not simply delete the guard** — real subprocess leaks are what it exists to catch. Preferred shape: keep the before/after diff, add ancestry, fail only on descendants, and report unrelated concurrent processes informationally.
+- **Required verification** Two controls: the guard still fails on a synthetic real leak (a test that spawns a surviving child), and passes with an unrelated concurrent python process running against the repository.
+- **Required evidence** Both control outcomes, plus one official-checks run at exit 0 with a clean tree
+- **Acceptance criteria** `run_official_checks.py` exits 0 on a clean tree with nothing else running, and still exits 1 on a genuine leak
+- **Stop conditions** If descendants cannot be tracked reliably on Windows after a real attempt, record the measurement and add an explicit opt-out flag for known-concurrent runs rather than removing the check
+- **Allowed actions** `scripts/governance/run_full_pytest.py`, `tests/`
+- **Forbidden actions** deleting the check; downgrading it to advisory; "fixing" it by promising to run tests serially forever
+- **Closeout rules** A guard that cannot fail is not a guard — the synthetic-leak control is mandatory
+
+### `ACL-REVIEW-REPAIR-SCOPE-MISMATCH`
+
+- **Title** The reviewer can reject 13 section roots; the repair layer owns 5
+- **Source audit finding** Cycle 2, PF-02 root cause, corroborated by the `Aspose.3D-FOSS-for-.NET` bounded-grounding failure on `api-reference`
+- **Why it matters** This is the concrete mechanism behind "the dominant failure class hard-stops with no remediation path". `bounded-review-plan.json` shows 14 visitor packets across **13** section roots. `section_authoring_repair.py::_REVIEW_SECTION_TO_AUTHORING_SLOT` maps six names onto the **5** slots `_SECTION_FIELDS` actually defines (`summary`, `key_capabilities`, `installation`, `quick_start`, `scope_and_limitations`). The other 8 roots — `additional-examples`, `api-reference`, `at-a-glance`, `dependencies`, `development-and-testing`, `documentation-resources`, `license`, `navigation` — have no section-authoring repair route, `_slot()` returns `None`, and those findings are dropped from `by_slot` silently. Because `rereview_authorized = bool(findings) and not unresolved_ids` requires **every** finding addressed, a single unroutable finding permanently disables that repository's repair loop — and the reroute reason names none of this, which is why it presents as a generic byte-identical repair.
+- **Current status** `blocker` · **Priority** P0 · **Lane owner** `deterministic-repair-loop`
+- **Dependencies** none
+- **Required work** Make the mismatch explicit and bounded. Either give the unowned roots a repair route, or make an unroutable finding a distinct, named, surfaced outcome instead of a silent drop. Note that `at-a-glance` *is* repairable through the composition re-planning path rather than section authoring, so the two repair mechanisms must be considered together before declaring any root unowned.
+- **Required verification** A repository whose only rejection is in an unowned root produces a reroute reason that names the unroutable finding and its root; a repository whose rejections are all in owned roots still repairs
+- **Required evidence** Before/after reroute reasons for both cases
+- **Acceptance criteria** No finding is silently dropped; the operator can tell "we tried and failed" from "we had no way to try"
+- **Stop conditions** Giving all 8 roots authoring slots turns out to be a composition redesign — then ship the diagnosis and reroute the redesign to `ACL-DETERMINISTIC-VALIDATION-REPAIR-LOOP`
+- **Allowed actions** `specialists/section_authoring_repair.py`, `specialists/readme_review_repair*.py`, `tests/`
+- **Forbidden actions** making `rereview_authorized` ignore unaddressed findings — that would accept prose the reviewer rejected, which is lowering the bar
+- **Closeout rules** The reviewer's scope is not narrowed to match the repair layer; the mismatch is closed from the repair side or surfaced honestly
+
+### `ACL-COMPOSITION-TRUNCATION-RETRY`
+
+- **Title** A truncated composition call must retry shorter, not longer *(fixed in cycle 2)*
+- **Source audit finding** Cycle 2 sibling-site sweep of RDM-033
+- **Why it matters** `plan_readme_composition` caught `LLMTruncatedResponseError` but answered it with `_repair_hints()`' full section-decision, phrase-option and diagram-role vocabularies, so the single retry `MAX_AUTHORING_ATTEMPTS = 2` allows was strictly longer than the attempt that had already overrun the client's 6000-token output ceiling. Three repositories were blocked on it.
+- **Current status** `completed_verified` · **Priority** P1 · **Lane owner** `deterministic-repair-loop`
+- **Dependencies** none
+- **Required work** *(done)* Truncation gets its own retry branch with a fixed-size brevity directive (`agentic_composition_inputs.py::truncation_repair_hint`), withholding the repository-sized blocks while **keeping** the authoritative diagram role vocabulary.
+- **Required verification** *(done)* Positive test plus negative control; non-vacuity proved by disabling the branch in place; impacted sweep 123 passed; mypy clean
+- **Required evidence** *(done)* Commit `37b7a7517`; RDM-033 evidence marker `RDM033-COMPOSITION-CALL-SIBLING-001`
+- **Acceptance criteria** *(met)* Retry contains the brevity directive, omits `_repair_hints()`' blocks, retains the role vocabulary, and grows by a bounded amount
+- **Stop conditions** n/a
+- **Allowed actions** `readme/agentic_composition*.py`, `tests/`
+- **Forbidden actions** raising `max_tokens` as the fix — `agentic_composition` hardcodes 6000 where the module default is 8000, but changing it alters output for every repository and is a separate, fleet-wide decision
+- **Closeout rules** Live recovery of a real truncation is still pending a natural recurrence, exactly as RDM-033's original entry records for its own site
+
 ### `ACL-BACKLOG-ROW-CAPTURE`
 
 - **Title** Open BACKLOG rows for three known non-blocking defects
@@ -535,14 +615,14 @@ missing local prerequisite is not an external blocker — start it (see §11 rul
 | ruff | `ruff check .` | OK | — |
 | ruff-format | `ruff format --check .` | OK | — |
 | mypy | `mypy src` | OK | — |
-| **pytest (canonical)** | `scripts/governance/run_full_pytest.py` | **FAILED** — 2 failed, 5505 passed, 1 skipped | `ACL-VER012-REVIEWER-DOUBLE-MIGRATION` |
+| **pytest (canonical)** | `scripts/governance/run_full_pytest.py` | **0 failed, 5507 passed, 1 skipped** on a clean tree (cycle 2). The runner still exits 1, on `leaked_process_ids` only. | `ACL-PYTEST-LEAK-GUARD-CONCURRENCY` |
 | plan structure | `scripts/governance/validate_plan_structure.py` | OK | — |
 | verifiers wired | `scripts/governance/check_verifiers_are_wired.py` | OK | — |
 | prompt hygiene | `scripts/governance/check_prompt_hygiene.py` | OK | — |
 | requirement/taskcard coverage | `build_level8_requirement_taskcard_coverage.py --check` | OK | — |
-| **traceability** | `plans/investigations/tools/traceability_matrix.py --check` | **FAILED** — 3 pre-existing rows | `ACL-TRACEABILITY-ROW-EVIDENCE-REPAIR` |
+| **traceability** | `plans/investigations/tools/traceability_matrix.py --check` | **OK** (cycle 2) | — |
 | actionlint | via official checks | OK | — |
-| **official checks (all ten)** | `scripts/governance/run_official_checks.py` | **EXIT 1** | G1 |
+| **official checks (all ten)** | `scripts/governance/run_official_checks.py` | **EXIT 1**, and 9 of 10 are OK. The only failure is the pytest step, which fails on the leak guard while reporting 0 test failures. | `ACL-PYTEST-LEAK-GUARD-CONCURRENCY` |
 | pinned hashes | `scripts/governance/validate_pinned_hashes.py` | OK | — |
 | pinned-hash dedicated tests | `validate_pinned_hash_dedicated_tests.py --all` | OK, wired into CI | — |
 | compact authority | `scripts/governance/validate_compact_authority.py` | **RED**, unwired from CI; `master.md` 674 > 600 | `ACL-MASTER-AUTHORITY-COMPACTION` |
