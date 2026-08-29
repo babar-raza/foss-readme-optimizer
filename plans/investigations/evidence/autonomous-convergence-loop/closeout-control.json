@@ -47,8 +47,8 @@
       "outcome": "NOT STARTED"
     }
   ],
-  "generated_at": "2026-08-29T09:05:11.168133+00:00",
-  "head": "65935a5eae151df75149b132c95d6425a9e669d9",
+  "generated_at": "2026-08-29T09:16:46.658266+00:00",
+  "head": "68b503342193417dc9f841ed8610d6992c7f6bd4",
   "investigation": "autonomous-convergence-loop",
   "remaining_work": [
     "VER-012: migrate _RejectThenAcceptBlindReviewClient to the current bounded review-packet contract, then rewire test_local_poc_repairs_revalidates_and_rereviews_before_accepting and test_local_poc_byte_identical_repair_reroutes_before_rereview from build_live_merged_review_client to build_live_role_review_clients with the already-written _fake_repair_role_clients. Rewiring alone moves the failure to independent_review_exception:StopIteration.",

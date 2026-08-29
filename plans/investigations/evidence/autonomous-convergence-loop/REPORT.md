@@ -1,7 +1,7 @@
 # Autonomous convergence loop — evidence report
 
-Generated: 2026-08-29T09:05:11.168133+00:00  
-HEAD: `65935a5eae151df75149b132c95d6425a9e669d9`  
+Generated: 2026-08-29T09:16:46.658266+00:00  
+HEAD: `68b503342193417dc9f841ed8610d6992c7f6bd4`  
 Producer: `plans/investigations/tools/build_autonomous_convergence_loop_evidence.py`
 
 ## Verdict
@@ -37,6 +37,8 @@ organization rules 7 and 8 (traceability both ways; no orphan artifacts).
 - [`gate-outputs/g4-pf02-final-verdict.json`](gate-outputs/g4-pf02-final-verdict.json)
 - [`gate-outputs/g4-pf02-independent-agent-review.json`](gate-outputs/g4-pf02-independent-agent-review.json)
 - [`gate-outputs/g5-independent-verification-findings-and-repairs.md`](gate-outputs/g5-independent-verification-findings-and-repairs.md)
+- [`gate-outputs/g6-official-checks-clean-tree.log`](gate-outputs/g6-official-checks-clean-tree.log)
+- [`gate-outputs/g6-official-checks-result.md`](gate-outputs/g6-official-checks-result.md)
 - [`gate-outputs/gate-outcomes.json`](gate-outputs/gate-outcomes.json)
 
 ## Remaining work
