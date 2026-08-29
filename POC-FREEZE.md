@@ -1,5 +1,18 @@
 # POC FREEZE DECLARATION
 
+> **RETIRED (2026-08-29, Decision #114).** This freeze no longer overrides anything. It was
+> superseded de facto around 2026-08-10 when `runs/share/poc/POST-CLAUDE-HANDOFF.md` recorded the
+> explicit decision to converge the accelerated `poc` runner's output onto the canonical, mission-
+> graph-governed `supervise` pipeline — the exact machinery this document told agents to bypass.
+> Every session since has correctly operated on that canonical path, not this one, but the file
+> itself was never marked retired, which let a concurrent agent read it literally and bypass the
+> mission graph again on 2026-08-28, reintroducing a known defect class. Kept here, unmodified
+> below, as forensic and reusable-input evidence per `plans/GOVERNANCE.md` rule 9 ("investigate
+> before overwriting") — not as an active directive. See `plans/master.md` Decision #114 for the
+> full reasoning and `logs/2026-08-29.md` for the record.
+
+# POC FREEZE DECLARATION
+
 **Authority: product owner (Babar). This document overrides AGENTS.md process ceremony,
 plans/GOVERNANCE.md, and the mission-guard machinery for the duration of the freeze.
 It does not override the safety invariants listed at the bottom — those stay absolute.**

@@ -353,13 +353,36 @@ Binding current decisions:
   substrings; on any push failure the backend should instead re-fetch and structurally re-compare
   state_version/SHA before deciding stale vs. hard-error, rather than trusting failure-text matching
   alone — necessary regardless of root cause once Decision #112 adds more traffic through this exact
-  path. A direct 2026-08-27 probe against a local bare remote did **not** reproduce the originally
-  reported "raw git push rejection" (the existing same-ref concurrency test passed 6/6 local runs, and a
-  manual non-fast-forward push against a custom `refs/readme-agent-state/*` ref classified correctly
-  1/1 times); that symptom is better explained by `test_state_git_backend_live.py` needing real GitHub
-  credentials this environment likely lacked, not a proven classifier defect. The CI "both saved"
-  anomaly from the original report remains unreproduced and unexplained — recorded as an open unknown,
-  not force-fit into this decision's justification.
+  path. The CI "both saved" anomaly this decision originally left as an unreproduced, unexplained open
+  unknown is now root-caused and fixed (2026-08-29): reproduced reliably (27/30) by matching real CI's
+  actual concurrency shape — `pytest -n 4 --dist worksteal` under a 2-vCPU constraint, matching
+  GitHub's standard runner, not this project's typically many-core dev machines, which is exactly why
+  earlier manual probes and even unconstrained local reruns of the same test could not reproduce it.
+  Root cause, confirmed at the git-object level with per-process instrumentation: two racing writers
+  computing the *same* target state produce a byte-identical commit (same tree, parent, pinned
+  author/committer identity, message, and second-granularity timestamp), and git legitimately treats
+  pushing an object that already equals the ref's current value as a no-op ("Everything up-to-date"),
+  not a rejection — so both callers observed `outcome="saved"`. `--force-with-lease` does not help; git's
+  up-to-date short-circuit fires before any lease/force check runs. Fixed by adding a per-attempt nonce
+  to the commit *message* (not the persisted state payload, so no schema change) in `save()` and
+  `save_model_route_status()`, the two call sites whose payload can plausibly collide across
+  independent writers; `_acquire_lock_generic`'s lock payload already includes a `holder_id` uuid and
+  was never exposed to this class. Verified via `--force-with-lease` alone failing to fix a raw git
+  reproduction, then the nonce fix reversing 27/30 failures to 0/30 twice under identical conditions.
+  The CAS primitive's push-time compare-and-swap itself remains correct as designed for genuinely
+  different concurrent writes (confirmed separately by direct raw-git testing) — this was narrower and
+  more specific than a general locking-discipline gap.
+
+- **#114 — `POC-FREEZE.md` and both `CLAUDE-CODE-DIRECTIVE*.md` files are retired, not deleted.**
+  The freeze was de facto superseded around 2026-08-10, when `runs/share/poc/POST-CLAUDE-HANDOFF.md`
+  recorded the explicit decision to converge the accelerated `poc` runner's output onto the canonical,
+  mission-graph-governed `supervise` pipeline — the exact machinery the freeze told agents to bypass
+  and never edit. Every session since has correctly operated on the canonical path, not the frozen one,
+  but the freeze file itself was never marked retired, which let a concurrent agent read it literally
+  and bypass the mission graph again on 2026-08-28, reintroducing a known pinned-hash-drift defect
+  class (see the `GOV-033`/`GOV-034` entries this same day). All three files now carry an explicit
+  RETIRED banner pointing here and are kept as forensic/reusable-input evidence per GOVERNANCE.md rule
+  9, not deleted — their historical record of what was tried and why remains genuinely useful.
 
 Aspose.org remains an independently qualified, development-only comparative corpus, never a
 presumed-perfect specification, deployed dependency, or factual authority. Repository order may

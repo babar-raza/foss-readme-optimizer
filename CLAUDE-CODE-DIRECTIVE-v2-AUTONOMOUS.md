@@ -1,3 +1,7 @@
+> **RETIRED (2026-08-29, Decision #114).** Superseded by the canonical mission-graph-governed
+> `supervise` path — see the retirement notice at the top of `POC-FREEZE.md` for the full
+> reasoning. Kept as forensic/reusable-input evidence only, not as an active directive.
+
 # CLAUDE.md — Autonomous POC Delivery Directive (v2 — replaces v1)
 
 **Change from v1: run AUTONOMOUSLY to completion. Do not stop and wait for human

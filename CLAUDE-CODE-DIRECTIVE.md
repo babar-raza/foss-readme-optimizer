@@ -1,3 +1,8 @@
+> **RETIRED (2026-08-29, Decision #114).** Superseded by v2 at the time, and both are now
+> superseded by the canonical mission-graph-governed `supervise` path — see the retirement notice
+> at the top of `POC-FREEZE.md` for the full reasoning. Kept as forensic/reusable-input evidence
+> only, not as an active directive.
+
 # CLAUDE.md — POC Delivery Directive (place at repo root, or paste as first message)
 
 You are taking over the `foss-readme-optimizer` repository from a previous agent that
