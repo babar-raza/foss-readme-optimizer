@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import os
+
 from readme_agent.facts.acceptance_contract import FactAcceptanceContractV1
 from readme_agent.facts.external_fact_block_adapters import resolve_fact_record_block
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
@@ -52,7 +54,11 @@ def _snapshot() -> RepositorySnapshotV1:
     return RepositorySnapshotV1(
         org_repo=_REPO,
         source_revision=_REVISION,
-        snapshot_root="C:/tmp/widget",
+        # `RepositorySnapshotV1` requires an absolute `snapshot_root`, and a bare
+        # "C:/..." is absolute only on Windows -- under PurePosixPath it is not, so
+        # this fixture failed five tests on the Linux CI runners while passing
+        # locally. Same idiom as test_curated_readme_evidence.py's own snapshot root.
+        snapshot_root="C:/tmp/widget" if os.name == "nt" else "/tmp/widget",
         readme_path="README.md",
         readme_sha256="1" * 64,
         inventory_sha256="2" * 64,
