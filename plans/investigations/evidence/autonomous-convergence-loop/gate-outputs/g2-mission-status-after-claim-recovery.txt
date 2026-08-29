@@ -1,0 +1,34 @@
+mission: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+state_version: 1792
+graph_sha256: c35b261f185f73711d105cf794116cefa3130da3b3b820bf7188613c177ad042
+active_task: -
+eligible_tasks: L8-PF-02-COMPLETE-CANDIDATE-SEAM
+unresolved_tasks: 49
+blocked_external_tasks: 1
+portfolio_denominator: 34
+facts_ready: 0/34
+candidate_generated: 0/34
+deterministic_validated: 0/34
+agent_approved: 0/34
+no_op_proven: 0/34
+human_accepted: 0/34
+raw_lifecycle_progress: facts_ready=22, candidate_generated=3, deterministic_validated=2, agent_approved=1, no_op_proven=1, human_accepted=0
+stale_fact_contract_repositories: aspose-3d-foss/Aspose.3D-FOSS-for-Java, aspose-3d-foss/Aspose.3D-FOSS-for-Python, aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript, aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python, aspose-cells-foss/Aspose.Cells-FOSS-for-.NET, aspose-cells-foss/Aspose.Cells-FOSS-for-Go, aspose-cells-foss/Aspose.Cells-FOSS-for-Java, aspose-cells-foss/Aspose.Cells-FOSS-for-Rust, aspose-email-foss/Aspose.Email-FOSS-for-Python, aspose-font-foss/Aspose.Font-FOSS-for-Python, aspose-html-foss/Aspose.HTML-FOSS-for-Python, aspose-note-foss/Aspose.Note-FOSS-for-Python, aspose-page-foss/Aspose.Page-FOSS-for-Python, aspose-pdf-foss/Aspose-PDF-FOSS-for-Go, aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET, aspose-pdf-foss/Aspose.PDF-FOSS-for-Cpp, aspose-pdf-foss/Aspose.PDF-FOSS-for-Java, aspose-slides-foss/Aspose.Slides-FOSS-for-.NET, aspose-slides-foss/Aspose.Slides-FOSS-for-Java, aspose-slides-foss/Aspose.Slides-FOSS-for-Python, aspose-words-foss/Aspose.Words-FOSS-for-.NET, aspose-words-foss/Aspose.Words-FOSS-for-Python
+stale_acceptance_repositories: -
+first_failing_boundary: FACTS_READY
+core_goal_active: true
+active_goal: GOAL-V0A-FIRST-VERIFIED-README
+concurrent_goals: -
+goal_capacity: max_concurrent_verified_lanes=1, policy_max_repository_lanes=2, reserved_trusted_lanes=0, total_repository_lanes=1
+next_task: L8-PF-02-COMPLETE-CANDIDATE-SEAM
+next_task_stage_goal: GOAL-V0A-FIRST-VERIFIED-README
+next_immediate_goal: DELIVERY-FIRST-COMPLETE-CANDIDATE
+next_immediate_outcome: Produce one complete current Aspose.3D Python candidate through supervise.
+next_repository_scope: aspose-3d-foss/Aspose.3D-FOSS-for-Python
+next_task_campaign: CAMP-FIRST-PYTHON-SLICE
+next_task_goals: GOAL-README, GOAL-DELIVERY
+next_task_contribution: first_boundary_removal: Produce the first complete current candidate through the real production seam.
+graph_drift: false
+delivery_complete: false
+certification_complete: false
+mission_complete: false
