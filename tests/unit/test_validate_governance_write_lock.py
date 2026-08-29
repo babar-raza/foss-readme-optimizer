@@ -120,3 +120,94 @@ def test_main_degrades_cleanly_when_backend_is_unreachable(monkeypatch, capsys) 
     )
     assert gate.main() == 0
     assert "skipped" in capsys.readouterr().err
+
+
+class TestPhase2Enforcement:
+    """Opt-in (README_AGENT_GOVERNANCE_LOCK_ENFORCE=1) blocking behavior. Every
+    test uses an isolated tmp_path git dir so nothing here ever touches this
+    real clone's own .git directory."""
+
+    def test_acquiring_free_lock_records_the_holder_for_later_self_recognition(
+        self, monkeypatch, tmp_path
+    ) -> None:
+        monkeypatch.setattr(gate, "staged_files", lambda: ["plans/master.md"])
+        monkeypatch.setattr(
+            "readme_agent.state.git_backend.GitStateBackend", lambda *a, **k: _FakeBackendFree()
+        )
+        monkeypatch.setenv(gate.ENFORCE_ENV_VAR, "1")
+        monkeypatch.setattr(gate, "_worktree_git_dir", lambda cwd=None: tmp_path)
+
+        assert gate.main(tmp_path) == 0
+        assert gate._read_own_last_holder(tmp_path) == "me"
+
+    def test_a_peer_holding_the_lock_blocks_when_enforcement_is_enabled(
+        self, monkeypatch, tmp_path, capsys
+    ) -> None:
+        monkeypatch.setattr(gate, "staged_files", lambda: ["logs/2026-08-28.md"])
+        monkeypatch.setattr(
+            "readme_agent.state.git_backend.GitStateBackend", lambda *a, **k: _FakeBackendHeld()
+        )
+        monkeypatch.setenv(gate.ENFORCE_ENV_VAR, "1")
+        monkeypatch.setattr(gate, "_worktree_git_dir", lambda cwd=None: tmp_path)
+        # No local record of ever having been "peer-session" -- a genuine peer.
+
+        assert gate.main(tmp_path) == 1
+        err = capsys.readouterr().err
+        assert "BLOCKED" in err
+        assert "peer-session" in err
+
+    def test_a_peer_holding_the_lock_does_not_block_when_enforcement_is_disabled(
+        self, monkeypatch, tmp_path, capsys
+    ) -> None:
+        monkeypatch.setattr(gate, "staged_files", lambda: ["logs/2026-08-28.md"])
+        monkeypatch.setattr(
+            "readme_agent.state.git_backend.GitStateBackend", lambda *a, **k: _FakeBackendHeld()
+        )
+        monkeypatch.delenv(gate.ENFORCE_ENV_VAR, raising=False)
+        monkeypatch.setattr(gate, "_worktree_git_dir", lambda cwd=None: tmp_path)
+
+        assert gate.main(tmp_path) == 0
+        assert "Phase 1: advisory only" in capsys.readouterr().out
+
+    def test_the_same_session_recognizing_its_own_still_active_lock_is_never_blocked(
+        self, monkeypatch, tmp_path, capsys
+    ) -> None:
+        monkeypatch.setattr(gate, "staged_files", lambda: ["logs/2026-08-28.md"])
+        monkeypatch.setattr(gate, "_worktree_git_dir", lambda cwd=None: tmp_path)
+        monkeypatch.setenv(gate.ENFORCE_ENV_VAR, "1")
+
+        class _FakeBackendHeldBySelf(_FakeBackendHeld):
+            def peek_governance_lock(self, key: str) -> dict[str, str]:
+                return {
+                    "holder_id": "my-own-earlier-acquisition",
+                    "leased_until": "2099-01-01T00:00:00+00:00",
+                }
+
+        # Simulate this session having acquired the lock a moment ago.
+        gate._record_own_holder("my-own-earlier-acquisition", tmp_path)
+        monkeypatch.setattr(
+            "readme_agent.state.git_backend.GitStateBackend",
+            lambda *a, **k: _FakeBackendHeldBySelf(),
+        )
+
+        assert gate.main(tmp_path) == 0
+        assert "this session's own recent acquisition" in capsys.readouterr().out
+
+    def test_two_worktrees_of_one_clone_never_share_one_local_holder_file(self, tmp_path) -> None:
+        import subprocess
+
+        # Two distinct real git directories stand in for two worktrees of one
+        # clone: what matters here is that `git rev-parse --git-dir` resolves
+        # to a different path for each, which is exactly true for a linked
+        # worktree (`.git/worktrees/<name>`) versus the main tree (`.git`).
+        worktree_a = tmp_path / "a"
+        worktree_b = tmp_path / "b"
+        worktree_a.mkdir()
+        worktree_b.mkdir()
+        subprocess.run(["git", "init", "-q"], cwd=worktree_a, check=True)
+        subprocess.run(["git", "init", "-q"], cwd=worktree_b, check=True)
+
+        gate._record_own_holder("holder-from-a", worktree_a)
+
+        assert gate._read_own_last_holder(worktree_a) == "holder-from-a"
+        assert gate._read_own_last_holder(worktree_b) is None
