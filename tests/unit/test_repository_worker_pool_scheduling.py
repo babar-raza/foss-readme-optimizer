@@ -3,12 +3,16 @@ from __future__ import annotations
 import os
 import subprocess
 import sys
+import threading
 import time
 from datetime import datetime
 from pathlib import Path
 
 import pytest
 
+from readme_agent.supervisor.portfolio_proof_engine.repository_worker_execution import (
+    _wait_for_receipt_visibility,
+)
 from readme_agent.supervisor.portfolio_proof_engine.repository_worker_pool import (
     RepositoryJobSpecV1,
     RepositoryWorkerPool,
@@ -280,6 +284,33 @@ def test_missing_expected_receipt_becomes_incomplete_not_success(tmp_path: Path)
     assert result.return_code == 0
     assert result.exit_classification == "MISSING_EXPECTED_RECEIPT"
     assert result.succeeded is False
+
+
+def test_receipt_visibility_tolerates_a_lagged_write(tmp_path: Path) -> None:
+    """ACL-ORCH-RECEIPT-VISIBILITY-LAG: found live on a real 34-repository portfolio pass -- 8
+    of 13 processed workers had a completed, receipt-writing, non-crashing child reported as
+    receipt_observed=False, two after real, expensive provider work. A bare Path.is_file() right
+    after process.wait() returns is not enough on this machine; the retry loop must catch a write
+    that lands shortly after the check would otherwise have already given up."""
+
+    path = tmp_path / "lagged-receipt.json"
+
+    def _write_after_delay() -> None:
+        time.sleep(0.12)
+        path.write_text("{}", encoding="utf-8")
+
+    writer = threading.Thread(target=_write_after_delay)
+    writer.start()
+    try:
+        assert _wait_for_receipt_visibility(path, attempts=6, initial_delay_seconds=0.05) is True
+    finally:
+        writer.join()
+
+
+def test_receipt_visibility_still_reports_a_genuine_absence(tmp_path: Path) -> None:
+    path = tmp_path / "never-written.json"
+
+    assert _wait_for_receipt_visibility(path, attempts=3, initial_delay_seconds=0.01) is False
 
 
 def test_global_deadline_prevents_later_jobs_from_starting(tmp_path: Path) -> None:

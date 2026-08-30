@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import subprocess
 import time
+from pathlib import Path
 
 from readme_agent.supervisor.portfolio_proof_engine.repository_worker_contracts import (
     _SECRET_LIKE_NAME_RE,
@@ -21,6 +22,40 @@ from readme_agent.supervisor.portfolio_proof_engine.repository_worker_process im
     _spawn_kwargs,
     _start_drain_thread,
 )
+
+
+def _wait_for_receipt_visibility(
+    path: Path, *, attempts: int = 6, initial_delay_seconds: float = 0.05
+) -> bool:
+    """Tolerate filesystem visibility lag between a child's write and this process's read.
+
+    `process.wait()` returning guarantees the child's own Python interpreter has exited, which
+    means `write_redacted_json()`'s `os.replace()` already completed -- so a bare `Path.is_file()`
+    immediately afterward *should* be enough. In practice it measurably isn't always: a live
+    34-repository portfolio pass on this exact machine (a Windows checkout inside a OneDrive-synced
+    folder, real-time antivirus scanning active) found 8 of 13 processed workers had a completed,
+    receipt-writing, non-crashing child (`stderr_byte_count: 0`, the full disposition already on
+    stdout) reported as `receipt_observed: False` -- two of them (`aspose-cells-foss/…Python`,
+    `aspose-slides-foss/…Python`) had already made 42 and 63 real provider calls, real spend wasted
+    to a misclassification. An isolated, single-write, no-concurrent-load reproduction attempt
+    (0/40 misses) could not reproduce the gap, narrowing it to something that specifically needs
+    real sustained multi-process load -- consistent with an AV/cloud-sync filesystem filter driver
+    lagging behind a burst of file creates, not a logic bug in the write itself. This is therefore a
+    tolerance for an environmental lag, not a correctness weakening: every existing identity and
+    exit-code consistency check in `load_worker_receipt()` still runs unchanged once the file is
+    found, so a stale or corrupted receipt is never accepted merely because this loop waited longer
+    for it. Bounded at roughly 1.55s worst case (0.05+0.1+0.2+0.4+0.8s successive backoff) so a
+    genuinely absent receipt is still reported as absent, just not instantly.
+    """
+
+    delay = initial_delay_seconds
+    for attempt in range(attempts):
+        if path.is_file():
+            return True
+        if attempt + 1 < attempts:
+            time.sleep(delay)
+            delay = min(delay * 2, 1.0)
+    return path.is_file()
 
 
 def run_child(
@@ -117,7 +152,9 @@ def run_child(
         process.stderr.close()
 
     return_code = process.poll()
-    receipt_observed = job.expected_receipt_path is not None and job.expected_receipt_path.is_file()
+    receipt_observed = job.expected_receipt_path is not None and _wait_for_receipt_visibility(
+        job.expected_receipt_path
+    )
 
     exit_classification: WorkerExitClassificationV1
     if timed_out:
