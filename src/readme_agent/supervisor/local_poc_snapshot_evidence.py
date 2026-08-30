@@ -24,6 +24,7 @@ from readme_agent.repository_snapshot import RepositorySnapshotV1
 from readme_agent.state.assurance import ContentAssuranceV1
 from readme_agent.supervisor.local_poc_bounded_review_recovery import (
     recover_interrupted_bounded_review_cache_write,
+    recover_migrated_bounded_review_cache_entries,
 )
 from readme_agent.supervisor.local_poc_section_authoring_recovery import (
     recover_interrupted_section_authoring_cache_write,
@@ -160,6 +161,11 @@ def _validate_sealed_snapshot(
         not verify_sha256sums(bundle_dir)
         and not recover_interrupted_section_authoring_cache_write(bundle_dir, snapshot)
         and not recover_interrupted_bounded_review_cache_write(
+            bundle_dir,
+            org_repo=snapshot.org_repo,
+            source_revision=snapshot.source_revision,
+        )
+        and not recover_migrated_bounded_review_cache_entries(
             bundle_dir,
             org_repo=snapshot.org_repo,
             source_revision=snapshot.source_revision,

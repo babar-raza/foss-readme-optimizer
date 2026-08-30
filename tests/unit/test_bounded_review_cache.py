@@ -42,6 +42,7 @@ from readme_agent.specialists.bounded_review_visitor_scope import (
 from readme_agent.specialists.review_candidate_anchors import build_candidate_review_anchors
 from readme_agent.supervisor.local_poc_bounded_review_recovery import (
     recover_interrupted_bounded_review_cache_write,
+    recover_migrated_bounded_review_cache_entries,
 )
 
 
@@ -162,6 +163,98 @@ def test_interrupted_packet_cache_recovery_rejects_unrelated_extra(tmp_path) -> 
         bundle,
         org_repo="acme/widget-toolkit",
         source_revision="a" * 40,
+    )
+    assert (bundle / "sha256sums.txt").read_bytes() == inventory_before
+
+
+def _seal_bundle_with_one_packet_cache_entry(bundle):
+    """Build a real, sealed bundle with at least one bounded-review packet cache file."""
+
+    bundle.mkdir()
+    (bundle / "manifest.json").write_text('{"sealed":true}\n', encoding="utf-8")
+    plan = _plan()
+    context = _cache_context()
+    cache_dir = bundle / "review" / "bounded-packet-cache"
+    execute_bounded_review(
+        org_repo="acme/widget-toolkit",
+        candidate_text=CANDIDATE_TEXT,
+        product_facts=DEFAULT_FACTS.model_dump(mode="json"),
+        visitor_contract=build_presentation_visitor_contract(
+            applicable_h2_headings=_headings(),
+            primary_example_language="python",
+        ),
+        plan=plan,
+        coverage_ledger=brp.build_coverage_ledger(plan, atomic_units=_atomic_units()),
+        blind_client=_PacketSequenceClient(list(plan.visitor_packets)),
+        factual_client=_PacketSequenceClient(list(plan.factual_packets)),
+        blind_prompt_id="blind_readme_quality_review",
+        factual_prompt_id="factual_readme_plan_review",
+        cache_dir=cache_dir,
+        cache_context=context,
+    )
+    refresh_sha256sums(bundle)
+    assert verify_sha256sums(bundle)
+    cache_files = sorted(cache_dir.glob("*.json"))
+    assert cache_files
+    return cache_files[0], context
+
+
+def test_migrated_packet_cache_entry_is_validated_and_resealed(tmp_path) -> None:
+    """`BoundedReviewPacketCache.load()` can rewrite a cache entry's bytes in place at its
+    existing identity-keyed filename when it migrates a legacy cache key forward -- found live
+    against `aspose-font-foss`'s sealed snapshot (41 files rewritten this way, zero added). The
+    existing `recover_interrupted_bounded_review_cache_write` only tolerates *added* files and
+    must correctly refuse this case; the new sibling must repair it."""
+
+    bundle = tmp_path / "bundle"
+    entry_path, context = _seal_bundle_with_one_packet_cache_entry(bundle)
+    inventory_before = (bundle / "sha256sums.txt").read_bytes()
+
+    cached = json.loads(entry_path.read_text(encoding="utf-8"))
+    cached["grounding_history"] = [
+        *cached["grounding_history"],
+        {
+            "role": "blind_quality",
+            "attempt": 0,
+            "context_mode": "bounded_packet_cache_identity_migration",
+            "valid": True,
+            "errors": [],
+            "packet_id": cached["packet_id"],
+            "legacy_cache_key": "0" * 64,
+            "cache_key": cached["cache_key"],
+        },
+    ]
+    entry_path.write_text(json.dumps(cached), encoding="utf-8")
+
+    assert not verify_sha256sums(bundle)
+    assert not recover_interrupted_bounded_review_cache_write(
+        bundle,
+        org_repo="acme/widget-toolkit",
+        source_revision=context.source_revision,
+    )
+    assert (bundle / "sha256sums.txt").read_bytes() == inventory_before
+
+    assert recover_migrated_bounded_review_cache_entries(
+        bundle,
+        org_repo="acme/widget-toolkit",
+        source_revision=context.source_revision,
+    )
+    assert verify_sha256sums(bundle)
+
+
+def test_migrated_packet_cache_recovery_rejects_an_identity_mismatch(tmp_path) -> None:
+    bundle = tmp_path / "bundle"
+    entry_path, context = _seal_bundle_with_one_packet_cache_entry(bundle)
+    inventory_before = (bundle / "sha256sums.txt").read_bytes()
+
+    cached = json.loads(entry_path.read_text(encoding="utf-8"))
+    cached["org_repo"] = "someone-else/unrelated-repo"
+    entry_path.write_text(json.dumps(cached), encoding="utf-8")
+
+    assert not recover_migrated_bounded_review_cache_entries(
+        bundle,
+        org_repo="acme/widget-toolkit",
+        source_revision=context.source_revision,
     )
     assert (bundle / "sha256sums.txt").read_bytes() == inventory_before
 
