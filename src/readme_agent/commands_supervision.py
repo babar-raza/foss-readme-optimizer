@@ -3,6 +3,7 @@
 import argparse
 import sys
 import time
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Literal, TypedDict
 
@@ -1112,6 +1113,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
         )
         from readme_agent.supervisor.portfolio_worker_dispatch import (
             JDK_TOOLCHAIN_RESOURCE,
+            describe_worker_receipt_rejection,
             load_worker_receipt,
         )
         from readme_agent.supervisor.portfolio_worker_runtime import (
@@ -1125,21 +1127,30 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
             extra_resource_limits={JDK_TOOLCHAIN_RESOURCE: 1},
         )
         batch_report = pool.run(pending_jobs, batch_deadline_seconds=remaining_budget)
+        batch_report_dir = paths.runs_dir() / "portfolio-workers" / revision.revision_id
+        write_redacted_json(batch_report_dir / "batch-report.json", batch_report)
+        # The canonical path above is overwritten by every slice sharing this registry
+        # revision -- a real portfolio pass silently destroyed the only per-repo diagnostic
+        # detail (stdout/stderr excerpts) for repositories from an earlier slice, discovered
+        # while chasing ACL-ORCH-SILENT-RECEIPT-REJECTION. This history copy is additive and
+        # never read by any acceptance logic; it exists purely so a later slice can't erase
+        # an earlier slice's evidence.
         write_redacted_json(
-            paths.runs_dir() / "portfolio-workers" / revision.revision_id / "batch-report.json",
+            batch_report_dir
+            / "batch-report-history"
+            / f"{datetime.now(UTC).strftime('%Y%m%dT%H%M%S%f')}Z.json",
             batch_report,
         )
         pending_job_by_id = {job.job_id: job for job in pending_jobs}
         for worker_result in batch_report.results:
             expected_job = pending_job_by_id[worker_result.job_id]
             persisted_after_worker = state_backend.load(worker_result.org_repo)
+            persisted_source_revision = persisted_portfolio_source_revision(persisted_after_worker)
             receipt = load_worker_receipt(
                 worker_result,
                 registry_revision_id=revision.revision_id,
                 expected_source_revision=expected_job.source_revision,
-                persisted_source_revision=persisted_portfolio_source_revision(
-                    persisted_after_worker
-                ),
+                persisted_source_revision=persisted_source_revision,
             )
             if receipt is not None:
                 results.append(receipt.result)
@@ -1152,10 +1163,22 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
             if worker_result.exit_classification == "NOT_STARTED_DEADLINE_EXPIRED":
                 execution_slice_complete = False
                 continue
+            rejection_detail = describe_worker_receipt_rejection(
+                worker_result,
+                registry_revision_id=revision.revision_id,
+                expected_source_revision=expected_job.source_revision,
+                persisted_source_revision=persisted_source_revision,
+            )
+            reason_text = (
+                worker_result.failure_reason
+                or worker_result.stderr_excerpt[:512]
+                or worker_result.stdout_excerpt[:512]
+            )
             failure_detail = redact(
                 "portfolio_worker_failure:"
                 f"{worker_result.exit_classification}:"
-                f"{worker_result.failure_reason or worker_result.stderr_excerpt[:512]}",
+                f"{reason_text}"
+                + (f"; receipt_rejected:{rejection_detail}" if rejection_detail else ""),
                 env.secret_values(),
             )
             # Unlike the receipt-found success path above, this branch previously never

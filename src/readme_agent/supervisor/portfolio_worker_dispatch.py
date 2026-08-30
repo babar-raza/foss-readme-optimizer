@@ -138,3 +138,79 @@ def load_worker_receipt(
     ):
         return None
     return receipt
+
+
+def describe_worker_receipt_rejection(
+    worker_result: WorkerResultV1,
+    *,
+    registry_revision_id: str,
+    expected_source_revision: str | None,
+    persisted_source_revision: str | None,
+) -> str | None:
+    """Diagnose why `load_worker_receipt()` returned `None`, purely for operator visibility.
+
+    Mirrors every gate in `load_worker_receipt()` in the same order but reports which one
+    failed instead of silently discarding the receipt. This function makes no trust
+    decision of its own and must never be substituted for `load_worker_receipt()` --
+    ACL-ORCH-SILENT-RECEIPT-REJECTION found this the hard way: a fully valid, identity-
+    and source-revision-matching receipt for aspose-email-foss/Aspose.Email-FOSS-for-Python
+    was discarded as `SYSTEM_FAILURE` with an empty reason (both `failure_reason` and
+    `stderr_excerpt` were empty), and confirming *why* required manually cross-referencing
+    a surviving `evidence/worker-receipt.json` against durable state by hand because nothing
+    in the normal run output said which check failed. Returns `None` if the receipt would
+    in fact have been accepted (should not happen when called only after `load_worker_receipt`
+    itself returned `None`) or if the failure isn't a receipt-rejection case at all.
+    """
+
+    if worker_result.exit_classification not in ("SUCCEEDED", "CHILD_NONZERO_EXIT"):
+        return None
+    if worker_result.expected_receipt_path is None:
+        return "no expected receipt path was configured for this worker"
+    receipt_path = Path(worker_result.expected_receipt_path)
+    if not receipt_path.is_file():
+        return f"no receipt file exists at the expected path {receipt_path}"
+    try:
+        receipt = PortfolioWorkerReceiptV2.model_validate_json(
+            receipt_path.read_text(encoding="utf-8")
+        )
+    except Exception as exc:  # noqa: BLE001 -- diagnostic only, must never itself crash
+        return f"receipt file exists but failed to parse: {type(exc).__name__}: {exc}"
+    expected_invocation_id = receipt_path.parent.parent.name
+    mismatches: list[str] = []
+    if receipt.registry_revision_id != registry_revision_id:
+        mismatches.append(
+            f"registry_revision_id receipt={receipt.registry_revision_id!r} "
+            f"expected={registry_revision_id!r}"
+        )
+    if receipt.result.org_repo != worker_result.org_repo:
+        mismatches.append(
+            f"org_repo receipt={receipt.result.org_repo!r} expected={worker_result.org_repo!r}"
+        )
+    if receipt.worker_invocation_id != expected_invocation_id:
+        mismatches.append(
+            f"worker_invocation_id receipt={receipt.worker_invocation_id!r} "
+            f"path_derived={expected_invocation_id!r}"
+        )
+    if persisted_source_revision is None:
+        mismatches.append(
+            "persisted_source_revision is None (durable state has no lifecycle "
+            "source_revision yet for this org_repo)"
+        )
+    elif receipt.source_revision != persisted_source_revision:
+        mismatches.append(
+            f"source_revision receipt={receipt.source_revision!r} "
+            f"persisted={persisted_source_revision!r}"
+        )
+    if expected_source_revision is not None and receipt.source_revision != expected_source_revision:
+        mismatches.append(
+            f"source_revision receipt={receipt.source_revision!r} "
+            f"expected_by_parent={expected_source_revision!r}"
+        )
+    if receipt.result.exit_code != worker_result.return_code:
+        mismatches.append(
+            f"exit_code receipt={receipt.result.exit_code!r} "
+            f"observed_return_code={worker_result.return_code!r}"
+        )
+    if not mismatches:
+        return None
+    return "; ".join(mismatches)
