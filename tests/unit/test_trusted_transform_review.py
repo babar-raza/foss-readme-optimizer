@@ -3214,7 +3214,7 @@ def test_live_trusted_review_uses_real_fact_coverage_envelope(tmp_path, monkeypa
         "base_url": "https://gateway.example/v1",
         "api_key": "test-key",
         "timeout": 123.0,
-        "max_tokens": 12_000,
+        "max_tokens": 18_000,
     }
 
 
@@ -3264,7 +3264,7 @@ def test_stage_review_builder_does_not_fall_back_to_short_output_limit(monkeypat
         "base_url": "https://gateway.example/v1",
         "api_key": "test-key",
         "timeout": 123.0,
-        "max_tokens": 12_000,
+        "max_tokens": 18_000,
     }
 
 

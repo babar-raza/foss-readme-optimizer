@@ -22,6 +22,7 @@ RESPONSIBILITY_MODULES = (
     "agentic_composition.py",
     "agentic_composition_models.py",
     "agentic_composition_grounding.py",
+    "agentic_composition_repair_hints.py",
     "agentic_composition_validation.py",
     "document_renderer.py",
     "document_plan_finalizer.py",

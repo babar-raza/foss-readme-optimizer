@@ -16,10 +16,7 @@ from readme_agent.llm.generation_prompts import (
 )
 from readme_agent.llm.prompt_registry import prompt_hash
 from readme_agent.llm.verifier_client import ForcedToolClient, LiveForcedToolClient
-from readme_agent.readme.agentic_composition_assessment import (
-    planning_assessment_payload,
-    planning_sections,
-)
+from readme_agent.readme.agentic_composition_assessment import planning_assessment_payload
 from readme_agent.readme.agentic_composition_grounding import (
     accepted_composition_fact_ids,
     materialize_tool_draft,
@@ -39,6 +36,7 @@ from readme_agent.readme.agentic_composition_models import (
     ReadmeAgenticCompositionPlanV1,
     ReadmeCompositionRepairRequestV1,
 )
+from readme_agent.readme.agentic_composition_repair_hints import deterministic_repair_hints
 from readme_agent.readme.agentic_composition_validation import (
     bind_source_dispositions,
     validate_composition_draft,
@@ -77,44 +75,6 @@ __all__ = [
 def _canonical_hash(payload: object) -> str:
     encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
     return hashlib.sha256(encoded).hexdigest()
-
-
-def _repair_hints(
-    error: LLMError,
-    assessment: ReadmeAssessmentV1,
-    facts: ProductFactsV2,
-    *,
-    attempt: int,
-) -> str:
-    return (
-        f"REPAIR ATTEMPT {attempt}. The previous JSON was rejected: {error}\n"
-        "Call submit_readme_composition_plan again. Include exactly one "
-        "section_decision for each source-bound ID and copy its paired disposition exactly:\n"
-        + json.dumps(
-            [
-                {
-                    "section_id": section.section_id,
-                    "disposition": section.disposition,
-                }
-                for section in planning_sections(assessment)
-            ],
-            sort_keys=True,
-        )
-        + "\nFor overview_fact_ids, select fact IDs from these options; deterministic code "
-        "will materialize literal phrases:\n"
-        + json.dumps(overview_phrase_options(facts), ensure_ascii=False)
-        + "\nFor opening_summary, use the complete product identity, cite that identity plus "
-        "the accepted audience fact and at least one accepted purpose/capability/format fact, "
-        "and omit promotion, Enterprise Edition comparisons, commercial terminology, and hashes."
-        + "\nFor diagram.nodes, use only labels from the role-compatible vocabulary below. "
-        "Do not fill a count, reclassify a capability as an output, or invent a missing role; "
-        "deterministic evidence owns role assignment. Every proposed label must "
-        "retain at least one literal product term from the supplied vocabulary; "
-        "do not use action phrases as inputs, and do not use runtime, source-code, package, "
-        "installation, API, license, or support nouns "
-        "unless they literally occur in this vocabulary:\n"
-        + json.dumps(diagram_role_phrase_guidance(facts), ensure_ascii=False, sort_keys=True)
-    )
 
 
 def plan_readme_composition(
@@ -278,14 +238,14 @@ def plan_readme_composition(
                     resolved_client.max_tokens = max(resolved_client.max_tokens, 10000)
                 continue
             else:
-                deterministic_repair_hints = _repair_hints(
+                repair_hints_text = deterministic_repair_hints(
                     last_error,
                     assessment,
                     facts,
                     attempt=attempt + 1,
                 )
                 repair_hints_section = "\n\n".join(
-                    hint for hint in (independent_hints, deterministic_repair_hints) if hint
+                    hint for hint in (independent_hints, repair_hints_text) if hint
                 )
                 continue
         return ReadmeAgenticCompositionPlanV1(
