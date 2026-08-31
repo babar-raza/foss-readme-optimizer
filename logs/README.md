@@ -104,7 +104,7 @@ Three independent layers, each closing a gap the one before it can't:
 | 2026-08-27 | `logs/2026-08-27.md` | 37 |
 | 2026-08-28 | `logs/2026-08-28.md` | 9 |
 | 2026-08-29 | `logs/2026-08-29.md` | 11 |
-| 2026-08-31 | `logs/2026-08-31.md` | 1 |
+| 2026-08-31 | `logs/2026-08-31.md` | 2 |
 
 **How to find an entry**: know the date → open that file directly, the filename *is* the date.
 Know a decision number, requirement ID, or wave/phase → grep for it across `logs/*.md`, or check
