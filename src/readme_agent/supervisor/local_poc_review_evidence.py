@@ -198,9 +198,9 @@ def write_local_poc_no_op_evidence(
     manifest = _load_manifest(bundle_dir)
     manifest.update(
         {
-            "lifecycle_status": "NO_OP_PROVEN",
+            "lifecycle_status": "HUMAN_REVIEW_READY",
             "complete": True,
-            "completed_stages": _completed_stages(manifest, "NO_OP_PROVEN"),
+            "completed_stages": _completed_stages(manifest, "NO_OP_PROVEN", "HUMAN_REVIEW_READY"),
         }
     )
     write_local_poc_manifest(bundle_dir, manifest)

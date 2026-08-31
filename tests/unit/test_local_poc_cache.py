@@ -789,7 +789,106 @@ def test_approved_no_op_promotion_records_cache_before_state_and_evidence(
     )
 
     assert result.promoted is True
-    assert events == ["bind", "cache", "zero-call-guard", "transition", "evidence"]
+    assert events == ["bind", "cache", "zero-call-guard", "transition", "transition", "evidence"]
+
+
+def test_approved_no_op_promotion_chains_human_review_ready_after_no_op_proven(
+    monkeypatch,
+    tmp_path,
+):
+    """PWD-026: NO_OP_PROVEN must immediately chain to HUMAN_REVIEW_READY.
+
+    Before this fix, `HUMAN_REVIEW_READY` was legal in the transition table
+    but had zero production call sites -- no repository could ever reach it.
+    """
+
+    state, bundle = _approved_cache(tmp_path)
+    decision = local_poc_cache.evaluate_approved_local_poc_cache(
+        state,
+        bundle,
+        current_source_revision=SOURCE_REVISION,
+        current_control_plane_fingerprint=CONTROL_FINGERPRINT,
+    )
+    monkeypatch.setattr(
+        local_poc_noop_reuse,
+        "evaluate_approved_local_poc_cache",
+        lambda *args, **kwargs: decision,
+    )
+    monkeypatch.setattr(local_poc_noop_reuse, "bind_llm_repository_revision", lambda *a, **k: None)
+    monkeypatch.setattr(local_poc_noop_reuse, "record_non_provider_call", lambda *a, **k: None)
+    monkeypatch.setattr(
+        local_poc_noop_reuse, "assert_local_poc_no_op_transaction_eligible", lambda: None
+    )
+    monkeypatch.setattr(
+        local_poc_noop_reuse, "write_local_poc_no_op_evidence", lambda *a, **k: None
+    )
+    monkeypatch.setattr(local_poc_noop_reuse, "save_domain", lambda *a, **k: None)
+    transitions: list[tuple] = []
+    monkeypatch.setattr(
+        local_poc_noop_reuse,
+        "transition_readme_poc_status",
+        lambda *args, **kwargs: transitions.append((args[2], kwargs)),
+    )
+
+    result = local_poc_noop_reuse.promote_approved_local_poc_noop(
+        backend=SimpleNamespace(load=lambda org_repo: state),
+        state=state,
+        bundle_dir=bundle,
+        current_source_revision=SOURCE_REVISION,
+        current_control_plane_fingerprint=CONTROL_FINGERPRINT,
+    )
+
+    assert result.promoted is True
+    assert [to_status for to_status, _ in transitions] == [
+        "NO_OP_PROVEN",
+        "HUMAN_REVIEW_READY",
+    ]
+    no_op_kwargs = transitions[0][1]
+    review_ready_kwargs = transitions[1][1]
+    assert no_op_kwargs["observed_by"] == "independent_verification"
+    assert review_ready_kwargs["observed_by"] == "independent_verification"
+    assert review_ready_kwargs["reason"] == (
+        "no-op proof complete; stable candidate ready for human review"
+    )
+    assert review_ready_kwargs["evidence_refs"] == [str(bundle)]
+
+
+def test_approved_no_op_promotion_does_not_transition_when_not_reusable(
+    monkeypatch,
+    tmp_path,
+):
+    """Negative control for PWD-026: an unreusable decision must reach neither
+    NO_OP_PROVEN nor HUMAN_REVIEW_READY -- the early-return path stays intact."""
+
+    state, bundle = _approved_cache(tmp_path)
+    decision = local_poc_cache.evaluate_approved_local_poc_cache(
+        state,
+        bundle,
+        current_source_revision=SOURCE_REVISION,
+        current_control_plane_fingerprint=CONTROL_FINGERPRINT,
+    ).model_copy(update={"reusable": False})
+    monkeypatch.setattr(
+        local_poc_noop_reuse,
+        "evaluate_approved_local_poc_cache",
+        lambda *args, **kwargs: decision,
+    )
+    transitions: list[tuple] = []
+    monkeypatch.setattr(
+        local_poc_noop_reuse,
+        "transition_readme_poc_status",
+        lambda *args, **kwargs: transitions.append((args[2], kwargs)),
+    )
+
+    result = local_poc_noop_reuse.promote_approved_local_poc_noop(
+        backend=SimpleNamespace(load=lambda org_repo: state),
+        state=state,
+        bundle_dir=bundle,
+        current_source_revision=SOURCE_REVISION,
+        current_control_plane_fingerprint=CONTROL_FINGERPRINT,
+    )
+
+    assert result.promoted is False
+    assert transitions == []
 
 
 def test_approved_no_op_promotion_fails_before_state_transition_on_provider_call(

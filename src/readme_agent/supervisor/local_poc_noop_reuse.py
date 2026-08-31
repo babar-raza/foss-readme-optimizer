@@ -149,6 +149,14 @@ def promote_approved_local_poc_noop(
         reason="unchanged approved bundle reused before author or reviewer dispatch",
         evidence_refs=[str(bundle_dir)],
     )
+    transition_readme_poc_status(
+        backend,
+        state.org_repo,
+        "HUMAN_REVIEW_READY",
+        observed_by=INDEPENDENT_VERIFICATION,
+        reason="no-op proof complete; stable candidate ready for human review",
+        evidence_refs=[str(bundle_dir)],
+    )
     write_local_poc_no_op_evidence(
         bundle_dir,
         candidate_hash=lifecycle.candidate_hash,

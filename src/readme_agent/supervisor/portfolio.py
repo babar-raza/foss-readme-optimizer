@@ -31,6 +31,7 @@ PortfolioTargetStageV1 = Literal[
     "TRUSTED_TRANSFORM_APPROVED",
     "TRUSTED_NO_OP_PROVEN",
     "NO_OP_PROVEN",
+    "HUMAN_REVIEW_READY",
 ]
 
 

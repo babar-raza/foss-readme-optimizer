@@ -1484,7 +1484,7 @@ class TestBasicLoop:
         state = backend.load(ORG_REPO)
         lifecycle = state.readme_poc_lifecycle
         assert lifecycle is not None
-        assert lifecycle.status == "NO_OP_PROVEN", (
+        assert lifecycle.status == "HUMAN_REVIEW_READY", (
             first.status,
             first.blocked_reason,
             second.status,
@@ -1505,6 +1505,7 @@ class TestBasicLoop:
             "AGENT_REVIEWING",
             "AGENT_APPROVED",
             "NO_OP_PROVEN",
+            "HUMAN_REVIEW_READY",
         ]
         assert first.status == "CONVERGED_PROPOSAL_READY", (
             first.blocked_reason,
@@ -1533,7 +1534,7 @@ class TestBasicLoop:
             (second.evidence_dir / "manifest.json").read_text(encoding="utf-8")
         )
         assert second_terminal_manifest["facts_hash"] == lifecycle.facts_hash
-        assert second_terminal_manifest["readme_poc_status"] == "NO_OP_PROVEN"
+        assert second_terminal_manifest["readme_poc_status"] == "HUMAN_REVIEW_READY"
         assert first_readme_llm_calls == {
             "relationship": 0,
             "composition": 0,
@@ -1575,7 +1576,7 @@ class TestBasicLoop:
         assert no_op_proof["llm_accounting_status"] == "EXACT"
         assert no_op_proof["new_provider_call_count"] == 0
         manifest = json.loads((lifecycle_bundle / "manifest.json").read_text(encoding="utf-8"))
-        assert manifest["lifecycle_status"] == "NO_OP_PROVEN"
+        assert manifest["lifecycle_status"] == "HUMAN_REVIEW_READY"
         assert manifest["complete"] is True
         assert manifest["completed_stages"] == [
             "SNAPSHOTTED",
@@ -1589,6 +1590,7 @@ class TestBasicLoop:
             "AGENT_REVIEWING",
             "AGENT_APPROVED",
             "NO_OP_PROVEN",
+            "HUMAN_REVIEW_READY",
         ]
 
         history_before_cached_run = list(lifecycle.history)
@@ -1649,7 +1651,7 @@ class TestBasicLoop:
             backend.load(ORG_REPO).domain_states["readme_presentation"].accepted_status,
             backend.load(ORG_REPO).domain_states["readme_presentation"].last_failure_reason,
         )
-        assert lifecycle_after_forced_run.status == "NO_OP_PROVEN"
+        assert lifecycle_after_forced_run.status == "HUMAN_REVIEW_READY"
         assert lifecycle_after_forced_run.history == history_before_forced_run
 
     def test_local_poc_repairs_revalidates_and_rereviews_before_accepting(
@@ -1791,7 +1793,7 @@ class TestBasicLoop:
             track_readme_poc_lifecycle=True,
         )
         assert second.status == "CONVERGED_NO_TRACKED_CHANGE"
-        assert backend.load(ORG_REPO).readme_poc_lifecycle.status == "NO_OP_PROVEN"
+        assert backend.load(ORG_REPO).readme_poc_lifecycle.status == "HUMAN_REVIEW_READY"
         # The accepted rerun is a proven no-op: it must not re-review or re-author at
         # all, so both counters stand exactly where the first run left them.
         assert _RejectThenAcceptBlindReviewClient.calls == blind_calls_after_first_run
