@@ -1,0 +1,64 @@
+name: Log Coverage Audit
+
+# Layer 3 of logs/ coverage enforcement (see log-coverage-heal.yml's header for Layers 1-2, and
+# the decision recording this whole design in plans/decisions/catalog.jsonl). Independent of the
+# push trigger entirely -- this is the belt-and-suspenders sweep that bounds worst-case drift to
+# one audit interval even if Layer 1 (local hooks) and Layer 2 (push-triggered heal) both fail at
+# once: an Actions outage, a force-push, a commit path that doesn't fire the push webhook, or a
+# bug in the healer itself. Runs the same full-history scan as the original manual investigation
+# that found the 10 real missing days this whole mechanism exists because of.
+#
+# Deliberately fails the workflow (red, not silently green) whenever it finds anything to heal,
+# even after successfully healing it -- a scheduled sweep finding a gap means the primary path
+# (Layers 1-2) missed something in real time and that needs investigating, not just patching over
+# quietly every day.
+#
+# Local test: python scripts/governance/audit_log_coverage.py --full-history
+#             python scripts/governance/heal_log_coverage.py --full-history --dry-run
+
+on:
+  schedule:
+    - cron: "0 6 * * *" # daily, 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+      - run: pip install -r requirements-lock.txt
+      - run: pip install -e . --no-deps
+      - name: Scan full history for coverage gaps
+        id: audit
+        run: python scripts/governance/audit_log_coverage.py --full-history
+        continue-on-error: true
+      - name: Configure the auto-heal bot identity
+        if: steps.audit.outcome == 'failure'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Heal what the scan found
+        if: steps.audit.outcome == 'failure'
+        run: python scripts/governance/heal_log_coverage.py --full-history
+      - name: Fail loudly -- Layers 1-2 should have caught this already
+        if: steps.audit.outcome == 'failure'
+        run: |
+          echo "::error::logs/ coverage gap(s) found by the scheduled full-history audit. Layer 1 \
+          (pre-commit/CI blocking check) and Layer 2 (push-triggered self-heal) both should have \
+          caught this before it ever reached here. It has been auto-healed above (unless the \
+          5-date circuit breaker refused a larger batch, in which case it still needs a human) -- \
+          the open question is why the earlier layers missed it: an Actions outage, a force-push, \
+          a commit path that skipped the push webhook, or a bug in heal_log_coverage.py itself."
+          exit 1

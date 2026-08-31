@@ -18,6 +18,7 @@ from governance.validate_compact_authority import (
 from governance.validate_plan_structure import (
     Result,
     _split_table_row,
+    check_governed_edits_paired_with_log_entry,
     check_logs_shard_index_consistency,
     check_master_section_order,
     check_requirement_row_column_counts,
@@ -130,6 +131,11 @@ class TestRealRepoIsClean:
     def test_real_requirements_md_rows_have_correct_column_counts(self):
         result = Result()
         check_requirement_row_column_counts(result)
+        assert result.errors == []
+
+    def test_real_governed_edits_are_paired_with_log_entries(self):
+        result = Result()
+        check_governed_edits_paired_with_log_entry(result)
         assert result.errors == []
 
 
@@ -308,3 +314,127 @@ class TestWaveReconciliationGate:
         check_wave_reconciliation_gate(result, previous_master_text=None)
 
         assert result.errors == []
+
+
+class TestGovernedEditsPairedWithLogEntry:
+    """The mechanical form of logs/README.md's "two touches" rule: an edit to the plan trio or
+    either decision/requirement `catalog.jsonl` must land in the same change as a `logs/` update,
+    or it's invisible to `check_logs_shard_index_consistency` (which only checks the index against
+    files that already exist) -- exactly how 10 real days of history went unlogged before this gate
+    existed. Uses the injectable `previous_texts` seam, same pattern as
+    `TestWaveReconciliationGate`'s `previous_master_text` -- never shells out to git or touches the
+    real repo."""
+
+    def _set_paths(self, tmp_path: Path, monkeypatch):
+        import governance.validate_plan_structure as vps
+
+        plans_dir = tmp_path / "plans"
+        (plans_dir / "decisions").mkdir(parents=True)
+        (plans_dir / "requirements").mkdir(parents=True)
+        logs_dir = tmp_path / "logs"
+        logs_dir.mkdir()
+
+        master = plans_dir / "master.md"
+        governance_md = plans_dir / "GOVERNANCE.md"
+        requirements_md = plans_dir / "requirements.md"
+        decisions_catalog = plans_dir / "decisions" / "catalog.jsonl"
+        requirements_catalog = plans_dir / "requirements" / "catalog.jsonl"
+
+        monkeypatch.setattr(vps, "MASTER_MD", master)
+        monkeypatch.setattr(vps, "GOVERNANCE_MD", governance_md)
+        monkeypatch.setattr(vps, "REQUIREMENTS_MD", requirements_md)
+        monkeypatch.setattr(vps, "DECISIONS_CATALOG", decisions_catalog)
+        monkeypatch.setattr(vps, "REQUIREMENTS_CATALOG", requirements_catalog)
+        monkeypatch.setattr(vps, "LOGS_DIR", logs_dir)
+        return (
+            master,
+            governance_md,
+            requirements_md,
+            decisions_catalog,
+            requirements_catalog,
+            logs_dir,
+        )
+
+    def test_governed_edit_with_no_paired_log_change_is_an_error(self, tmp_path, monkeypatch):
+        master, *_rest = self._set_paths(tmp_path, monkeypatch)
+        master.write_text("new content", encoding="utf-8")
+
+        result = Result()
+        check_governed_edits_paired_with_log_entry(
+            result, previous_texts={str(master): "old content"}
+        )
+
+        assert len(result.errors) == 1
+        assert "plans/master.md" in result.errors[0]
+
+    def test_governed_edit_with_a_paired_log_change_passes(self, tmp_path, monkeypatch):
+        master, *_rest, logs_dir = self._set_paths(tmp_path, monkeypatch)
+        master.write_text("new content", encoding="utf-8")
+        (logs_dir / "2026-08-31.md").write_text("new shard content", encoding="utf-8")
+
+        result = Result()
+        check_governed_edits_paired_with_log_entry(
+            result, previous_texts={str(master): "old content"}
+        )
+
+        assert result.errors == []
+
+    def test_log_only_change_passes(self, tmp_path, monkeypatch):
+        master, *_rest, logs_dir = self._set_paths(tmp_path, monkeypatch)
+        master.write_text("unchanged", encoding="utf-8")
+        (logs_dir / "2026-08-31.md").write_text("new shard content", encoding="utf-8")
+
+        result = Result()
+        check_governed_edits_paired_with_log_entry(
+            result, previous_texts={str(master): "unchanged"}
+        )
+
+        assert result.errors == []
+
+    def test_no_changes_at_all_passes(self, tmp_path, monkeypatch):
+        master, *_rest = self._set_paths(tmp_path, monkeypatch)
+        master.write_text("same", encoding="utf-8")
+
+        result = Result()
+        check_governed_edits_paired_with_log_entry(result, previous_texts={str(master): "same"})
+
+        assert result.errors == []
+
+    def test_no_git_history_available_skips_the_check_without_erroring(self, tmp_path, monkeypatch):
+        master, *_rest = self._set_paths(tmp_path, monkeypatch)
+        master.write_text("new content", encoding="utf-8")
+
+        result = Result()
+        check_governed_edits_paired_with_log_entry(result, previous_texts=None)
+
+        assert result.errors == []
+
+    def test_multiple_changed_governed_files_are_all_named(self, tmp_path, monkeypatch):
+        master, governance_md, *_rest = self._set_paths(tmp_path, monkeypatch)
+        master.write_text("new", encoding="utf-8")
+        governance_md.write_text("new", encoding="utf-8")
+
+        result = Result()
+        check_governed_edits_paired_with_log_entry(
+            result,
+            previous_texts={str(master): "old", str(governance_md): "old"},
+        )
+
+        assert len(result.errors) == 1
+        assert "plans/master.md" in result.errors[0]
+        assert "plans/GOVERNANCE.md" in result.errors[0]
+
+    def test_brand_new_governed_file_with_no_paired_log_entry_is_an_error(
+        self, tmp_path, monkeypatch
+    ):
+        """A file that didn't exist at the diff base has no key in `previous_texts` at all --
+        `.get()` must default to None and still compare as "changed" against real content, not be
+        skipped just because it's absent from the dict."""
+        master, *_rest = self._set_paths(tmp_path, monkeypatch)
+        master.write_text("brand new content", encoding="utf-8")
+
+        result = Result()
+        check_governed_edits_paired_with_log_entry(result, previous_texts={})
+
+        assert len(result.errors) == 1
+        assert "plans/master.md" in result.errors[0]

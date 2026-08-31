@@ -1,0 +1,55 @@
+name: Log Coverage Heal
+
+# Layer 2 of logs/ coverage enforcement (see the decision recording this design in
+# plans/decisions/catalog.jsonl and logs/README.md's Maintenance section). Layer 1
+# (validate_plan_structure.py's check_governed_edits_paired_with_log_entry, run as the local
+# pre-commit hook and as ci.yml's blocking check) only protects a commit made from a clone with
+# hooks installed -- a hookless clone, a --no-verify commit, or a direct API commit bypasses it by
+# construction. This workflow is the actual guarantee: it runs on every push to main regardless of
+# which agent or environment made it, and if the push introduced a governed-file edit with no
+# paired logs/ entry, it writes an auto-skeleton entry (tagged `auto-skeleton`, needing a later
+# human/agent enrichment pass) and commits it directly to main -- coverage becomes a property of
+# the repository, not of any individual agent's compliance.
+#
+# Narrow by design: heal_log_coverage.py only ever touches files under logs/, self-verifies via
+# validate_plan_structure.py before committing, and refuses (exits 2, writes nothing) if more than
+# 5 dates are found missing in one run -- that signals something worse than a routine missed entry
+# and needs a human, not a bigger unattended write.
+#
+# Local test: python scripts/governance/heal_log_coverage.py --full-history --dry-run
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: log-coverage-heal-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  heal:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+      - run: pip install -r requirements-lock.txt
+      - run: pip install -e . --no-deps
+      - name: Configure the auto-heal bot identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Heal any logs/ coverage gap this push introduced
+        run: |
+          python scripts/governance/heal_log_coverage.py \
+            --push-range "${{ github.event.before }}" "${{ github.event.after }}"

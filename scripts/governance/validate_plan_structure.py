@@ -16,6 +16,7 @@ client.py`.
 from __future__ import annotations
 
 import json
+import os
 import re
 import subprocess
 import sys
@@ -23,8 +24,10 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 MASTER_MD = REPO_ROOT / "plans" / "master.md"
+GOVERNANCE_MD = REPO_ROOT / "plans" / "GOVERNANCE.md"
 REQUIREMENTS_MD = REPO_ROOT / "plans" / "requirements.md"
 REQUIREMENTS_CATALOG = REPO_ROOT / "plans" / "requirements" / "catalog.jsonl"
+DECISIONS_CATALOG = REPO_ROOT / "plans" / "decisions" / "catalog.jsonl"
 ARCHITECTURE_MD = REPO_ROOT / "docs" / "architecture.md"
 LOGS_DIR = REPO_ROOT / "logs"
 LOGS_INDEX = LOGS_DIR / "README.md"
@@ -323,19 +326,7 @@ def _previous_master_md_text() -> str | None:
     """`plans/master.md` as it stood at HEAD, i.e. before whatever is currently being committed.
     Returns None (not an error -- there is nothing to diff against) if git history isn't
     available, e.g. a shallow clone or the very first commit."""
-    try:
-        completed = subprocess.run(
-            ["git", "show", "HEAD:plans/master.md"],
-            cwd=REPO_ROOT,
-            capture_output=True,
-            text=True,
-            timeout=10,
-        )
-    except (OSError, subprocess.TimeoutExpired):
-        return None
-    if completed.returncode != 0:
-        return None
-    return completed.stdout
+    return _read_file_at_ref("HEAD", MASTER_MD)
 
 
 def _logged_wave_numbers(logs_dir: Path) -> set[str]:
@@ -388,6 +379,141 @@ def check_wave_reconciliation_gate(
             )
 
 
+def _ref_exists(ref: str) -> bool:
+    try:
+        completed = subprocess.run(
+            ["git", "rev-parse", "--verify", "--quiet", ref],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            timeout=10,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return False
+    return completed.returncode == 0
+
+
+def _read_file_at_ref(ref: str, path: Path) -> str | None:
+    """`path`'s content at git ref `ref`, or None if it didn't exist there (a legitimate "this
+    file is new" signal, not an error). `encoding="utf-8"` is required, not cosmetic: without it,
+    `subprocess.run(text=True)` falls back to the platform's preferred encoding (cp1252 on
+    Windows), which silently mis-decodes this repo's UTF-8 content (em dashes, smart quotes) in a
+    background reader thread whose exception never reaches this function -- the caller would get
+    corrupted or truncated text back with no error at all, exactly the kind of false-negative this
+    check exists to prevent elsewhere."""
+    try:
+        rel = path.relative_to(REPO_ROOT).as_posix()
+    except ValueError:
+        return None
+    try:
+        completed = subprocess.run(
+            ["git", "show", f"{ref}:{rel}"],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            timeout=10,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return None
+    if completed.returncode != 0:
+        return None
+    return completed.stdout
+
+
+def _governed_edit_diff_base() -> str | None:
+    """Ref to diff the working tree against for `check_governed_edits_paired_with_log_entry`.
+    Local (pre-commit): `HEAD` -- the working tree already carries the not-yet-committed edit.
+    CI (push event): the `PLAN_STRUCTURE_DIFF_BASE` env var, set by the workflow step to the
+    push's `before` SHA, so a multi-commit push is evaluated as a whole (a log entry added in a
+    later commit of the same push still counts) rather than commit-by-commit. Returns None when
+    there's nothing meaningful to diff against: a brand-new branch's `before` is the all-zero SHA,
+    and an unresolvable ref (shallow clone, first commit) must skip the check rather than treat
+    every governed file as "changed" by default."""
+    base = os.environ.get("PLAN_STRUCTURE_DIFF_BASE") or "HEAD"
+    if set(base) == {"0"}:
+        return None
+    if not _ref_exists(base):
+        return None
+    return base
+
+
+_USE_GIT_TEXTS = object()  # sentinel, same seam pattern as check_wave_reconciliation_gate's
+# `_USE_GIT`: tests pass an explicit dict (or None) instead of this default so they never shell
+# out to git or touch the real repo.
+
+
+def _previous_governed_texts() -> dict[str, str | None] | None:
+    """Content of every governed file and every currently-existing `logs/*.md` shard, as they
+    stood at the diff base. Returns None if there's no meaningful base (see
+    `_governed_edit_diff_base`)."""
+    base = _governed_edit_diff_base()
+    if base is None:
+        return None
+    texts: dict[str, str | None] = {}
+    for path, _label in (
+        (MASTER_MD, "plans/master.md"),
+        (GOVERNANCE_MD, "plans/GOVERNANCE.md"),
+        (REQUIREMENTS_MD, "plans/requirements.md"),
+        (DECISIONS_CATALOG, "plans/decisions/catalog.jsonl"),
+        (REQUIREMENTS_CATALOG, "plans/requirements/catalog.jsonl"),
+    ):
+        texts[str(path)] = _read_file_at_ref(base, path)
+    if LOGS_DIR.exists():
+        for log_path in sorted(LOGS_DIR.glob("*.md")):
+            texts[str(log_path)] = _read_file_at_ref(base, log_path)
+    return texts
+
+
+def check_governed_edits_paired_with_log_entry(
+    result: Result,
+    previous_texts: dict[str, str | None] | None = _USE_GIT_TEXTS,  # type: ignore[assignment]
+) -> None:
+    """A commit (or, in CI, a whole push) that edits `plans/master.md`, `plans/GOVERNANCE.md`,
+    `plans/requirements.md`, or either decision/requirement `catalog.jsonl` must also touch at
+    least one file under `logs/` in the same change -- the mechanical form of `logs/README.md`'s
+    "two touches" rule (append the entry, add the index row) and the maintenance note that history
+    for those files lives only in `logs/`. Runs identically as the local pre-commit hook and as a
+    required CI step (`ci.yml` sets `PLAN_STRUCTURE_DIFF_BASE` from the push event's `before` SHA);
+    see `_governed_edit_diff_base` for how the two contexts differ. Deliberately does not require
+    the *same* commit to carry both -- only that the whole change under review does, so a
+    multi-commit push where a later commit adds the entry is correctly treated as covered."""
+    if previous_texts is _USE_GIT_TEXTS:
+        previous_texts = _previous_governed_texts()
+    if previous_texts is None:
+        return
+
+    changed_governed: list[str] = []
+    for path, label in (
+        (MASTER_MD, "plans/master.md"),
+        (GOVERNANCE_MD, "plans/GOVERNANCE.md"),
+        (REQUIREMENTS_MD, "plans/requirements.md"),
+        (DECISIONS_CATALOG, "plans/decisions/catalog.jsonl"),
+        (REQUIREMENTS_CATALOG, "plans/requirements/catalog.jsonl"),
+    ):
+        current = path.read_text(encoding="utf-8") if path.exists() else None
+        if current != previous_texts.get(str(path)):
+            changed_governed.append(label)
+    if not changed_governed:
+        return
+
+    logs_changed = False
+    if LOGS_DIR.exists():
+        for log_path in sorted(LOGS_DIR.glob("*.md")):
+            current = log_path.read_text(encoding="utf-8")
+            if current != previous_texts.get(str(log_path)):
+                logs_changed = True
+                break
+    if not logs_changed:
+        result.error(
+            "Governed file(s) changed with no paired logs/ entry in the same change: "
+            + ", ".join(changed_governed)
+            + " -- append one via `python scripts/governance/append_log_entry.py` "
+            "(logs/README.md's 'two touches' rule) before committing."
+        )
+
+
 def main() -> int:
     result = Result()
     check_master_section_order(result)
@@ -397,6 +523,7 @@ def main() -> int:
     check_logs_shard_index_consistency(result)
     check_specialist_module_map_completeness(result)
     check_wave_reconciliation_gate(result)
+    check_governed_edits_paired_with_log_entry(result)
 
     for warning in result.warnings:
         print(f"WARNING: {warning}", file=sys.stderr)

@@ -31,6 +31,15 @@ jobs:
       - run: mypy src
       - run: python scripts/governance/run_full_pytest.py
       - run: python scripts/governance/validate_plan_structure.py
+        env:
+          # check_governed_edits_paired_with_log_entry diffs the whole push's before..after range
+          # (a multi-commit push is evaluated as a whole, not commit-by-commit) rather than just
+          # working-tree-vs-HEAD, which would be a no-op here -- by the time this runs, the
+          # checked-out working tree already IS HEAD. Left unset (falls back to "HEAD") on
+          # pull_request runs, where before/after don't carry the same meaning; the push trigger is
+          # this repo's primary path since GOVERNANCE.md rule 10's control-repo carve-out means
+          # most commits land via direct push, not a PR.
+          PLAN_STRUCTURE_DIFF_BASE: ${{ github.event_name == 'push' && github.event.before || '' }}
 
   # Decision #109 (requirement GOV-032, 2026-08-27 production recovery sprint): pinned-
   # content-hash consistency runs as its own fast, independent job -- not nested inside the
