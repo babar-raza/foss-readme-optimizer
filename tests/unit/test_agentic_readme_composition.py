@@ -2745,7 +2745,7 @@ def test_truncated_composition_retry_also_gets_a_higher_output_ceiling():
         client=client,
     )
 
-    assert client.max_tokens_seen_per_call == [6000, 10000], (
+    assert client.max_tokens_seen_per_call == [6000, 18000], (
         "the first attempt must use the original ceiling; only the retry, after a "
         "truncation is observed, gets the higher one"
     )

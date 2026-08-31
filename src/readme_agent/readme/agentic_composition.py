@@ -234,8 +234,17 @@ def plan_readme_composition(
                 # retry real headroom too, not just a request to try harder. Guarded by
                 # `hasattr` because `client` may be a test double that only implements
                 # the `ForcedToolClient` Protocol's `call()` method.
+                #
+                # fleet fan-out (2026-08-31): 10000 fixed Cells-Rust but was still not
+                # enough for aspose-slides-foss (.NET and Java both truncated on the
+                # bumped retry too, exhausting both attempts). Raised to 18000 to match
+                # the review-side ceiling (`FACTUAL_REVIEW_MAX_TOKENS`/
+                # `TRUSTED_REVIEW_MAX_TOKENS`, `reviewer_client.py`) already raised for the
+                # identical class of problem -- max_tokens is a generation ceiling most
+                # providers don't bill idle headroom on, so this costs nothing for calls
+                # that already fit today's ceiling.
                 if hasattr(resolved_client, "max_tokens"):
-                    resolved_client.max_tokens = max(resolved_client.max_tokens, 10000)
+                    resolved_client.max_tokens = max(resolved_client.max_tokens, 18000)
                 continue
             else:
                 repair_hints_text = deterministic_repair_hints(
