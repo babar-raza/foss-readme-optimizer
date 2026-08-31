@@ -466,10 +466,28 @@ def build_template_provenance(
                     exact_source_tree = source_tree_installation.strip()
                     if text.count(exact_source_tree) == 1:
                         source_tree_character_start = text.index(exact_source_tree)
+                        source_tree_character_end = source_tree_character_start + len(
+                            exact_source_tree
+                        )
+                        # `assess_material_claims` is always called below as `text + "\n"`
+                        # (the same terminator dependency this file's own claim loop
+                        # already documents) -- a terminal code-fence claim's own boundary
+                        # then consumes that trailing newline, one byte past a range
+                        # computed strictly from `exact_source_tree`'s own (`.strip()`ed)
+                        # length. Widen the range by that same one optional byte so the
+                        # code-fence claim isn't excluded by the mismatch -- confirmed live
+                        # via aspose-cells-foss/Aspose.Cells-FOSS-for-Rust, where the
+                        # fallback clone block is always this slot's terminal content.
+                        extended_text = text + "\n"
+                        if (
+                            extended_text[source_tree_character_end : source_tree_character_end + 1]
+                            == "\n"
+                        ):
+                            source_tree_character_end += 1
                         source_tree_start = len(text[:source_tree_character_start].encode("utf-8"))
                         source_tree_installation_range = (
                             source_tree_start,
-                            source_tree_start + len(exact_source_tree.encode("utf-8")),
+                            len(extended_text[:source_tree_character_end].encode("utf-8")),
                         )
                         source_tree_installation_fact_ids_value = source_tree_installation_fact_ids(
                             facts
