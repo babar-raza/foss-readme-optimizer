@@ -163,13 +163,21 @@ def _structured_equivalence_groups_are_exact(
             candidate_coordinates.update(
                 _coordinate_key(coordinate) for coordinate in binding.fact_coordinates
             )
-        if source_coordinates != candidate_coordinates:
+        # A canonical candidate claim may add other independently accountable facts.
+        # Preservation requires every exact source coordinate to survive, not byte-for-byte
+        # equality with the candidate's larger structured projection -- the same subset
+        # relationship `build_readme_claim_accountability_map`'s authoring pass itself
+        # requires (`source_coordinates.issubset(candidate_coordinates)`) before it ever
+        # forms a group. A strict-equality check here was rejecting the exact groups the
+        # authoring pass documents as its normal, expected case, not a corner one.
+        if not source_coordinates.issubset(candidate_coordinates):
             return False
         group_payload = "\n".join(
             [
                 *(f"source:{claim_id}" for claim_id in source_ids),
                 *sorted(candidate_ids),
                 *map(repr, sorted(source_coordinates)),
+                *map(repr, sorted(candidate_coordinates)),
             ]
         )
         expected_hash = hashlib.sha256(group_payload.encode("utf-8")).hexdigest()
