@@ -61,6 +61,16 @@ class LLMTruncatedResponseError(LLMError):
     """A forced tool call response was cut off at finish_reason == 'length'."""
 
     def __init__(self, message: str, *, finish_reason: str, completion_tokens: int | None) -> None:
-        super().__init__(message)
+        # `completion_tokens` (the provider's own reported usage) is the one piece of
+        # evidence that tells apart "the max_tokens ceiling was genuinely too small for
+        # this content" from "something else consumed the budget before visible output
+        # started" (e.g. reasoning tokens) -- a real distinction, confirmed live: a
+        # truncation reported at a few hundred completion tokens against an 18000-token
+        # ceiling cannot be explained by ceiling size alone, but the raw error text alone
+        # gives no way to tell without live-tracing. Folding it into the message itself
+        # means every caller that formats this exception (dispatcher.py's generic
+        # execution_error wrapper included) surfaces it for free, not just future direct
+        # readers of the exception object.
+        super().__init__(f"{message} (completion_tokens={completion_tokens!r})")
         self.finish_reason = finish_reason
         self.completion_tokens = completion_tokens

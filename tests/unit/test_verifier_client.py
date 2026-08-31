@@ -316,6 +316,13 @@ class TestLiveForcedToolClientRetry:
 
         assert excinfo.value.finish_reason == "length"
         assert excinfo.value.completion_tokens == 4000
+        # PWD-021-FOLLOWUP: a truncation reported at a few hundred completion tokens
+        # against an 18000-token ceiling cannot be explained by "the ceiling was too
+        # small" -- completion_tokens is the one signal that tells the two apart, and
+        # must be visible in the message itself (not just the exception object) so every
+        # caller that formats this exception into a persisted error string (the generic
+        # `execution_error` wrapper included) surfaces it for free.
+        assert "completion_tokens=4000" in str(excinfo.value)
 
     def test_non_length_malformed_arguments_still_report_truncation_metadata_in_message(
         self, monkeypatch
