@@ -23,73 +23,14 @@ Level 8, or full umbrella-mission closure.
 
 ## Status
 
-**Live mission status (2026-08-27, read-only `supervise --mission-action status`): portfolio
-denominator 34; `facts_ready` 23/34, `candidate_generated` 2/34, `deterministic_validated` 1/34,
-`agent_approved` 1/34, `no_op_proven` 1/34 (Aspose.3D Python), `human_accepted` 0/34; `graph_drift:
-false`; no active/eligible/next task; 49 unresolved tasks; 1 externally blocked task; first failing
-boundary `FACTS_READY`.** This paragraph replaces the prior 2026-08-24 snapshot below it (0/31, 33
-denominator), which had drifted from live truth by the time it was next read — a concrete instance of
-the pinned-summary-drift pattern the 2026-08-27 production recovery sprint's Decision #109 now exists
-to catch mechanically. See `plans/investigations/production-recovery-sprint-2026-08-27.md` for the full
-independently-verified claim ledger, root-cause hierarchy, and Decisions #109-113. The sealed
-`L8-PF-03-SEALED-CANDIDATE-NO-OP` evidence bundle (2026-08-24, Aspose.3D-Python, `NO_OP_PROVEN`) remains
-the one current no-op proof; changed contracts since have not yet been checked against it component-by-
-component (Decision #111's per-repository dependency scoping, once implemented, is what makes that
-check cheap enough to run routinely instead of only at full-fleet boundaries). The Level-8 taskcard
-`L8-PF-03-SEALED-CANDIDATE-NO-OP` itself remains committed `status: TODO`; per this repo's own
-authority model, durable state and sealed evidence — not the graph file's committed status field — are
-what is live-authoritative here, but the discrepancy is worth closing explicitly rather than leaving
-implicit.
-
-The following retains the prior 2026-08-24 snapshot's own denominator (33) and count basis exactly as
-originally written, for its historical narrative value; do not read its raw numbers as current.
-
-The following is a **historical 2026-08-19 snapshot**, retained for traceability and not current
-closure evidence: **3/33 Python repositories were then reported `NO_OP_PROVEN`** — 3D, barcode,
-and cells-Python, up from
-1/33 at session start, via a chain of four same-day root-cause fixes plus their live verification:
-
-1. **S12** (composition-authority): template-mandated Dependencies content — three H3
-   sub-headings plus two fixed, non-fact-derived lead-in sentences the same headings render
-   with — was never registered as governed template structure in `readme/composition_lineage.py`,
-   hard-failing composition-ledger validation for every candidate with a Dependencies section.
-   Live-confirmed fully cleared on cells-python, font-python, barcode-python, page-python (two
-   corrective passes; the first fix was real but incomplete, caught by rerunning immediately
-   rather than trusting one green test). A companion diagnostics-persistence fix now captures a
-   blocked attempt's full composition ledger on disk — what made root-causing this possible.
-2. **Disposition-context wiring audit**: clearing S12 surfaced that `build_readme_document_
-   candidate()`'s independent-rebuild callers mostly never received the disposition client/
-   repository_root/ratchet path gate 1 (`document_planner.py`) already resolves, so an accepted
-   `excluded_with_reason` claim could reappear as a fresh block at any later independent-rebuild
-   gate. Audited all 5 call sites: gate 1 already correct; gates 2 (`readme_factuality.py`), 3
-   (`verification/checks.py`), and `idea_candidate.py` fixed and live-confirmed (barcode/cells both
-   cleared through to `NO_OP_PROVEN`); `readme_proposal_bundle.py` left as a precisely-scoped lead
-   (harder shape, no direct live failure evidence).
-3. **Shared claim-disposition ratchet backfill**: an already-corroborated disposition replayed
-   from a repo's own ratchet never propagated to the portfolio-shared store (only a fresh model
-   acceptance did) — live-observed via note-python's own accepted verdict for a boilerplate claim
-   (content hash `7ff54c1da64deecb`) that page-python's source also carries verbatim. Fixed;
-   confirmed working (the shared store now genuinely holds the backfilled entry). It surfaced a
-   distinct, deeper, **not-yet-fixed** gap: this exact claim's source-stage and candidate-stage
-   records (byte-identical text, same content hash, different `expected_disposition`) are not
-   linked by the schema's own `equivalent_candidate_claims`/`equivalence_group_id` fields, so
-   resolving the source-stage claim alone doesn't close the candidate-stage one — recorded
-   precisely in the failure-signature ledger, not guessed at further.
-4. **Live proof**: multiple `--retry-blocked` passes (one transient GitHub clone/rate-limit
-   hiccup was hit and ruled out via direct `git ls-remote`, unrelated to any code change) confirm
-   the complete chain end to end for three repositories.
-
-Mission status (state_version 10, post-verification): `facts_ready` 12/33, `candidate_generated`
-3/33, `deterministic_validated` 3/33, `agent_approved` 3/33, **`no_op_proven` 3/33**
-(3D-Python, barcode-python, cells-python), `human_accepted` 0/33 — an exact, clean set with no
-partial/stuck-in-between member. First failing boundary `FACTS_READY` reflects repositories not
-yet reached by a pass, not a regression. Seven real defects fixed and regression-tested this
-session. Remaining open Python blockers, precisely diagnosed: email/pdf/slides (one S1
-claim-accountability block each, not yet root-caused to a specific fixable mechanism);
-font (two claims needing new extraction/matching logic — a real parameter-name reference and a
-real private-submodule reference, neither covered by any existing matcher); note/page (the
-equivalence-linkage gap above); html/psd/tex (genuine upstream `infra_external` defects, not
-locally fixable).
+Per rule 1, this section never holds a numeric snapshot or dated investigation narrative — every
+prior snapshot has gone stale before its next reader, which is exactly the pattern rule 1 exists to
+stop. Run `supervise --mission-action status` (read-only) for live counts; run `mission-action
+evaluate` before claiming work. Evaluation reconciles closed repository deliverables against current
+fact and acceptance hashes, regresses the earliest stale closeout when no later reconciliation task
+already owns that repository, and prevents dependants from advancing on historical closure alone.
+Investigation narrative for specific past findings lives in `plans/investigations/` (e.g.
+`production-recovery-sprint-2026-08-27.md`) and dated `logs/` entries — never here.
 
 Durable mission state owns the live task, immediate goal, repository scope,
 claim, transition history, and current contract-valid numerator. This document deliberately does
