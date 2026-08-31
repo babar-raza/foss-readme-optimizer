@@ -280,6 +280,7 @@ def _unsupported_format_errors(
     cited_facts: Iterable[SectionAuthoringFactV1],
     accepted_facts: Iterable[SectionAuthoringFactV1],
     do_not_claim_fact_ids: set[str],
+    public_product_name: str | None = None,
 ) -> list[str]:
     cited_facts = list(cited_facts)
     accepted_facts = list(accepted_facts)
@@ -300,6 +301,17 @@ def _unsupported_format_errors(
         ),
         set(),
     )
+    # PWD-028: `product.identity` is not always among a section's own routed
+    # `accepted_facts` (e.g. "installation" sections cite acquisition facts, not
+    # identity), but every packet's `public_product_name` is unconditionally
+    # available and every unit is separately required to use it verbatim (see the
+    # exact-public-name check below). A section that correctly follows that
+    # requirement for a product whose own name embeds its format acronym (e.g.
+    # "Aspose.HTML") must not then be rejected for naming that same format --
+    # same self-reference exception as the `product.identity` case above, just
+    # sourced from the field that is actually always present.
+    if public_product_name:
+        authorized |= _known_format_tokens(public_product_name)
     mentioned = _known_format_tokens(unit.heading + "\n" + unit.text)
     unsupported = sorted(mentioned - authorized)
     errors = (
@@ -411,7 +423,9 @@ def remove_reserved_directional_units(
     rejected_fact_ids: set[str] = set()
     for unit in result.units:
         cited = [fact for fact in packet.accepted_facts if fact.fact_id in unit.fact_ids]
-        errors = _unsupported_format_errors(unit, cited, all_facts, forbidden_ids)
+        errors = _unsupported_format_errors(
+            unit, cited, all_facts, forbidden_ids, packet.public_product_name
+        )
         if any("reserved for deterministic rendering" in error for error in errors):
             payload = json.dumps(unit.model_dump(mode="json"), sort_keys=True, ensure_ascii=False)
             rejected_hashes.append(hashlib.sha256(payload.encode("utf-8")).hexdigest())
@@ -492,6 +506,7 @@ def section_authoring_fact_errors(
             cited_facts,
             (*packet.accepted_facts, *packet.do_not_claim),
             {fact.fact_id for fact in packet.do_not_claim},
+            packet.public_product_name,
         )
     )
     if re.search(r"(?i)\baspose\b", public_text):

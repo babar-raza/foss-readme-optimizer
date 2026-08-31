@@ -15,6 +15,7 @@ from readme_agent.specialists.section_authoring_contracts import (
 )
 from readme_agent.specialists.section_authoring_fact_validation import (
     _known_format_tokens,
+    _unsupported_format_errors,
     section_authoring_fact_errors,
 )
 
@@ -108,3 +109,79 @@ def test_filename_embedded_extension_authorizes_quick_start_prose():
     errors = section_authoring_fact_errors(_packet(fact), unit)
 
     assert not any("recognized file formats are absent" in error for error in errors), errors
+
+
+def _acquisition_fact() -> SectionAuthoringFactV1:
+    """A fact shape an "installation" section would actually cite -- carries no
+    format tokens and is not a `product.identity` fact, unlike every other fact
+    fixture in this file."""
+
+    return SectionAuthoringFactV1(
+        fact_id="fact:installation.acquisition:1",
+        field="installation.acquisition",
+        value={"package_manager": "pip", "package_name": "aspose-html-foss"},
+        verification_state="verified",
+        corroboration=FactCorroborationV1(
+            evidence_assessment_count=1,
+            has_unresolved_conflict=False,
+            resolved_conflict_count=0,
+        ),
+        polarity="positive_implementation",
+        source=FactSourceRefV1(source_type="repository_file", location="pyproject.toml"),
+    )
+
+
+def test_own_eponymous_format_in_public_name_authorizes_installation_prose():
+    """PWD-028: real `aspose-html-foss/Aspose.HTML-FOSS-for-Python` bug -- the
+    "installation" section cites only acquisition facts, never `product.identity`,
+    so naming the product's own public name ("Aspose.HTML FOSS for Python") in an
+    installation heading was rejected as an unsupported "HTML" format claim, even
+    though it names the product, not a claimed operation."""
+
+    fact = _acquisition_fact()
+    unit = SectionClusterUnitV1(
+        heading="Acquire Aspose.HTML FOSS for Python from source",
+        text="Clone the repository and install it directly from source.",
+        fact_ids=(fact.fact_id,),
+    )
+    packet = SectionAuthoringPacketV1(
+        org_repo="aspose-html-foss/Aspose.HTML-FOSS-for-Python",
+        public_product_name="Aspose.HTML FOSS for Python",
+        source_revision="deadbeef",
+        target_section_id="installation",
+        task_family="verified_example_framing",
+        section_objective="Explain how to acquire the package.",
+        accepted_facts=(fact,),
+        protected_literal_hash=_PROTECTED_LITERAL_HASH,
+    )
+
+    errors = section_authoring_fact_errors(packet, unit)
+
+    assert not any("recognized file formats are absent" in error for error in errors), errors
+
+
+def test_unsupported_format_errors_negative_control_without_public_product_name():
+    """Negative control: omitting `public_product_name` (the pre-fix call shape)
+    must still reproduce the real bug -- proves the fix, not the test setup, is
+    what clears the false positive above."""
+
+    fact = _acquisition_fact()
+    unit = SectionClusterUnitV1(
+        heading="Acquire Aspose.HTML FOSS for Python from source",
+        text="Clone the repository and install it directly from source.",
+        fact_ids=(fact.fact_id,),
+    )
+
+    errors = _unsupported_format_errors(unit, [fact], [fact], set())
+
+    assert any(
+        "recognized file formats are absent from cited accepted facts" in error for error in errors
+    ), errors
+
+    fixed_errors = _unsupported_format_errors(
+        unit, [fact], [fact], set(), "Aspose.HTML FOSS for Python"
+    )
+
+    assert not any("recognized file formats are absent" in error for error in fixed_errors), (
+        fixed_errors
+    )
