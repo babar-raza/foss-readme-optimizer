@@ -793,6 +793,81 @@ print("export")
         ]
 
 
+def test_api_reference_details_premise_is_not_rejected_by_unrelated_example_contract() -> None:
+    """PWD-012: a genuine API-reference finding must not be silently discarded because it
+    happens to share vocabulary ("lacks", "<details>") with the unrelated secondary-example
+    contract check -- that check must only ever fire for findings actually scoped to
+    additional-examples, exactly like every other section-specific check in this module."""
+
+    candidate = """# Product
+
+## Quick Start
+
+```python
+print("ready")
+```
+
+## Additional Examples
+
+The examples below demonstrate an export workflow.
+
+<details>
+<summary>View additional examples and results</summary>
+
+### Export
+
+```python
+print("export")
+```
+
+</details>
+
+## API Reference
+
+<details>
+<summary>View public API by namespace</summary>
+
+### Product Namespace (`product`)
+
+| Type | Description |
+| --- | --- |
+| `Scene` | Loads and saves product documents. |
+
+</details>
+
+<details>
+<summary>View public API by namespace</summary>
+
+### Second Namespace (`second`)
+
+</details>
+"""
+    contract = {
+        "configured_standards": [
+            {
+                "standard_id": "readme.primary_example",
+                "parameters": {
+                    "secondary_examples": "collapsed_below_primary",
+                    "secondary_examples_intro": "workflow_preview",
+                },
+            },
+        ]
+    }
+
+    errors = validate_configured_standard_premise(
+        finding_id="visitor.api.second-namespace-empty",
+        section="api-reference",
+        premise=(
+            "The Second Namespace collapsed <details> block is without a populated table, "
+            "unlike the Product Namespace above."
+        ),
+        candidate_text=candidate,
+        visitor_contract=contract,
+    )
+
+    assert errors == []
+
+
 def test_complete_product_specific_capability_rows_disprove_fragment_premises() -> None:
     candidate = (
         "# Aspose.3D FOSS for Python\n\n## Key Capabilities\n\n"

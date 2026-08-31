@@ -9,7 +9,7 @@ from readme_agent.specialists.review_standard_mermaid_premises import (
     validate_mermaid_standard_premise,
 )
 
-REVIEW_STANDARD_PREMISE_CONTRACT_VERSION = 10
+REVIEW_STANDARD_PREMISE_CONTRACT_VERSION = 11
 
 
 def _configured_standards(visitor_contract: dict) -> dict[str, dict]:
@@ -278,7 +278,8 @@ def validate_configured_standard_premise(
         or bool(re.search(r"\black(?:s|ing)?\b[^.\n]{0,100}\bworkflow[- ]preview\b", premise))
     )
     if (
-        claims_secondary_structure_missing
+        section_slug == "additional-examples"
+        and claims_secondary_structure_missing
         and example_standard.get("secondary_examples") == "collapsed_below_primary"
         and example_standard.get("secondary_examples_intro") == "workflow_preview"
         and _secondary_examples_contract_is_satisfied(candidate_text)
