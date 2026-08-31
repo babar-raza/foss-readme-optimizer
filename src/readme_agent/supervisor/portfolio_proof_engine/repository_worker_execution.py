@@ -25,7 +25,7 @@ from readme_agent.supervisor.portfolio_proof_engine.repository_worker_process im
 
 
 def _wait_for_receipt_visibility(
-    path: Path, *, attempts: int = 6, initial_delay_seconds: float = 0.05
+    path: Path, *, attempts: int = 10, initial_delay_seconds: float = 0.1
 ) -> bool:
     """Tolerate filesystem visibility lag between a child's write and this process's read.
 
@@ -44,8 +44,17 @@ def _wait_for_receipt_visibility(
     tolerance for an environmental lag, not a correctness weakening: every existing identity and
     exit-code consistency check in `load_worker_receipt()` still runs unchanged once the file is
     found, so a stale or corrupted receipt is never accepted merely because this loop waited longer
-    for it. Bounded at roughly 1.55s worst case (0.05+0.1+0.2+0.4+0.8s successive backoff) so a
-    genuinely absent receipt is still reported as absent, just not instantly.
+    for it.
+
+    Bound history: the first version (attempts=6, initial_delay=0.05s, ~1.55s worst case) was
+    re-validated on a live portfolio pass and measurably helped but did not fully close the gap --
+    2 of 6 pool-dispatched workers in that run still hit `receipt_rejected`, down from 8 of 13
+    before the fix (roughly 62% -> 33%), a real reduction, not noise, but still short of "near
+    zero." Extended to attempts=10, initial_delay=0.1s (~7.5s worst case:
+    0.1+0.2+0.4+0.8+1.0*6, capped at 1.0s per step) based on that new evidence, per this fix's own
+    taskcard (PWD-006) explicitly anticipating exactly this: lengthen the bound only when live
+    re-validation shows it's still insufficient, never speculatively. A genuinely absent receipt is
+    still reported as absent, just not instantly -- this only ever helps a real receipt be *seen*.
     """
 
     delay = initial_delay_seconds
