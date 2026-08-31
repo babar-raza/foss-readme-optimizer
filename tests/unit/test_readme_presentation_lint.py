@@ -176,6 +176,67 @@ def test_format_direction_lint_allows_input_only_format_and_negative_limitation(
     }
 
 
+def test_own_eponymous_format_is_authorized_for_both_directions_when_only_output_declared() -> None:
+    """PWD-030: real `aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET` bug -- its `LoadFormat` C#
+    enum has no `Pdf` member (there is nothing to "load" when PDF already *is* the native
+    `Document` type), so the extracted `product.formats` fact declared only "Output format:
+    Pdf", and 10 real "reads/loads a PDF" API-index lines were all flagged as an unauthorized
+    input direction for the product's own format."""
+
+    facts = _facts("aspose-pdf-foss/Aspose.PDF-FOSS-for-Java")
+    formats = facts.selected_fact("product.formats")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": ["Output format: Pdf", "Input format: SVG"]})
+                if fact.fact_id == formats.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    assert explicit_format_roles(facts) == {
+        "PDF": frozenset({"input", "output"}),
+        "SVG": frozenset({"input"}),
+    }
+    candidate = "# Aspose.PDF FOSS for Java\n\n| `Document(String)` | Loads a PDF document. |\n"
+
+    assert "format_direction_contradiction" not in {
+        finding.rule_id for finding in lint_readme_presentation(candidate, facts).findings
+    }
+
+
+def test_ordinary_product_family_is_not_granted_an_own_format_exception() -> None:
+    """Negative control: a product family that is not itself a real document format
+    (Aspose.3D's family is "3d", not a `canonical_document_format` match) must not gain any
+    free authorization -- the exception is self-limiting to genuinely eponymous products."""
+
+    facts = _facts("aspose-3d-foss/Aspose.3D-FOSS-for-Java")
+    formats = facts.selected_fact("product.formats")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": ["Output format: OBJ"]})
+                if fact.fact_id == formats.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    assert explicit_format_roles(facts) == {"OBJ": frozenset({"output"})}
+    candidate = "# Aspose.3D FOSS for Java\n\n- Import OBJ scenes.\n"
+
+    findings = [
+        finding
+        for finding in lint_readme_presentation(candidate, facts).findings
+        if finding.rule_id == "format_direction_contradiction"
+    ]
+    assert len(findings) == 1
+    assert "OBJ" in findings[0].message
+
+
 def test_format_direction_lint_accepts_explicit_import_and_export_fact() -> None:
     facts = _facts("aspose-3d-foss/Aspose.3D-FOSS-for-Java")
     formats = facts.selected_fact("product.formats")

@@ -78,8 +78,45 @@ def _format_tokens(value: str) -> set[str]:
     return tokens
 
 
+def _own_eponymous_format(facts: ProductFactsV2) -> str | None:
+    """The product's own eponymous document format, if it has one.
+
+    A library literally named after a format (Aspose.PDF, Aspose.HTML, ...) reads
+    and writes that format by construction -- its own document object model *is*
+    the format. `product.formats`'s `LoadFormat`/`SaveFormat`-derived entries name
+    formats convertible *to/from* that native type, not the native type's own I/O,
+    so a product whose `SaveFormat` enum happens to declare only the output side
+    (e.g. Aspose.PDF's `LoadFormat` enum has no `Pdf` member -- there is nothing to
+    "load" when PDF already *is* the native `Document` type) can otherwise report
+    its own format as an unauthorized input direction. Self-limiting: this only
+    ever matches products whose family/product name literally is a real,
+    recognized document format (`canonical_document_format` returns ``None`` for
+    an ordinary product family like "cells" or "3d")."""
+
+    fact_id = facts.selected_fact_ids.get("product.identity")
+    if fact_id is None:
+        return None
+    fact = facts.fact_by_id(fact_id)
+    if (
+        fact.verification_state not in {"verified", "policy_approved"}
+        or fact.has_unresolved_conflict
+    ):
+        return None
+    value = fact.value
+    if not isinstance(value, dict):
+        return None
+    for key in ("family", "product_name"):
+        candidate = value.get(key)
+        if isinstance(candidate, str):
+            canonical = canonical_document_format(candidate)
+            if canonical is not None:
+                return canonical
+    return None
+
+
 def explicit_format_roles(facts: ProductFactsV2 | None) -> dict[str, frozenset[FormatRole]]:
-    """Return role authority only for formats explicitly named by ``product.formats``."""
+    """Return role authority only for formats explicitly named by ``product.formats``,
+    plus the product's own eponymous format (both directions), if it has one."""
 
     if facts is None:
         return {}
@@ -114,6 +151,9 @@ def explicit_format_roles(facts: ProductFactsV2 | None) -> dict[str, frozenset[F
             continue
         for format_name in formats:
             roles.setdefault(format_name, set()).update(item_roles)
+    own_format = _own_eponymous_format(facts)
+    if own_format is not None:
+        roles.setdefault(own_format, set()).update({"input", "output"})
     return {name: frozenset(values) for name, values in roles.items()}
 
 
