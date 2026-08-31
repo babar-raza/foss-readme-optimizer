@@ -204,7 +204,20 @@ def render_readme_header_visual(
     )
     nodes = _compact_node_labels(nodes, facts, product_name=title)
     raster_formats = raster_output_formats_label(facts)
-    expected_capabilities = selected_verified_capability_nodes(facts)
+    # A candidate whose raw label cannot be rendered as a safe Mermaid label is
+    # already excluded by normalize_diagram_role_nodes() before it ever reaches
+    # `nodes` (e.g. a fact sentence with a semicolon, banned by `_UNSAFE_LABEL`
+    # as a Mermaid-structural character even though it's ordinary English
+    # punctuation here) -- dropping one unrenderable candidate is selection, not
+    # content suppression, since the capability itself still reaches the README
+    # through the Key Capabilities section. The expected set here must apply the
+    # exact same filter, or this check compares a rendered count against an
+    # expected count the render path could never actually produce.
+    expected_capabilities = [
+        node
+        for node in selected_verified_capability_nodes(facts)
+        if safe_mermaid_label(node.label) is not None
+    ]
     rendered_capability_labels = {
         " ".join(node.label.casefold().split()) for node in nodes if node.role == "capability"
     }

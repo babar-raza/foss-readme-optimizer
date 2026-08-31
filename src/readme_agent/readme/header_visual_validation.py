@@ -103,6 +103,15 @@ def validate_readme_header_visual(
         if node.role == "output"
     )
     raster_formats = raster_output_formats_label(facts)
+    # Same exclusion `normalize_diagram_role_nodes()` already applies before a
+    # candidate ever reaches `visual.diagram_nodes`: a raw label that can't be
+    # rendered as safe Mermaid syntax (e.g. a fact sentence with a semicolon,
+    # banned as a Mermaid-structural character even though it's ordinary
+    # English punctuation here) is selection, not content suppression -- it
+    # still reaches the README through the Key Capabilities section. This
+    # expected set must apply the identical filter or this check compares a
+    # rendered count against an expected count the renderer could never
+    # actually produce (see the matching fix in `header_visual.py`).
     expected_capabilities = {
         " ".join(
             compact_diagram_node_label(
@@ -115,6 +124,7 @@ def validate_readme_header_visual(
             .split()
         ): set(node.supporting_fact_ids)
         for node in selected_verified_capability_nodes(facts)
+        if safe_mermaid_label(node.label) is not None
     }
     rendered_capabilities = {
         " ".join(node.label.casefold().split()): set(node.fact_ids)
