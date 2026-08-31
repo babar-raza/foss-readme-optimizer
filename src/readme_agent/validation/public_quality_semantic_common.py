@@ -21,7 +21,16 @@ _POSITIVE_CUE = re.compile(
 _NEGATIVE_CUE = re.compile(
     r"(?i)\b(?:not\s+(?:currently\s+)?(?:support(?:ed)?|implement(?:ed)?|available|reachable)|"
     r"unsupported|no\s+support\s+for|NotImplementedError|not\s+yet\s+(?:supported|implemented)|"
-    r"throw(?:s|ing)?\b.{0,80}\b(?:UnsupportedOperationException|NotImplementedError)|"
+    # `UnsupportedOperationException`/`NotImplementedError` are Java/Python-idiomatic; real bug
+    # found on aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET's own limitation fact ("`PdfViewer`'s
+    # `Print*` methods throw `PlatformNotSupportedException`; render to an image ... instead."):
+    # the .NET-idiomatic exception names weren't recognized, so the sentence fell through to the
+    # positive-cue match on "render", making a limitation bullet look like an unqualified
+    # capability claim contradicting itself. Confirmed both names appear in real, non-Platform-
+    # prefixed usage across the registry's own captured facts (36 `NotSupportedException`, 7
+    # `PlatformNotSupportedException` occurrences).
+    r"throw(?:s|ing)?\b.{0,80}\b(?:UnsupportedOperationException|NotImplementedError|"
+    r"PlatformNotSupportedException|NotSupportedException)|"
     r"unavailable|limit(?:ed)?\s+to|restrict(?:ed)?\s+to|remain(?:s)?\s+incomplete|"
     r"out\s+of\s+scope|only\b.{0,80}\bsupported)\b"
 )

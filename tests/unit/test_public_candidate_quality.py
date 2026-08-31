@@ -255,6 +255,36 @@ def test_claim_grounding_treats_explicit_unsupported_exception_as_negative() -> 
     assert "claim_grounding_negative_fact" not in _check_ids(report)
 
 
+def test_claim_grounding_treats_dotnet_not_supported_exceptions_as_negative() -> None:
+    """PWD-040: `aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET`'s real limitation bullet --
+    "`PdfViewer`'s `Print*` methods throw `PlatformNotSupportedException`; render to an
+    image and pass it to your own printing stack instead." -- was not recognized as a
+    negative cue (only the Java/Python exception names were), so "render" made the
+    bullet itself look like an unqualified positive capability claim contradicting its
+    own limitation fact."""
+
+    limitation = (
+        "`PdfViewer`'s `Print*` methods throw `PlatformNotSupportedException`; render to "
+        "an image and pass it to your own printing stack instead."
+    )
+    candidate = f"# PDF Toolkit\n\n## Scope and Limitations\n\n- {limitation}\n"
+    facts = _facts(_fact("product.limitations", [limitation]))
+
+    report = evaluate_public_candidate_quality(candidate, facts=facts)
+
+    assert "claim_grounding_negative_fact" not in _check_ids(report)
+
+
+def test_claim_grounding_treats_bare_not_supported_exception_as_negative() -> None:
+    limitation = "Import throws `NotSupportedException` for archive-based formats."
+    candidate = f"# Toolkit\n\n## Scope and Limitations\n\n- {limitation}\n"
+    facts = _facts(_fact("product.limitations", [limitation]))
+
+    report = evaluate_public_candidate_quality(candidate, facts=facts)
+
+    assert "claim_grounding_negative_fact" not in _check_ids(report)
+
+
 def test_same_input_twice_produces_a_byte_identical_report() -> None:
     candidate = """# Product
 
