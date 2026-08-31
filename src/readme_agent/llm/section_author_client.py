@@ -39,6 +39,18 @@ class LiveSectionClusterAuthorClient:
             response_max_attempts=1,
         )
 
+    @property
+    def max_tokens(self) -> int:
+        """Exposes the underlying transport client's ceiling so a caller's own truncation
+        retry (`section_cluster_authoring.py`) can raise it the same `hasattr`-guarded way
+        `agentic_composition.py` already does for its own client."""
+
+        return self._client.max_tokens
+
+    @max_tokens.setter
+    def max_tokens(self, value: int) -> None:
+        self._client.max_tokens = value
+
     def analyze_section_cluster(
         self, messages: list[dict], accepted_fact_ids: list[str]
     ) -> AnalysisResult:

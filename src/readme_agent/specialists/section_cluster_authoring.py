@@ -443,6 +443,20 @@ def execute_section_cluster_authoring(
             # transport failure -- reuses this loop's own retry/repair-hint machinery
             # rather than a client-level retry, matching how a schema/acceptance
             # failure is already handled below.
+            #
+            # fleet fan-out (2026-08-31): a conciseness instruction alone was not enough
+            # for a large enough section (aspose-slides-foss/Aspose.Slides-FOSS-for-Java
+            # truncated at ~10,770 characters against this client's 2048-token baseline --
+            # the same "brevity reduces prompt bulk, not the true minimum output size"
+            # gap already found and fixed for the whole-document composition call in
+            # agentic_composition.py). Give the retry real headroom too, matching the
+            # same 18000-token ceiling already proven for that call and for factual/
+            # trusted review (reviewer_client.py) -- one consistent, already-validated
+            # large-content ceiling project-wide, not a new arbitrary number. Guarded by
+            # `hasattr` because `client` may be a test double that only implements the
+            # `SectionClusterAuthorClientLike` Protocol's `analyze_section_cluster()`.
+            if hasattr(client, "max_tokens"):
+                client.max_tokens = max(client.max_tokens, 18000)
             messages = build_messages(
                 repair_hint=(
                     f"Your previous submission (attempt {attempt}) was cut off before it "

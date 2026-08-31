@@ -290,6 +290,41 @@ def test_truncated_response_exhausts_retries_and_fails_closed():
     assert len(client.calls) == 3
 
 
+class _TruncatingThenValidClientWithTokenBudget(_TruncatingThenValidClient):
+    """Tracks `max_tokens` the way a real `LiveSectionClusterAuthorClient` exposes it, so the
+    retry loop's own bump can be observed."""
+
+    def __init__(self, *, truncate_calls: int, final_response: dict):
+        super().__init__(truncate_calls=truncate_calls, final_response=final_response)
+        self.max_tokens = 2048
+        self.max_tokens_seen_per_call: list[int] = []
+
+    def analyze_section_cluster(self, messages, accepted_fact_ids):
+        self.max_tokens_seen_per_call.append(self.max_tokens)
+        return super().analyze_section_cluster(messages, accepted_fact_ids)
+
+
+def test_truncated_response_retry_also_gets_a_higher_output_ceiling():
+    """Fleet fan-out (2026-08-31): aspose-slides-foss/Aspose.Slides-FOSS-for-Java truncated at
+    ~10,770 characters against this client's 2048-token baseline -- a conciseness instruction
+    alone reduces prompt bulk, it cannot guarantee a genuinely large section's true minimum
+    output fits a fixed ceiling (the identical gap already found and fixed for the whole-
+    document composition call in agentic_composition.py). The retry must get real headroom
+    too, not just an instruction to try harder."""
+
+    packet = _packet()
+    client = _TruncatingThenValidClientWithTokenBudget(
+        truncate_calls=1, final_response=_valid_response()
+    )
+
+    execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert client.max_tokens_seen_per_call == [2048, 18000], (
+        "the first attempt must use the original ceiling; only the retry, after a "
+        "truncation is observed, gets the higher one"
+    )
+
+
 def test_internal_verification_narration_triggers_targeted_recovery():
     packet = _packet()
     internal = _valid_response()
