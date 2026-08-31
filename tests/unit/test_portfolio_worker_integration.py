@@ -419,6 +419,84 @@ def test_nonzero_exit_worker_with_an_exit_code_consistent_receipt_is_trusted(
     assert receipt.result.blocked_category == "agent_fixable"
 
 
+def test_a_receipt_at_a_max_path_length_location_is_still_loaded(tmp_path: Path) -> None:
+    """ACL-ORCH-RECEIPT-VISIBILITY-LAG's MAX_PATH fix only ever patched
+    `repository_worker_execution.py::_receipt_exists()`, which sets
+    `WorkerResultV1.receipt_observed` -- it never touched this module. Found live: a real
+    receipt at a real, confirmed 261-character path was correctly observed as present by the
+    fixed check (`receipt_observed: True` in the batch report) and still discarded as
+    `receipt_rejected` here, because `load_worker_receipt()`'s own, separate
+    `Path.is_file()`/`Path.read_text()` never got the same fix. This constructs a real
+    >=260-character receipt path (padding depth derived at runtime, matching
+    `test_local_poc_cache_inventory_long_path.py`'s own established pattern) and proves both
+    that the naive check would have missed it and that `load_worker_receipt` now doesn't."""
+
+    import os
+
+    from readme_agent.evidence.writer import win_long_path
+
+    max_path = 260
+    receipt_dir = tmp_path
+    suffix_length = len(os.path.join("evidence", "worker-receipt.json"))
+    while len(os.path.abspath(receipt_dir)) + 1 + suffix_length < max_path:
+        receipt_dir = receipt_dir / ("r" * 40)
+    receipt_dir = receipt_dir / "b9f9cee6ca0e45e2ae69fbc8f8d03e71" / "evidence"
+    long_path = os.path.abspath(receipt_dir / "worker-receipt.json")
+    assert len(long_path) >= max_path, "fixture must reach MAX_PATH"
+
+    receipt = PortfolioWorkerReceiptV2(
+        registry_revision_id="a" * 64,
+        worker_invocation_id="b9f9cee6ca0e45e2ae69fbc8f8d03e71",
+        source_revision="b" * 40,
+        result=PortfolioRepositoryResultV1(
+            org_repo="org/repo",
+            status="BLOCKED",
+            exit_code=1,
+            blocked_reason="specialist_failed:readme_presentation:ERROR:presentation_plan:blocked",
+            blocked_category="agent_fixable",
+        ),
+    )
+    target = win_long_path(receipt_dir) if os.name == "nt" else str(receipt_dir)
+    os.makedirs(target, exist_ok=True)
+    receipt_file_target = win_long_path(long_path) if os.name == "nt" else long_path
+    with open(receipt_file_target, "w", encoding="utf-8") as handle:
+        handle.write(receipt.model_dump_json())
+
+    assert Path(long_path).is_file() is False, "fixture must reproduce the naive check's blind spot"
+
+    blocked = WorkerResultV1(
+        job_id="000-org_repo",
+        input_ordinal=0,
+        org_repo="org/repo",
+        contract_hash="c" * 64,
+        exit_classification="CHILD_NONZERO_EXIT",
+        succeeded=False,
+        return_code=1,
+        duration_seconds=0.1,
+        output_dir=str(tmp_path / "output"),
+        evidence_dir=str(receipt_dir),
+        expected_receipt_path=long_path,
+        receipt_observed=True,
+    )
+
+    loaded = load_worker_receipt(
+        blocked,
+        registry_revision_id="a" * 64,
+        expected_source_revision="b" * 40,
+        persisted_source_revision="b" * 40,
+    )
+    assert loaded is not None
+    assert loaded.result.status == "BLOCKED"
+
+    rejection = describe_worker_receipt_rejection(
+        blocked,
+        registry_revision_id="a" * 64,
+        expected_source_revision="b" * 40,
+        persisted_source_revision="b" * 40,
+    )
+    assert rejection is None
+
+
 def test_first_run_receipt_uses_and_reconciles_child_persisted_revision(
     monkeypatch, tmp_path: Path
 ) -> None:

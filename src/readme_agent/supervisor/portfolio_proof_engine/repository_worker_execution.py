@@ -7,7 +7,6 @@ import subprocess
 import time
 from pathlib import Path
 
-from readme_agent.evidence.writer import win_long_path
 from readme_agent.supervisor.portfolio_proof_engine.repository_worker_contracts import (
     _SECRET_LIKE_NAME_RE,
     CancellationOutcomeV1,
@@ -24,6 +23,22 @@ from readme_agent.supervisor.portfolio_proof_engine.repository_worker_process im
     _spawn_kwargs,
     _start_drain_thread,
 )
+
+
+def _win_long_path(path: Path) -> str:
+    """Local copy of `evidence/writer.py::win_long_path` -- deliberately duplicated, not
+    imported. `test_module_imports_no_mission_state_apis` enforces that this package stays a
+    self-contained, portable subprocess-execution engine with zero coupling to the rest of
+    `readme_agent.*`; importing the shared helper would violate that boundary for five lines
+    of logic. Keep this in sync with the original by hand if Win32's long-path prefix rule
+    ever changes -- it has not, historically."""
+
+    resolved = os.path.abspath(path)
+    if resolved.startswith("\\\\?\\"):
+        return resolved
+    if resolved.startswith("\\\\"):  # UNC share
+        return "\\\\?\\UNC\\" + resolved[2:]
+    return "\\\\?\\" + resolved
 
 
 def _receipt_exists(path: Path) -> bool:
@@ -44,9 +59,14 @@ def _receipt_exists(path: Path) -> bool:
     hypotheses this fix went through -- but path length is not the *whole* story either: a
     genuine timing component independent of it is real too (see `_wait_for_receipt_visibility`'s
     own history below), so this function alone is necessary, not sufficient.
+
+    A sibling long-path bug was found in the *same* investigation one layer up
+    (`portfolio_worker_dispatch.py::_read_receipt_text`, outside this package and free to import
+    the shared helper normally) -- that module's own, completely independent `Path.is_file()`
+    check had never been touched by any version of this fix at all.
     """
 
-    target = win_long_path(path) if os.name == "nt" else str(path)
+    target = _win_long_path(path) if os.name == "nt" else str(path)
     return os.path.isfile(target)
 
 

@@ -10,6 +10,7 @@ import uuid
 from pathlib import Path
 
 from readme_agent import paths
+from readme_agent.evidence.writer import win_long_path
 from readme_agent.registry.models import ProductEntry
 from readme_agent.supervisor.portfolio_proof_engine.repository_worker_pool import (
     RepositoryJobSpecV1,
@@ -17,6 +18,29 @@ from readme_agent.supervisor.portfolio_proof_engine.repository_worker_pool impor
     WorkerResultV1,
 )
 from readme_agent.supervisor.portfolio_worker_runtime import PortfolioWorkerReceiptV2
+
+
+def _read_receipt_text(receipt_path: Path) -> str | None:
+    """Long-path-safe existence check and read, in one place.
+
+    ACL-ORCH-RECEIPT-VISIBILITY-LAG's MAX_PATH fix (`portfolio_proof_engine/
+    repository_worker_execution.py::_receipt_exists`) only ever patched the check that sets
+    `WorkerResultV1.receipt_observed` -- it never touched this module, which does its own,
+    completely independent, still-unfixed `Path.is_file()`/`Path.read_text()` here. Found live:
+    a real receipt at a real, confirmed 261-character path was correctly observed as present by
+    the fixed check (`receipt_observed: True` in the batch report) and still discarded as
+    `receipt_rejected` by `load_worker_receipt()`, because this second, separate check never got
+    the same fix. Both `load_worker_receipt()` and `describe_worker_receipt_rejection()` below
+    must go through this one function so a future long-path fix can never again land in only one
+    of the (it turns out, more than one) places that independently re-derive the same check.
+    """
+
+    target = win_long_path(receipt_path) if os.name == "nt" else str(receipt_path)
+    if not os.path.isfile(target):
+        return None
+    with open(target, encoding="utf-8") as handle:
+        return handle.read()
+
 
 JDK_TOOLCHAIN_RESOURCE = "jdk_toolchain_provisioning"
 _SAFE_ID = re.compile(r"[^A-Za-z0-9_.-]+")
@@ -120,9 +144,10 @@ def load_worker_receipt(
     if worker_result.expected_receipt_path is None:
         return None
     receipt_path = Path(worker_result.expected_receipt_path)
-    if not receipt_path.is_file():
+    receipt_text = _read_receipt_text(receipt_path)
+    if receipt_text is None:
         return None
-    receipt = PortfolioWorkerReceiptV2.model_validate_json(receipt_path.read_text(encoding="utf-8"))
+    receipt = PortfolioWorkerReceiptV2.model_validate_json(receipt_text)
     expected_invocation_id = receipt_path.parent.parent.name
     if (
         receipt.registry_revision_id != registry_revision_id
@@ -167,12 +192,11 @@ def describe_worker_receipt_rejection(
     if worker_result.expected_receipt_path is None:
         return "no expected receipt path was configured for this worker"
     receipt_path = Path(worker_result.expected_receipt_path)
-    if not receipt_path.is_file():
+    receipt_text = _read_receipt_text(receipt_path)
+    if receipt_text is None:
         return f"no receipt file exists at the expected path {receipt_path}"
     try:
-        receipt = PortfolioWorkerReceiptV2.model_validate_json(
-            receipt_path.read_text(encoding="utf-8")
-        )
+        receipt = PortfolioWorkerReceiptV2.model_validate_json(receipt_text)
     except Exception as exc:  # noqa: BLE001 -- diagnostic only, must never itself crash
         return f"receipt file exists but failed to parse: {type(exc).__name__}: {exc}"
     expected_invocation_id = receipt_path.parent.parent.name
