@@ -85,6 +85,7 @@ Three independent layers, each closing a gap the one before it can't:
 | 2026-08-03 | `logs/2026-08-03.md` | 2 |
 | 2026-08-04 | `logs/2026-08-04.md` | 6 |
 | 2026-08-05 | `logs/2026-08-05.md` | 3 |
+| 2026-08-06 | `logs/2026-08-06.md` | 1 |
 | 2026-08-09 | `logs/2026-08-09.md` | 6 |
 | 2026-08-10 | `logs/2026-08-10.md` | 1 |
 | 2026-08-11 | `logs/2026-08-11.md` | 29 |
