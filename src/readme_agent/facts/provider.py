@@ -138,7 +138,7 @@ def _local_verification_facts(
     repository_candidates = []
     if (
         example_language is not None
-        and ecosystem in {"cpp", "go", "java", "net", "rust", "typescript"}
+        and ecosystem in {"cpp", "go", "java", "net", "python", "rust", "typescript"}
         and snapshot is not None
         and local_fact_verification_allowed()
     ):
