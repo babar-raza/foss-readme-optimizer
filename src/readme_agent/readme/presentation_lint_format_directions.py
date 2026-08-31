@@ -15,6 +15,14 @@ _INPUT_VERB = re.compile(r"(?i)\b(?:import|load|open|read)s?(?:ing)?\b")
 _OUTPUT_VERB = re.compile(r"(?i)\b(?:export|save|write)s?(?:ing)?\b")
 _DIRECTION_BOUNDARY = re.compile(
     r"(?i)\b(?:and\s+)?(?:import|load|open|read|export|save|write)s?(?:ing)?\b"
+    # "converts to"/"converted into"/etc: a conversion clause names its *target* format
+    # after "to"/"into", not its source. Without its own boundary, that target format
+    # gets swept into whatever fragment the sentence's earlier load/read/import verb
+    # started -- e.g. "a loaded `.md` file converts to DOCX or PDF" wrongly attributed
+    # PDF to the *input* role, since "loaded" was the only boundary match on the line
+    # and its fragment ran to the end of the sentence. Anchoring a new boundary at
+    # "to"/"into" itself starts a fresh, correctly-classified output fragment there.
+    r"|\bconverts?(?:ed|ing)?\b[^.\n]{0,40}?\b(?:to|into)\b"
 )
 _NEGATED_DIRECTION = re.compile(
     r"(?i)\b(?:not|cannot|can't|doesn't|does not|isn't|is not|unavailable|unsupported|"
@@ -22,6 +30,13 @@ _NEGATED_DIRECTION = re.compile(
 )
 _INPUT_NOUN = re.compile(r"(?i)\b(?:importer|input|load options?)\b")
 _OUTPUT_NOUN = re.compile(r"(?i)\b(?:exporter|output|save options?)\b")
+# "like any other input/output": a generic hedge comparing this format to every other one
+# a reader would already expect, not a claim about a *specific* format's direction. Without
+# this guard, the bare noun "input"/"output" makes the whole-line noun fallback below sweep
+# in every format the line happens to mention -- observed live: "a loaded `.md` file
+# converts to DOCX or PDF like any other input" wrongly claimed PDF as an *input* format
+# purely because the sentence ends with the unrelated word "input".
+_GENERIC_DIRECTION_HEDGE = re.compile(r"(?i)\blike any other (?:input|output)\b")
 
 
 def directional_fragments(line: str) -> list[tuple[FormatRole, str, int, int]]:
@@ -75,7 +90,7 @@ def lint_format_directions(
                 fragments.append((mermaid_role, line, 0, len(line)))
         elif fence is None:
             fragments.extend(directional_fragments(line))
-            if not _NEGATED_DIRECTION.search(line):
+            if not _NEGATED_DIRECTION.search(line) and not _GENERIC_DIRECTION_HEDGE.search(line):
                 if _INPUT_NOUN.search(line):
                     fragments.append(("input", line, 0, len(line)))
                 if _OUTPUT_NOUN.search(line):
