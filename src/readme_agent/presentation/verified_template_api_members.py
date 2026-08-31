@@ -19,6 +19,12 @@ _LOW_VALUE_MEMBERS = {
 }
 _EMPTY_ACTIONS = {"add", "all", "as", "ascend", "begin", "do", "from", "get", "set"}
 _EMPTY_OBJECTS = {"all", "object", "objects", "value", "values"}
+# A "FromX" method whose return type is a bare scalar isn't loading content -- it's
+# classifying/mapping to one, e.g. Aspose.Words-FOSS's real `ImageData.from_mime(mime: str)
+# -> int` ("Map a MIME content-type string to an ImageType constant", verified against its
+# actual source) returns a lookup code, never the loaded content itself. Never claim "loading
+# content from ..." against evidence that directly contradicts it.
+_NON_CONTENT_RETURN_TYPES = frozenset({"int", "bool", "float"})
 _TRAILING_PREPOSITIONS = {
     "as",
     "at",
@@ -87,7 +93,7 @@ def _plural_object(value: str) -> str:
     return " ".join(words)
 
 
-def method_phrase(name: str) -> str | None:
+def method_phrase(name: str, *, return_annotation: str | None = None) -> str | None:
     """Return a complete action phrase, or none when the identifier cannot support one."""
 
     compact = name.replace("_", "")
@@ -107,6 +113,8 @@ def method_phrase(name: str) -> str | None:
     if verb == "as":
         return f"serializing content as {remainder}"
     if verb == "from":
+        if (return_annotation or "").strip() in _NON_CONTENT_RETURN_TYPES:
+            return None
         return f"loading content from {remainder}"
     if verb == "is":
         return f"checking whether {remainder}"
@@ -188,7 +196,10 @@ def select_summary_api_members(item: dict[str, Any], *, limit: int = 3) -> list[
             continue
         if member.get("implemented") is not True:
             continue
-        phrase = method_phrase(str(member.get("name") or "").strip())
+        phrase = method_phrase(
+            str(member.get("name") or "").strip(),
+            return_annotation=member.get("return_annotation"),
+        )
         if phrase and phrase not in phrases:
             selected.append(member)
             phrases.add(phrase)
@@ -210,7 +221,10 @@ def summarize_api_members(item: dict[str, Any], *, limit: int = 3) -> list[str]:
 
     actions: list[str] = []
     for member in select_summary_api_members(item, limit=limit):
-        phrase = method_phrase(str(member.get("name") or "").strip())
+        phrase = method_phrase(
+            str(member.get("name") or "").strip(),
+            return_annotation=member.get("return_annotation"),
+        )
         if phrase:
             actions.append(phrase)
     return actions
@@ -267,7 +281,7 @@ def describe_api_member(
             return f"Declares the `{name}` operation on `{owner}` (not yet implemented)." + origin
         if implemented is not True:
             return f"Exposes the `{name}` operation on `{owner}`." + origin
-        phrase = method_phrase(name)
+        phrase = method_phrase(name, return_annotation=member.get("return_annotation"))
         description = (
             f"Calls the `{name}` operation on `{owner}`."
             if phrase is None

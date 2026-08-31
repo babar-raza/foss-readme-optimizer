@@ -512,3 +512,59 @@ def test_supports_format_uses_a_grammatical_class_summary_phrase() -> None:
 
     assert description.endswith("Supports checking format support.")
     assert "supportsing" not in description
+
+
+def test_scalar_returning_from_method_is_not_described_as_loading_content() -> None:
+    """PWD-008, live on aspose-words-foss: `ImageData.from_mime(mime: str) -> int` -- real,
+    verified against the actual source -- maps a MIME string to an `ImageType` constant; it
+    never loads or returns content. The name-only "from X" heuristic wrongly produced "Supports
+    loading content from MIME", tripping the format-direction linter on a phantom input claim.
+    A bare scalar return type (int/bool/float) can never be "loaded content"."""
+
+    member = {
+        "name": "from_mime",
+        "kind": "method",
+        "surface": "from_mime(mime)",
+        "return_annotation": "int",
+        "declared_by": "ImageData",
+        "inherited": False,
+        "implemented": True,
+    }
+
+    per_member_description = describe_api_member("ImageData", member)
+    class_summary = describe_api_export(
+        {"bases": ["BaseModel"], "members": [member]},
+        module="aspose.words_foss.drawing",
+        name="ImageData",
+        family="Words",
+    )
+
+    assert per_member_description == "Calls the `from_mime` operation on `ImageData`."
+    assert "loading content" not in per_member_description.casefold()
+    assert "mime" not in class_summary.casefold()
+    assert "loading content" not in class_summary.casefold()
+
+
+def test_content_returning_from_method_still_describes_loading_content() -> None:
+    """Negative control: a genuine content-loading "FromX" constructor -- unspecified or
+    non-scalar return type -- must still get its "Supports loading content from ..." phrase;
+    the fix narrows only the scalar-return case, never the general one."""
+
+    member = {
+        "name": "from_docx",
+        "kind": "method",
+        "surface": "from_docx(path)",
+        "return_annotation": "Document",
+        "declared_by": "Document",
+        "inherited": False,
+        "implemented": True,
+    }
+
+    assert describe_api_member("Document", member) == (
+        "Supports loading content from DOCX through `Document`."
+    )
+
+    no_annotation_member = {**member, "return_annotation": None}
+    assert describe_api_member("Document", no_annotation_member) == (
+        "Supports loading content from DOCX through `Document`."
+    )
