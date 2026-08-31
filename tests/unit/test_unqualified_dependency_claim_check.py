@@ -30,6 +30,16 @@ def test_other_example_synonyms_are_also_not_flagged() -> None:
         assert _phrases(text) == [], f"unexpectedly flagged for {noun!r}"
 
 
+def test_self_contained_pattern_is_not_flagged() -> None:
+    """PWD-040: `aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET`'s real candidate reads
+    "It provides the minimal, self-contained pattern for getting started with
+    Aspose.PDF FOSS for Net." in its Quick Start section -- describing the example
+    code, not asserting a product-wide dependency claim. "pattern" was not yet in
+    the exclusion list."""
+
+    assert _phrases("It provides the minimal, self-contained pattern for getting started.") == []
+
+
 def test_self_contained_product_claim_is_still_flagged() -> None:
     """Negative control: a real unqualified dependency-absence claim about the
     product itself must still fire -- the fix only widens the noun exclusion

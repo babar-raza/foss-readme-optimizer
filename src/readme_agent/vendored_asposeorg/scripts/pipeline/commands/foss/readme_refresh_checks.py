@@ -8662,8 +8662,12 @@ _UNQUALIFIED_DEPENDENCY_CLAIM_PATTERNS = [
     # absolute dependency-absence claim. Widened to the synonyms actually seen in
     # composer output plus the ones a reasonable rephrasing could plausibly reach
     # for; still requires one of these specific nouns, never a bare "self-contained".
+    # Real bug found running this against aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET's
+    # real candidate: "the minimal, self-contained pattern for getting started" also
+    # describes the Quick Start code, not the product -- "pattern" is another
+    # reasonable synonym the original list didn't anticipate.
     r"\bself[- ]contained\b(?!\s+(?:example|snippet|sample|version|illustration|demo"
-    r"|demonstration|walkthrough|showcase|script))",
+    r"|demonstration|walkthrough|showcase|script|pattern))",
     r"\bno third[- ]party (?:code|software)\b(?!\s+(?:crate|package|library|dependenc))",
 ]
 _UNQUALIFIED_DEPENDENCY_CLAIM_RE = re.compile(

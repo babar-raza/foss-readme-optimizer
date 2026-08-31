@@ -1,5 +1,5 @@
 {
-  "aggregate_sha256": "ce098bd1e07b704f06b5ec556f805d8031b7b8162bc4cb1874e785709df24458",
+  "aggregate_sha256": "495c3811302a3a13739c0e95d730183381a471b38bd71a72146638c260fbee99",
   "files": [
     {
       "destination_path": "src/readme_agent/vendored_asposeorg/scripts/pipeline/commands/foss/readme_refresh_checks.py",
@@ -15,9 +15,15 @@
           "date": "2026-08-28",
           "reason": "check_process_narration_smells() replaced one combined alternation regex with per-pattern regexes plus a leftmost/earliest-pattern non-overlapping reduction (_find_process_narration_matches), removing catastrophic alternation backtracking on long READMEs. Match semantics are preserved: sorting candidates by (start, pattern_index, end) reproduces the combined regex's leftmost-then-first-alternative choice, and consumed_until reproduces its post-match scan advance. The landing commit did not re-pin this manifest, which is the drift this entry closes.",
           "verified_against_source_commit": false
+        },
+        {
+          "commit": "PWD-040-FOLLOWUP will record this commit's real hash immediately after landing",
+          "date": "2026-09-01",
+          "reason": "_UNQUALIFIED_DEPENDENCY_CLAIM_PATTERNS's self-contained-noun exclusion list widened again to cover 'pattern' after a real false positive: aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET's Quick Start prose described its introductory example as 'the minimal, self-contained pattern for getting started', which the exclusion list (already covering example/snippet/sample/version/illustration/demo/demonstration/walkthrough/showcase/script) did not yet cover, wrongly flagging a claim about the example code as an absolute dependency-absence claim about the product. Verified by test at landing time.",
+          "verified_against_source_commit": false
         }
       ],
-      "sha256": "21fbcd4a2f1b051468c42fd1bfbcf85e92e058329645cb8da3052e5f9f293ead",
+      "sha256": "f5cdb54992b2bf7eb06b457e425c7eac8bc7d2283b9b7e3c7ed16a590a8696e9",
       "source_path": "scripts/pipeline/commands/foss/readme_refresh_checks.py"
     },
     {
