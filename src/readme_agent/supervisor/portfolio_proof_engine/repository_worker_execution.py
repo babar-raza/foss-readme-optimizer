@@ -40,8 +40,10 @@ def _receipt_exists(path: Path) -> bool:
     `receipt_rejected` case in a live 34-repository portfolio pass had a full receipt path of
     260-263 characters; every clean success was 257-259. The failure tracked path *length*
     (`registry_revision_id` + `org_repo` + the worker-invocation UUID, none of it deterministically
-    short), not timing, load, or antivirus/cloud-sync interference as two earlier attempts at this
-    fix incorrectly assumed.
+    short) far more than load or antivirus/cloud-sync interference, the first two (wrong)
+    hypotheses this fix went through -- but path length is not the *whole* story either: a
+    genuine timing component independent of it is real too (see `_wait_for_receipt_visibility`'s
+    own history below), so this function alone is necessary, not sufficient.
     """
 
     target = win_long_path(path) if os.name == "nt" else str(path)
@@ -49,16 +51,27 @@ def _receipt_exists(path: Path) -> bool:
 
 
 def _wait_for_receipt_visibility(
-    path: Path, *, attempts: int = 3, initial_delay_seconds: float = 0.05
+    path: Path, *, attempts: int = 10, initial_delay_seconds: float = 0.1
 ) -> bool:
-    """Check receipt existence in a long-path-safe way, with a small residual retry.
+    """Check receipt existence in a long-path-safe way, with a real residual retry.
 
-    The long-path fix in `_receipt_exists()` above is the real correctness fix and should be
-    deterministic on its own -- this thin retry wrapper is kept only as insurance against a
-    genuine (much rarer, never actually isolated) filesystem-visibility race independent of path
-    length, at a small, bounded cost (~0.15s worst case: 0.05+0.1s) rather than the much larger
-    ~1.55s/~7.5s bounds two earlier, incorrect diagnoses of this bug used trying to wait out a
-    "lag" that a length-260+ path was never going to resolve no matter how long the wait.
+    History, corrected rather than quietly overwritten: the first version of this fix shrank
+    the retry window to ~0.15s (attempts=3, 0.05s), reasoning that `_receipt_exists()`'s
+    long-path fix was now deterministic on its own and the original ~7.5s timing-based bound
+    had only ever been compensating for the MAX_PATH bug by coincidence. That reasoning had a
+    real hole in it: the live pass that seemed to validate the *shorter* window (zero
+    `receipt_rejected` recurrences) only had 2 non-cache-hit workers reach the real worker
+    pool that run, and neither happened to have a long enough path to exercise the MAX_PATH
+    case at all -- so it was never a real test of "is a fast long-path check alone enough."
+    A direct, single-repository re-test on a repository with a real, confirmed 261-character
+    receipt path (`aspose-html-foss`) then reproduced `receipt_rejected` again at the 0.15s
+    bound -- while `_receipt_exists()` on that exact, real, on-disk file returned `True`
+    moments later when checked directly. That proves both things at once: the long-path fix
+    is correct and necessary (a bare `Path.is_file()` on that path is `False`), and it is not
+    sufficient alone -- a genuine, separate timing component still exists and needs real
+    retry budget, not the ~0.15s this fix's own second attempt guessed would be enough.
+    Restored to the same ~7.5s bound the first (correct on this point, wrong on the
+    mechanism) attempt used, now combined with the long-path fix rather than instead of it.
     """
 
     delay = initial_delay_seconds
