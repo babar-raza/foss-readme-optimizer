@@ -589,6 +589,68 @@ def test_detect_api_public_surface_go_visibility_states(tmp_path):
     assert _class_by_name(result, "Exported").state.visibility == "public"
 
 
+def test_detect_api_public_surface_go_test_functions_are_excluded(tmp_path):
+    """Live on aspose-pdf-foss/Aspose-PDF-FOSS-for-Go: 1589 of 1944 imported api_surface.json
+    entries (82%) came from `_test.go` files -- `TestWriteDocxTextbox(t: *testing.T)` and
+    similar test functions were rendered as capability claims ("Represents a Test Write DOCX
+    Textbox in the public Core API for Aspose.PDF"), producing false format-direction claims
+    (DOCX/TTF/OTF/SVG) no accepted fact could ever authorize. Go's own toolchain never compiles
+    `_test.go` files into the normal package regardless of capitalization, so a `TestXxx`
+    function is real Go-visible (leading-case export rule) yet never part of the importable
+    public API -- the two axes are genuinely different, and only the file-suffix rule can tell
+    them apart."""
+
+    _write_api_surface_fixture(
+        tmp_path,
+        "widget",
+        "go",
+        [
+            {"name": "Widget", "kind": "class_definition", "file": "widget.go", "methods": []},
+            {
+                "name": "TestWidgetRoundTrip",
+                "kind": "function",
+                "file": "widget_test.go",
+                "params": [{"name": "t", "type": "*testing.T"}],
+                "methods": [],
+            },
+        ],
+    )
+
+    result = detect_api_public_surface("widget", "go", data_root=tmp_path)
+
+    assert result is not None
+    names = {item.name for module in result.modules for item in module.classes}
+    assert names == {"Widget"}
+    assert "TestWidgetRoundTrip" not in names
+
+
+def test_detect_api_public_surface_test_file_suffix_is_go_specific(tmp_path):
+    """Negative control: the `_test.go` exclusion must not leak into other platforms, whose
+    registered test conventions are project/directory-based, not a filename suffix the corpus
+    reliably carries -- a same-shaped entry from another platform stays included."""
+
+    _write_api_surface_fixture(
+        tmp_path,
+        "widget",
+        "dotnet",
+        [
+            {
+                "name": "WidgetTests",
+                "kind": "class_definition",
+                "visibility": "public",
+                "file": "widget_test.go",
+                "methods": [],
+            },
+        ],
+    )
+
+    result = detect_api_public_surface("widget", "dotnet", data_root=tmp_path)
+
+    assert result is not None
+    names = {item.name for module in result.modules for item in module.classes}
+    assert names == {"WidgetTests"}
+
+
 def test_detect_api_public_surface_rust_visibility_states(tmp_path):
     _write_api_surface_fixture(
         tmp_path,

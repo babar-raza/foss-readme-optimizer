@@ -649,6 +649,29 @@ _NAME_VISIBILITY_CONVENTION: dict[str, Callable[[str], bool | None]] = {
     "go": lambda name: name[:1].isupper() if name[:1].isalpha() else None,
 }
 
+# A source-file suffix convention for excluding test-only entries only exists where it
+# is a real, load-bearing language/toolchain rule -- Go's `_test.go` suffix is enforced
+# by `go build`/`go test` themselves (files with that suffix are never compiled into the
+# normal package), so a capitalized `TestXxx(t *testing.T)` function is a real exported
+# identifier by Go's own visibility rule yet never part of the package's importable
+# public API. Confirmed live on aspose-pdf-foss/Aspose-PDF-FOSS-for-Go: 1589 of 1944
+# entries (82%) in the imported api_surface.json come from `_test.go` files -- test
+# functions rendered as capability claims ("Represents a Test Write DOCX Textbox in the
+# public Core API for Aspose.PDF"), inflating the API reference and producing false
+# format-direction claims (DOCX/TTF/OTF/SVG) no accepted fact could ever authorize. Other
+# registered platforms (.NET, Java, C++, Rust, TypeScript) organize tests into separate
+# projects/directories rather than a filename-suffix rule the corpus's own `file` field
+# reliably carries, so they are deliberately absent here rather than guessed.
+_TEST_FILE_SUFFIX_CONVENTION: dict[str, str] = {"go": "_test.go"}
+
+
+def _is_test_file_entry(entry: dict, *, platform: str) -> bool:
+    suffix = _TEST_FILE_SUFFIX_CONVENTION.get(platform)
+    if suffix is None:
+        return False
+    file_path = entry.get("file")
+    return isinstance(file_path, str) and file_path.endswith(suffix)
+
 
 def _resolve_visibility(entry: dict, *, platform: str) -> ApiVisibilityState:
     """Resolve declared visibility -- never conflated with reachability
@@ -768,7 +791,8 @@ def detect_api_public_surface(
     `None` when no `api_surface.json` exists for this family/platform, it fails to parse, or it
     contains zero non-internal entries. An entry whose visibility/reachability/implementation
     state cannot be resolved is included as `"unknown"`, never silently dropped -- only a
-    confirmed-`"internal"` visibility excludes an entry."""
+    confirmed-`"internal"` visibility, or a confirmed test-only source file
+    (`_is_test_file_entry`), excludes an entry."""
 
     surface_path = data_root / "knowledge" / family / platform / "merged" / "api_surface.json"
     if not surface_path.is_file():
@@ -791,6 +815,8 @@ def detect_api_public_surface(
             entry, platform=platform, reachable_discriminating=reachable_discriminating
         )
         if state.visibility == "internal":
+            continue
+        if _is_test_file_entry(entry, platform=platform):
             continue
         module = _KIND_TO_MODULE.get(entry.get("kind", ""), "Core API")
         # A bare top-level function entry carries its own params/return_type
