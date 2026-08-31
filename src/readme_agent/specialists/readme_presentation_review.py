@@ -15,6 +15,7 @@ from readme_agent.llm.section_author_client import build_live_section_cluster_au
 from readme_agent.llm.verification_prompts import separated_reviewer_standard_hash
 from readme_agent.registry.loader import require_listed
 from readme_agent.repository_snapshot import current_repository_snapshot
+from readme_agent.specialists.independent_readme_review import RepairLoopOutcomeV1
 from readme_agent.specialists.readme_review_repair import build_repaired_review_context
 from readme_agent.specialists.readme_review_repair_loop import (
     run_independent_review_with_repair_loop,
@@ -42,6 +43,26 @@ from readme_agent.supervisor.local_poc_review_evidence import (
 from readme_agent.supervisor.portfolio_scheduler.stages import (
     prepare_and_promote_deterministic_validation_stage,
 )
+
+
+def _independent_review_error_status(review_outcome: RepairLoopOutcomeV1) -> str:
+    """Build the printed status for a non-accepted review outcome.
+
+    PWD-031: `repair_rerouted`/`repair_exhausted` already build a real, specific
+    diagnostic reason (`reroute_unchanged_repair()`/`build_repair_backlog_
+    finding()`, both in `readme_review_repair_state.py`) into `review_outcome.
+    escalation["reason"]`, but the caller previously discarded it -- every
+    reroute or exhaustion printed the same byte-identical, zero-detail
+    `ERROR:independent_review_<kind>:<verdict>` regardless of repository or
+    underlying cause. `blocked`/`accepted` outcomes never populate `escalation`,
+    so this degrades to the original bare string for them, unchanged."""
+
+    verdict = review_outcome.final_review.verdict
+    base = f"ERROR:independent_review_{review_outcome.outcome_kind}:{verdict}"
+    escalation_reason = (
+        review_outcome.escalation.get("reason") if review_outcome.escalation else None
+    )
+    return f"{base}: {escalation_reason}" if escalation_reason else base
 
 
 def review_candidate_node(state: DomainStateV1, config: RunnableConfig) -> dict:
@@ -433,10 +454,7 @@ def review_candidate_node(state: DomainStateV1, config: RunnableConfig) -> dict:
         )
     if review_outcome.outcome_kind != "accepted":
         return {
-            "accepted_status": (
-                f"ERROR:independent_review_{review_outcome.outcome_kind}:"
-                f"{review_outcome.final_review.verdict}"
-            ),
+            "accepted_status": _independent_review_error_status(review_outcome),
             "details": merge_details(
                 final_state,
                 bundle_verification=final_bundle_record,
