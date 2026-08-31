@@ -504,6 +504,8 @@ class _FakeFacts:
         coordinate=None,
         manifest_coordinate=None,
         ecosystem="java",
+        outcome=None,
+        source_tree_receipt=None,
     ):
         self._method = method
         self._coordinate = coordinate or {
@@ -512,10 +514,17 @@ class _FakeFacts:
         }
         self._manifest_coordinate = manifest_coordinate
         self._ecosystem = ecosystem
+        self._outcome = outcome
+        self._source_tree_receipt = source_tree_receipt
 
     def selected_fact(self, field):
         if field == "installation.verified_acquisition":
-            return _FakeFact({"method": self._method, "coordinate": self._coordinate})
+            value = {"method": self._method, "coordinate": self._coordinate}
+            if self._outcome is not None:
+                value["outcome"] = self._outcome
+            if self._source_tree_receipt is not None:
+                value["source_tree_receipt"] = self._source_tree_receipt
+            return _FakeFact(value)
         assert field == "installation.coordinates"
         coordinates = []
         if self._manifest_coordinate is not None:
@@ -597,6 +606,72 @@ class TestAcquisitionGroundTruth:
         )
         ok, detail = bundle_verifier.verify_acquisition_ground_truth(
             "aspose-cells-foss/Aspose.Cells-FOSS-for-Java", _FakeFacts("maven_central")
+        )
+        assert not ok
+        assert "cannot be verified" in detail
+
+    def test_not_published_with_proven_build_backend_defect_accepts(self, monkeypatch):
+        """PF05-ACQUISITION-POLICY-001, resolved: aspose-html-foss is not on PyPI and its
+        build backend is genuinely broken (mechanically proven, not merely unattempted) --
+        the honest source_tree fallback should be an acceptable final tier, not a block."""
+
+        monkeypatch.setattr(
+            acquisition_ground_truth, "require_listed", lambda org_repo: _fake_entry()
+        )
+        monkeypatch.setattr(
+            acquisition_ground_truth,
+            "resolve",
+            lambda eco, coord: ResolutionResult(False, "not found"),
+        )
+        ok, detail = bundle_verifier.verify_acquisition_ground_truth(
+            "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+            _FakeFacts(
+                "source_tree",
+                outcome="SOURCE_TREE_VERIFIED",
+                source_tree_receipt={"source_install_failure": "invalid_build_backend"},
+            ),
+        )
+        assert ok, detail
+        assert "mechanically verified source-tree fallback" in detail
+
+    def test_not_published_source_tree_without_a_receipt_still_rejects(self, monkeypatch):
+        """Negative control: the exception is narrow -- an unattempted source_build (no
+        populated, schema-validated source_tree_receipt) must still be rejected exactly as
+        before, not waved through merely because the method string says source_tree."""
+
+        monkeypatch.setattr(
+            acquisition_ground_truth, "require_listed", lambda org_repo: _fake_entry()
+        )
+        monkeypatch.setattr(
+            acquisition_ground_truth,
+            "resolve",
+            lambda eco, coord: ResolutionResult(False, "not found"),
+        )
+        ok, detail = bundle_verifier.verify_acquisition_ground_truth(
+            "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+            _FakeFacts("source_tree", outcome="SOURCE_TREE_VERIFIED"),
+        )
+        assert not ok
+        assert "cannot be verified" in detail
+
+    def test_not_published_source_tree_without_verified_outcome_still_rejects(self, monkeypatch):
+        """Negative control: a receipt alone isn't enough without the mechanical
+        SOURCE_TREE_VERIFIED outcome confirming it actually ran and passed."""
+
+        monkeypatch.setattr(
+            acquisition_ground_truth, "require_listed", lambda org_repo: _fake_entry()
+        )
+        monkeypatch.setattr(
+            acquisition_ground_truth,
+            "resolve",
+            lambda eco, coord: ResolutionResult(False, "not found"),
+        )
+        ok, detail = bundle_verifier.verify_acquisition_ground_truth(
+            "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+            _FakeFacts(
+                "source_tree",
+                source_tree_receipt={"source_install_failure": "invalid_build_backend"},
+            ),
         )
         assert not ok
         assert "cannot be verified" in detail
