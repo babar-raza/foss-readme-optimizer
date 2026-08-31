@@ -23,8 +23,8 @@ def test_replaces_extractor_noise_with_proven_words_directions(tmp_path: Path) -
         ("DOCX", "import"),
         ("DOCX", "export"),
         ("PDF", "export"),
-        ("MD", "import"),
-        ("MD", "export"),
+        ("MARKDOWN", "import"),
+        ("MARKDOWN", "export"),
         ("DOC", "import"),
     }
     assert all(item.functional for item in result)
@@ -42,7 +42,7 @@ def test_missing_doc_test_withholds_only_doc(tmp_path: Path) -> None:
     remaining = {(item.format, item.direction) for item in result}
     assert ("DOC", "import") not in remaining
     assert ("DOCX", "import") in remaining
-    assert ("MD", "export") in remaining
+    assert ("MARKDOWN", "export") in remaining
 
 
 def test_wrong_revision_and_dirty_tree_fail_closed(tmp_path: Path) -> None:

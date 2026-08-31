@@ -101,7 +101,7 @@ def corroborate_python_slides_format_directions(
     ):
         result.append(
             AsposeOrgFormatEvidenceV1(
-                format="MD",
+                format="MARKDOWN",
                 direction="export",
                 file=_MARKDOWN_WRITER,
                 line=md_writer_function.lineno,

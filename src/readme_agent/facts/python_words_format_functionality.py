@@ -141,7 +141,7 @@ def corroborate_python_words_format_directions(
     ):
         result.append(
             AsposeOrgFormatEvidenceV1(
-                format="MD",
+                format="MARKDOWN",
                 direction="import",
                 file=_MD_READER,
                 line=md_reader_load.lineno,
@@ -150,7 +150,7 @@ def corroborate_python_words_format_directions(
         )
         result.append(
             AsposeOrgFormatEvidenceV1(
-                format="MD",
+                format="MARKDOWN",
                 direction="export",
                 file=_MD_WRITER,
                 line=md_writer_write.lineno,

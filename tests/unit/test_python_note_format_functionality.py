@@ -37,7 +37,7 @@ def test_replaces_extractor_noise_with_proven_note_directions(tmp_path: Path) ->
     )
 
     assert [(item.format, item.direction, item.file, item.functional) for item in result] == [
-        ("OneNote", "import", "src/aspose/note/model.py", True),
+        ("ONE", "import", "src/aspose/note/model.py", True),
         ("PDF", "export", "src/aspose/note/model.py", True),
     ]
 
@@ -51,7 +51,7 @@ def test_missing_pdf_extra_declaration_withholds_only_export(tmp_path: Path) -> 
         formats=[],
     )
 
-    assert [(item.format, item.direction) for item in result] == [("OneNote", "import")]
+    assert [(item.format, item.direction) for item in result] == [("ONE", "import")]
 
 
 def test_missing_save_test_withholds_only_export(tmp_path: Path) -> None:
@@ -63,7 +63,7 @@ def test_missing_save_test_withholds_only_export(tmp_path: Path) -> None:
         formats=[],
     )
 
-    assert [(item.format, item.direction) for item in result] == [("OneNote", "import")]
+    assert [(item.format, item.direction) for item in result] == [("ONE", "import")]
 
 
 def test_missing_construct_test_withholds_only_import(tmp_path: Path) -> None:

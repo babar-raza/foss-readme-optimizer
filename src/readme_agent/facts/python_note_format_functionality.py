@@ -59,7 +59,7 @@ def corroborate_python_note_format_directions(
     ):
         result.append(
             AsposeOrgFormatEvidenceV1(
-                format="OneNote",
+                format="ONE",
                 direction="import",
                 file=_MODEL_MODULE,
                 line=load.lineno,

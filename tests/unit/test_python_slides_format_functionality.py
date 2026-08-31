@@ -22,7 +22,7 @@ def test_replaces_extractor_noise_with_proven_slides_directions(tmp_path: Path) 
     assert {(item.format, item.direction) for item in result} == {
         ("PPTX", "import"),
         ("PPTX", "export"),
-        ("MD", "export"),
+        ("MARKDOWN", "export"),
     }
     assert all(item.functional for item in result)
 
