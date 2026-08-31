@@ -24,6 +24,9 @@ from readme_agent.facts.python_font_format_functionality import (
 from readme_agent.facts.python_html_format_functionality import (
     corroborate_python_html_format_directions,
 )
+from readme_agent.facts.python_note_format_functionality import (
+    corroborate_python_note_format_directions,
+)
 from readme_agent.facts.python_slides_format_functionality import (
     corroborate_python_slides_format_directions,
 )
@@ -112,6 +115,18 @@ def _corroborate_font(
     )
 
 
+def _corroborate_note(
+    root: Path,
+    revision: str,
+    formats: list[AsposeOrgFormatEvidenceV1],
+) -> list[AsposeOrgFormatEvidenceV1]:
+    return corroborate_python_note_format_directions(
+        root,
+        source_revision=revision,
+        formats=formats,
+    )
+
+
 def _corroborate_slides(
     root: Path,
     revision: str,
@@ -155,6 +170,7 @@ _CORROBORATORS: dict[str, _Corroborator] = {
     "email": _corroborate_email,
     "font": _corroborate_font,
     "html": _corroborate_html,
+    "note": _corroborate_note,
     "slides": _corroborate_slides,
     "tex": _corroborate_tex,
     "words": _corroborate_words,
