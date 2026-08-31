@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+import os
 import subprocess
 import time
 from pathlib import Path
 
+from readme_agent.evidence.writer import win_long_path
 from readme_agent.supervisor.portfolio_proof_engine.repository_worker_contracts import (
     _SECRET_LIKE_NAME_RE,
     CancellationOutcomeV1,
@@ -24,47 +26,49 @@ from readme_agent.supervisor.portfolio_proof_engine.repository_worker_process im
 )
 
 
+def _receipt_exists(path: Path) -> bool:
+    """`Path.is_file()`, but long-path-safe on Windows.
+
+    The real, confirmed root cause of `ACL-ORCH-RECEIPT-VISIBILITY-LAG` (found after two rounds
+    of an incorrect timing-based fix -- see the retry loop below and its git history): Win32
+    rejects any path at or beyond 260 characters unless it carries the `\\\\?\\` long-path prefix
+    (`evidence/writer.py::win_long_path`, the exact mechanism CORE-041 already fixed for the
+    *write* side of this same evidence tree). `write_redacted_json()` already writes the receipt
+    through that long-path-safe form, so the child's write always succeeds -- but this read-side
+    check used a bare `Path.is_file()`, which silently returns `False` for a file that genuinely
+    exists the moment its full path reaches that boundary. Confirmed by direct measurement: every
+    `receipt_rejected` case in a live 34-repository portfolio pass had a full receipt path of
+    260-263 characters; every clean success was 257-259. The failure tracked path *length*
+    (`registry_revision_id` + `org_repo` + the worker-invocation UUID, none of it deterministically
+    short), not timing, load, or antivirus/cloud-sync interference as two earlier attempts at this
+    fix incorrectly assumed.
+    """
+
+    target = win_long_path(path) if os.name == "nt" else str(path)
+    return os.path.isfile(target)
+
+
 def _wait_for_receipt_visibility(
-    path: Path, *, attempts: int = 10, initial_delay_seconds: float = 0.1
+    path: Path, *, attempts: int = 3, initial_delay_seconds: float = 0.05
 ) -> bool:
-    """Tolerate filesystem visibility lag between a child's write and this process's read.
+    """Check receipt existence in a long-path-safe way, with a small residual retry.
 
-    `process.wait()` returning guarantees the child's own Python interpreter has exited, which
-    means `write_redacted_json()`'s `os.replace()` already completed -- so a bare `Path.is_file()`
-    immediately afterward *should* be enough. In practice it measurably isn't always: a live
-    34-repository portfolio pass on this exact machine (a Windows checkout inside a OneDrive-synced
-    folder, real-time antivirus scanning active) found 8 of 13 processed workers had a completed,
-    receipt-writing, non-crashing child (`stderr_byte_count: 0`, the full disposition already on
-    stdout) reported as `receipt_observed: False` -- two of them (`aspose-cells-foss/…Python`,
-    `aspose-slides-foss/…Python`) had already made 42 and 63 real provider calls, real spend wasted
-    to a misclassification. An isolated, single-write, no-concurrent-load reproduction attempt
-    (0/40 misses) could not reproduce the gap, narrowing it to something that specifically needs
-    real sustained multi-process load -- consistent with an AV/cloud-sync filesystem filter driver
-    lagging behind a burst of file creates, not a logic bug in the write itself. This is therefore a
-    tolerance for an environmental lag, not a correctness weakening: every existing identity and
-    exit-code consistency check in `load_worker_receipt()` still runs unchanged once the file is
-    found, so a stale or corrupted receipt is never accepted merely because this loop waited longer
-    for it.
-
-    Bound history: the first version (attempts=6, initial_delay=0.05s, ~1.55s worst case) was
-    re-validated on a live portfolio pass and measurably helped but did not fully close the gap --
-    2 of 6 pool-dispatched workers in that run still hit `receipt_rejected`, down from 8 of 13
-    before the fix (roughly 62% -> 33%), a real reduction, not noise, but still short of "near
-    zero." Extended to attempts=10, initial_delay=0.1s (~7.5s worst case:
-    0.1+0.2+0.4+0.8+1.0*6, capped at 1.0s per step) based on that new evidence, per this fix's own
-    taskcard (PWD-006) explicitly anticipating exactly this: lengthen the bound only when live
-    re-validation shows it's still insufficient, never speculatively. A genuinely absent receipt is
-    still reported as absent, just not instantly -- this only ever helps a real receipt be *seen*.
+    The long-path fix in `_receipt_exists()` above is the real correctness fix and should be
+    deterministic on its own -- this thin retry wrapper is kept only as insurance against a
+    genuine (much rarer, never actually isolated) filesystem-visibility race independent of path
+    length, at a small, bounded cost (~0.15s worst case: 0.05+0.1s) rather than the much larger
+    ~1.55s/~7.5s bounds two earlier, incorrect diagnoses of this bug used trying to wait out a
+    "lag" that a length-260+ path was never going to resolve no matter how long the wait.
     """
 
     delay = initial_delay_seconds
     for attempt in range(attempts):
-        if path.is_file():
+        if _receipt_exists(path):
             return True
         if attempt + 1 < attempts:
             time.sleep(delay)
             delay = min(delay * 2, 1.0)
-    return path.is_file()
+    return _receipt_exists(path)
 
 
 def run_child(

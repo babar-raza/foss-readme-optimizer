@@ -10,7 +10,9 @@ from pathlib import Path
 
 import pytest
 
+from readme_agent.evidence.writer import win_long_path
 from readme_agent.supervisor.portfolio_proof_engine.repository_worker_execution import (
+    _receipt_exists,
     _wait_for_receipt_visibility,
 )
 from readme_agent.supervisor.portfolio_proof_engine.repository_worker_pool import (
@@ -18,6 +20,35 @@ from readme_agent.supervisor.portfolio_proof_engine.repository_worker_pool impor
     RepositoryWorkerPool,
     ResourceRequirementV1,
 )
+
+_MAX_PATH = 260
+
+
+def _lp(path) -> str:
+    return win_long_path(path) if os.name == "nt" else str(path)
+
+
+def _make_long_receipt_path(tmp_path: Path) -> Path:
+    """Grow a nested directory until the receipt path itself reaches MAX_PATH.
+
+    Padding depth is derived, not hardcoded, matching
+    `test_local_poc_cache_inventory_long_path.py::_make_long_bundle` -- a fixed segment
+    count lands on the wrong side of 260 depending on how long the test runner's own
+    tmp_path prefix already is.
+    """
+
+    suffix = len(os.path.join("evidence", "worker-receipt.json"))
+    receipt_dir = tmp_path
+    while len(os.path.abspath(receipt_dir)) + 1 + suffix < _MAX_PATH:
+        receipt_dir = receipt_dir / ("r" * 40)
+    receipt_dir = receipt_dir / "evidence"
+    os.makedirs(_lp(receipt_dir), exist_ok=True)
+    receipt_path = receipt_dir / "worker-receipt.json"
+    with open(_lp(receipt_path), "w", encoding="utf-8") as handle:
+        handle.write("{}")
+    assert len(os.path.abspath(receipt_path)) >= _MAX_PATH, "fixture must reach MAX_PATH"
+    return receipt_path
+
 
 FIXTURE_SCRIPT = (
     Path(__file__).resolve().parents[1]
@@ -311,6 +342,23 @@ def test_receipt_visibility_still_reports_a_genuine_absence(tmp_path: Path) -> N
     path = tmp_path / "never-written.json"
 
     assert _wait_for_receipt_visibility(path, attempts=3, initial_delay_seconds=0.01) is False
+
+
+@pytest.mark.skipif(os.name != "nt", reason="MAX_PATH is a Windows-specific limit")
+def test_receipt_exists_finds_a_file_whose_path_exceeds_max_path(tmp_path: Path) -> None:
+    """ACL-ORCH-RECEIPT-VISIBILITY-LAG's real, confirmed root cause: a bare Path.is_file()
+    silently returns False once the full path reaches 260 characters, regardless of how long
+    a caller waits. Direct measurement on a live portfolio pass found every receipt_rejected
+    case at 260-263 chars and every clean success at 257-259 -- not a timing or load effect,
+    the same MAX_PATH class of bug CORE-041 already fixed for the write side of this exact
+    evidence tree. This is the actual regression guard; the retry loop above only covers a
+    residual, much smaller race independent of path length."""
+
+    receipt_path = _make_long_receipt_path(tmp_path)
+
+    assert receipt_path.is_file() is False, "fixture must reproduce the naive check's blind spot"
+    assert _receipt_exists(receipt_path) is True
+    assert _wait_for_receipt_visibility(receipt_path) is True
 
 
 def test_global_deadline_prevents_later_jobs_from_starting(tmp_path: Path) -> None:
