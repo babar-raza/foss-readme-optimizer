@@ -36,10 +36,18 @@ _ROLE_FORMAT_EQUIVALENTS = {
     "GLB": "GLTF",
 }
 _AMBIGUOUS_LOWERCASE_FORMAT_WORDS = frozenset({"ONE"})
+_AMBIGUOUS_FORMAT_FOLLOWED_BY_FILE_NOUN = re.compile(r"(?i)^\s+(?:files?|documents?|formats?)\b")
 
 
 def _explicit_format_mention(text: str, format_name: str) -> bool:
-    """Recognize a format term without treating an ordinary lowercase word as a format."""
+    """Recognize a format term without treating an ordinary lowercase word as a format.
+
+    Case alone doesn't disambiguate `ONE`: prose emphasizes an ordinary number word in
+    the same all-caps form the format code uses ("exactly ONE input" is English
+    emphasis, not a OneNote reference). The real signal is whether it's immediately
+    followed by a file/format noun ("ONE files", matching the `.one` extension case
+    below) rather than an arbitrary word.
+    """
 
     pattern = re.compile(
         rf"(?<![A-Z0-9_-]){re.escape(format_name)}(?![A-Z0-9_-])",
@@ -48,8 +56,9 @@ def _explicit_format_mention(text: str, format_name: str) -> bool:
     for match in pattern.finditer(text):
         if format_name not in _AMBIGUOUS_LOWERCASE_FORMAT_WORDS:
             return True
-        token = match.group(0)
-        if token == format_name or (match.start() > 0 and text[match.start() - 1] == "."):
+        if match.start() > 0 and text[match.start() - 1] == ".":
+            return True
+        if _AMBIGUOUS_FORMAT_FOLLOWED_BY_FILE_NOUN.match(text[match.end() :]):
             return True
     return False
 
@@ -130,12 +139,24 @@ def mentioned_document_formats(text: str) -> set[str]:
 
 
 def formats_in_api_symbol(name: str) -> set[str]:
-    """Return governed formats encoded in a compact public API type name."""
+    """Return governed formats encoded in a compact public API type name.
+
+    Applied to every bare identifier-like word found in a line of prose
+    (`_formats_in_line`), not only genuine API symbols -- so an ambiguous format
+    code that also spells an ordinary English word (e.g. ``ONE``, matching
+    OneNote) must pass the same guard `_explicit_format_mention` applies: only
+    trust it when written in the format's own exact case, never a lowercase
+    prose word like "one" in "exactly one input".
+    """
 
     symbol = name.rsplit(".", 1)[-1].split("(", 1)[0].strip("` ")
     stem = _DIRECTIONAL_API_SUFFIX.sub("", symbol)
     canonical = canonical_document_format(stem)
-    return {canonical} if canonical is not None else set()
+    if canonical is None:
+        return set()
+    if canonical in _AMBIGUOUS_LOWERCASE_FORMAT_WORDS and stem != canonical:
+        return set()
+    return {canonical}
 
 
 def _formats_in_line(line: str) -> set[str]:
