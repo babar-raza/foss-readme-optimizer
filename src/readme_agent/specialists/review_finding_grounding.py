@@ -296,6 +296,68 @@ def _contextual_api_review_value(value: object, candidate_text: str) -> object:
     }
 
 
+def _candidate_fact_grounding_errors(
+    finding: GroundedReviewFindingV1,
+    fact_id: str,
+    by_fact_id: dict[str, dict],
+    selected: set[str],
+) -> list[str]:
+    """Run the exact single-fact grounding checks for one candidate fact ID.
+
+    PWD-004: extracted, unmodified, from the sole check sequence this module has ever
+    applied to a factual finding's cited `fact_id` -- reused as-is against every
+    candidate fact a `template.section.*.claim:*` content-provenance binding names, so a
+    provenance-cited finding earns exactly the same scrutiny a direct fact citation
+    always has, never a relaxed version of it.
+    """
+
+    errors: list[str] = []
+    fact = by_fact_id.get(fact_id)
+    if fact is None:
+        return [f"unknown fact ID {fact_id}"]
+    if fact_id not in selected:
+        errors.append("fact ID is not selected")
+    if fact.get("verification_state") not in {"verified", "policy_approved"}:
+        errors.append("fact is not accepted")
+    if any(conflict.get("status") == "unresolved" for conflict in fact.get("conflicts", [])):
+        errors.append("fact has unresolved conflict")
+    source_location = str((fact.get("source") or {}).get("location", ""))
+    if finding.evidence_location != source_location:
+        errors.append("evidence location disagrees with cited fact")
+    evidence_excerpt = finding.evidence_excerpt
+    assert evidence_excerpt is not None
+    evidence = _fact_evidence_strings(fact)
+    if not any(evidence_excerpt in value or value in evidence_excerpt for value in evidence):
+        errors.append("evidence excerpt is not bound to cited fact")
+    assessments = fact.get("evidence_assessments") or []
+    matching = [
+        item
+        for item in assessments
+        if evidence_excerpt
+        in {
+            str(item.get("anchor", "")),
+            str(item.get("exact_excerpt", "")),
+            str(item.get("context_excerpt", "")),
+        }
+    ]
+    if matching:
+        assessment = matching[0]
+        if finding.expected_polarity != assessment.get("expected_polarity"):
+            errors.append("expected polarity disagrees with evidence")
+        if finding.observed_polarity != assessment.get("observed_polarity"):
+            errors.append("observed polarity disagrees with evidence")
+        derived = "supports" if assessment.get("accepted") else "contradicts"
+        if finding.polarity_result != derived:
+            errors.append("polarity result has wrong direction")
+    elif (
+        finding.expected_polarity != "positive_implementation"
+        or finding.observed_polarity != "positive_implementation"
+        or finding.polarity_result != "supports"
+    ):
+        errors.append("accepted evidence without an assessment must support")
+    return errors
+
+
 def validate_review_findings(
     *,
     candidate_text: str,
@@ -314,6 +376,13 @@ def validate_review_findings(
         if isinstance(fact, dict) and fact.get("fact_id")
     }
     selected = set((product_facts or {}).get("selected_fact_ids", {}).values())
+    by_provenance_id = {
+        str(entry.get("provenance_id")): tuple(
+            str(fact_id) for fact_id in entry.get("fact_ids") or []
+        )
+        for entry in (product_facts or {}).get("content_provenance", [])
+        if isinstance(entry, dict) and entry.get("provenance_id")
+    }
     mechanical_observations = {
         observation.check_id: observation
         for observation in build_candidate_mechanical_observations(
@@ -353,57 +422,60 @@ def validate_review_findings(
                 )
             continue
         assert finding.fact_id is not None
-        fact = by_fact_id.get(finding.fact_id)
-        if fact is None:
-            errors.append(f"{finding.finding_id}:unknown fact ID {finding.fact_id}")
-            continue
-        if finding.fact_id not in selected:
-            errors.append(f"{finding.finding_id}:fact ID is not selected")
-        if fact.get("verification_state") not in {"verified", "policy_approved"}:
-            errors.append(f"{finding.finding_id}:fact is not accepted")
-        if any(conflict.get("status") == "unresolved" for conflict in fact.get("conflicts", [])):
-            errors.append(f"{finding.finding_id}:fact has unresolved conflict")
-        source_location = str((fact.get("source") or {}).get("location", ""))
-        if finding.evidence_location != source_location:
-            errors.append(f"{finding.finding_id}:evidence location disagrees with cited fact")
-        evidence_excerpt = finding.evidence_excerpt
-        assert evidence_excerpt is not None
-        evidence = _fact_evidence_strings(fact)
-        if not any(evidence_excerpt in value or value in evidence_excerpt for value in evidence):
-            errors.append(f"{finding.finding_id}:evidence excerpt is not bound to cited fact")
-        assessments = fact.get("evidence_assessments") or []
-        matching = [
-            item
-            for item in assessments
-            if evidence_excerpt
-            in {
-                str(item.get("anchor", "")),
-                str(item.get("exact_excerpt", "")),
-                str(item.get("context_excerpt", "")),
-            }
-        ]
-        if matching:
-            assessment = matching[0]
-            if finding.expected_polarity != assessment.get("expected_polarity"):
-                errors.append(f"{finding.finding_id}:expected polarity disagrees with evidence")
-            if finding.observed_polarity != assessment.get("observed_polarity"):
-                errors.append(f"{finding.finding_id}:observed polarity disagrees with evidence")
-            derived = "supports" if assessment.get("accepted") else "contradicts"
-            if finding.polarity_result != derived:
-                errors.append(f"{finding.finding_id}:polarity result has wrong direction")
-        elif (
-            finding.expected_polarity != "positive_implementation"
-            or finding.observed_polarity != "positive_implementation"
-            or finding.polarity_result != "supports"
-        ):
-            errors.append(
-                f"{finding.finding_id}:accepted evidence without an assessment must support"
+        if finding.fact_id in by_fact_id:
+            errors.extend(
+                f"{finding.finding_id}:{message}"
+                for message in _candidate_fact_grounding_errors(
+                    finding, finding.fact_id, by_fact_id, selected
+                )
             )
+        elif finding.fact_id in by_provenance_id:
+            candidate_fact_ids = by_provenance_id[finding.fact_id]
+            if not candidate_fact_ids:
+                errors.append(f"{finding.finding_id}:provenance {finding.fact_id} binds no facts")
+            else:
+                per_fact_errors = {
+                    fact_id: _candidate_fact_grounding_errors(
+                        finding, fact_id, by_fact_id, selected
+                    )
+                    for fact_id in candidate_fact_ids
+                }
+                if not any(not errs for errs in per_fact_errors.values()):
+                    errors.append(
+                        f"{finding.finding_id}:no fact bound to provenance {finding.fact_id} "
+                        f"fully grounds this finding ({per_fact_errors})"
+                    )
+        else:
+            errors.append(f"{finding.finding_id}:unknown fact ID {finding.fact_id}")
     return FindingGroundingResultV1(
         valid=not errors,
         errors=errors,
         checked_finding_ids=sorted(seen),
     )
+
+
+def product_facts_with_content_provenance(
+    product_facts: dict,
+    presentation_plan: dict,
+) -> dict:
+    """Add the candidate's content-provenance bindings to a factual reviewer's fact scope.
+
+    PWD-004: a factual finding may cite a `template.section.*.claim:*` content-provenance
+    ID instead of a direct `ProductFactsV2.fact_id` -- claim accountability already binds
+    those IDs to real, independently-verified facts for the exact candidate span, but
+    `validate_review_findings()` only ever resolved them when the caller supplied this
+    field. `presentation_plan["readme_document_plan"]["composition_ledger"]
+    ["candidate_provenance"]` is the one place those bindings already live (the same field
+    read all session for forensic diagnosis, e.g. `diagnostics/blocked-presentation-plan
+    .json`); this only republishes it under `product_facts["content_provenance"]` in the
+    exact shape `validate_review_findings()` expects, never invents or loosens anything.
+    """
+
+    document_plan = presentation_plan.get("readme_document_plan") or presentation_plan or {}
+    candidate_provenance = document_plan.get("composition_ledger", {}).get(
+        "candidate_provenance", []
+    )
+    return {**product_facts, "content_provenance": candidate_provenance}
 
 
 def _validate_quality_finding(

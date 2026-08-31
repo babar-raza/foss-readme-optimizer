@@ -150,6 +150,12 @@ class BoundedFactualPacketV1(_StrictModel):
     facts: tuple[dict[str, Any], ...] = ()
     do_not_claim: tuple[dict[str, Any], ...] = ()
     provenance_ids: tuple[str, ...] = ()
+    # PWD-004: each entry is `{"provenance_id": ..., "fact_ids": [...]}` for one of this
+    # packet's own `provenance_ids` -- lets a finding that cites a content-provenance ID
+    # (instead of a direct fact ID) resolve to the real, already-verified facts claim
+    # accountability bound to that exact candidate span (`review_finding_grounding.py
+    # ::validate_review_findings`'s `content_provenance` lookup).
+    content_provenance: tuple[dict[str, Any], ...] = ()
     prompt_contract_hash: str = Field(pattern=_SHA256_PATTERN)
     input_contract_hash: str = Field(pattern=_SHA256_PATTERN)
     packet_sha256: str = Field(pattern=_SHA256_PATTERN)

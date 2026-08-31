@@ -53,6 +53,33 @@ from readme_agent.specialists.bounded_review_packers import _bounded_fact_payloa
 from readme_agent.specialists.review_candidate_anchors import build_candidate_review_anchors
 
 
+def test_factual_packet_content_provenance_names_its_bound_facts() -> None:
+    """PWD-004: a factual packet's `content_provenance` must let a reviewer finding that
+    cites a content-provenance ID (instead of a direct fact ID) resolve to the real,
+    already-verified facts claim accountability bound to that exact candidate span."""
+
+    plan = _plan()
+    covering = [
+        packet
+        for packet in plan.factual_packets
+        if "provenance-installation" in packet.provenance_ids
+    ]
+    assert covering, "expected at least one factual packet to cover the installation provenance"
+    for packet in covering:
+        entry = next(
+            item
+            for item in packet.content_provenance
+            if item["provenance_id"] == "provenance-installation"
+        )
+        assert entry["fact_ids"] == ["installation.coordinates:primary"]
+    # Every provenance_id on the packet has a matching content_provenance entry, and vice versa
+    # -- the two fields are always built from the same source, never allowed to drift apart.
+    for packet in plan.factual_packets:
+        assert {item["provenance_id"] for item in packet.content_provenance} == set(
+            packet.provenance_ids
+        )
+
+
 def test_synthetic_candidate_plans_successfully_within_budget() -> None:
     assert 100_000 <= len(CANDIDATE_TEXT.encode("utf-8")) <= 250_000
     plan = _plan()

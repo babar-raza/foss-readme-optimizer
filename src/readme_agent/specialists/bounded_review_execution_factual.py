@@ -105,6 +105,12 @@ def execute_factual_packet(
                 for fact in product_facts.get("facts", [])
                 if isinstance(fact, dict) and fact.get("fact_id") in packet_fact_ids
             ],
+            # PWD-004: republish this packet's own content-provenance bindings so a
+            # finding citing a `template.section.*.claim:*` provenance ID (instead of a
+            # direct fact ID) can resolve against the real facts claim accountability
+            # already bound to that exact span (`review_finding_grounding.py
+            # ::validate_review_findings`'s `content_provenance` lookup).
+            "content_provenance": list(packet.content_provenance),
         },
         (packet,),
     )

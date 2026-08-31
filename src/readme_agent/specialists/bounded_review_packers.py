@@ -410,14 +410,18 @@ def _build_factual_packets(
                     key=lambda item: str(item.get("fact_id", "")),
                 )
             )
-            provenance_ids_sorted = tuple(
-                sorted(
-                    {
-                        entry.provenance_id
-                        for unit in group_units
-                        for entry in overlapping_provenance(unit)
-                    }
-                )
+            group_provenance_by_id = {
+                entry.provenance_id: entry
+                for unit in group_units
+                for entry in overlapping_provenance(unit)
+            }
+            provenance_ids_sorted = tuple(sorted(group_provenance_by_id))
+            content_provenance_payload = tuple(
+                {
+                    "provenance_id": provenance_id,
+                    "fact_ids": sorted(group_provenance_by_id[provenance_id].fact_ids),
+                }
+                for provenance_id in provenance_ids_sorted
             )
             unit_text = candidate_text[group_units[0].char_start : group_units[-1].char_end]
             covered_unit_ids = tuple(dict.fromkeys(unit.unit_id for unit in group_units))
@@ -439,6 +443,7 @@ def _build_factual_packets(
                 "facts": facts_payload,
                 "do_not_claim": do_not_claim_sorted,
                 "provenance_ids": provenance_ids_sorted,
+                "content_provenance": content_provenance_payload,
                 "prompt_contract_hash": factual_prompt_sha256,
                 "input_contract_hash": input_contract_hash,
             }

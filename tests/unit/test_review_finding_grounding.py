@@ -466,6 +466,138 @@ def test_api_false_missing_retry_projects_every_symbol_in_the_bounded_unit():
     ]
 
 
+def test_provenance_bound_finding_resolves_when_the_bound_fact_fully_grounds_it():
+    """PWD-004: `aspose-cells-foss/…Cpp` cited a real
+    `template.section.api_reference.claim:*` content-provenance ID as if it were a
+    fact ID -- previously rejected outright as "unknown fact ID" even though claim
+    accountability had already independently bound that exact span to a real, verified
+    fact. A provenance-cited finding must earn acceptance through the identical checks
+    a direct fact citation always has, not a relaxed path."""
+
+    facts = {
+        **FACTS,
+        "content_provenance": [
+            {
+                "provenance_id": "template.section.api_reference.claim:427:deadbeef",
+                "fact_ids": ["fact.install"],
+            }
+        ],
+    }
+    finding = _finding(fact_id="template.section.api_reference.claim:427:deadbeef")
+
+    result = validate_review_findings(
+        candidate_text=CANDIDATE,
+        product_facts=facts,
+        findings=[finding],
+    )
+
+    assert result.valid
+
+
+def test_provenance_bound_finding_still_rejects_when_no_bound_fact_fully_grounds_it():
+    facts = {
+        **FACTS,
+        "content_provenance": [
+            {
+                "provenance_id": "template.section.api_reference.claim:427:deadbeef",
+                "fact_ids": ["fact.install"],
+            }
+        ],
+    }
+    finding = _finding(
+        fact_id="template.section.api_reference.claim:427:deadbeef",
+        evidence_location="wrong/location",
+    )
+
+    result = validate_review_findings(
+        candidate_text=CANDIDATE,
+        product_facts=facts,
+        findings=[finding],
+    )
+
+    assert not result.valid
+    assert any(
+        "no fact bound to provenance" in error and "fully grounds this finding" in error
+        for error in result.errors
+    )
+
+
+def test_provenance_binding_accepts_if_at_least_one_of_several_bound_facts_grounds_it():
+    facts = {
+        "selected_fact_ids": {
+            "installation.coordinates": "fact.install",
+            "documentation.links": "fact.docs",
+        },
+        "facts": [
+            *FACTS["facts"],
+            {
+                "fact_id": "fact.docs",
+                "field": "documentation.links",
+                "value": "https://docs.example.test/",
+                "verification_state": "verified",
+                "source": {"location": "wrong/location"},
+                "conflicts": [],
+            },
+        ],
+        "content_provenance": [
+            {
+                "provenance_id": "template.section.api_reference.claim:427:deadbeef",
+                "fact_ids": ["fact.docs", "fact.install"],
+            }
+        ],
+    }
+    finding = _finding(fact_id="template.section.api_reference.claim:427:deadbeef")
+
+    result = validate_review_findings(
+        candidate_text=CANDIDATE,
+        product_facts=facts,
+        findings=[finding],
+    )
+
+    assert result.valid
+
+
+def test_invented_provenance_id_absent_from_content_provenance_is_still_unknown():
+    facts = {
+        **FACTS,
+        "content_provenance": [
+            {
+                "provenance_id": "template.section.api_reference.claim:427:deadbeef",
+                "fact_ids": ["fact.install"],
+            }
+        ],
+    }
+    finding = _finding(fact_id="template.section.api_reference.claim:999:invented")
+
+    result = validate_review_findings(
+        candidate_text=CANDIDATE,
+        product_facts=facts,
+        findings=[finding],
+    )
+
+    assert not result.valid
+    assert any("unknown fact ID" in error for error in result.errors)
+
+
+def test_provenance_binding_with_no_fact_ids_at_all_is_rejected_not_vacuously_accepted():
+    facts = {
+        **FACTS,
+        "content_provenance": [
+            {"provenance_id": "template.section.api_reference.claim:427:deadbeef", "fact_ids": []}
+        ],
+    }
+    finding = _finding(fact_id="template.section.api_reference.claim:427:deadbeef")
+
+    result = validate_review_findings(
+        candidate_text=CANDIDATE,
+        product_facts=facts,
+        findings=[finding],
+    )
+
+    assert not result.valid
+    assert any("binds no facts" in error for error in result.errors)
+
+
 def test_supported_finding_requires_exact_fact_location():
     supported = _finding(
         disposition="supports_acceptance",
