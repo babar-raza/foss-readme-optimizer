@@ -253,7 +253,16 @@ def seo_capability_title(
     fallback = title if is_action_led_capability_title(title) else f"Work with {title}"
     if seo_keyword and _keyword_grounded_in_capability(seo_keyword, title):
         keyword_title = _sentence_case(seo_keyword)
-        if keyword_title.casefold() != fallback.casefold():
+        # `aspose.relevant_seo_keywords`/`aspose.seo_keywords` are real search phrases
+        # ("open source Go PDF manipulation API"), not action-led capability titles --
+        # nothing upstream guarantees a keyword itself leads with an approved verb, only
+        # that it shares vocabulary with this row's capability. Substituting one
+        # unconditionally could silently break `fallback`'s own action-led guarantee,
+        # which compiled-presentation validation hard-requires for every row (observed
+        # live, deterministically, on aspose-pdf-foss/Aspose-PDF-FOSS-for-Go).
+        if keyword_title.casefold() != fallback.casefold() and is_action_led_capability_title(
+            keyword_title
+        ):
             return keyword_title
     return fallback
 

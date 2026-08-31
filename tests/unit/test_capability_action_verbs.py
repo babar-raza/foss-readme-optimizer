@@ -71,6 +71,46 @@ def test_action_verb_is_reported_for_a_matched_title() -> None:
     assert capability_action_verb("Mesh geometry") is None
 
 
+@pytest.mark.parametrize(
+    "title",
+    [
+        # PWD-008, live on aspose-pdf-foss/Aspose-PDF-FOSS-for-Go (`consecutive_count: 6`):
+        # real `aspose.relevant_seo_keywords`/`aspose.seo_keywords` values, every one
+        # leading with "open source" as this FOSS domain's most common noun phrase, not
+        # the verb "open". The bare `open` accept-list entry matched the string prefix
+        # regardless of what followed, wrongly certifying these as action-led.
+        "open source Go PDF manipulation API",
+        "open source PDF generation for Go developers",
+        "Open source alternative to a commercial library",
+        "Open-source document tooling",
+    ],
+)
+def test_open_source_noun_phrase_is_not_action_led(title: str) -> None:
+    assert not is_action_led_capability_title(title)
+
+
+def test_open_as_a_genuine_verb_is_still_action_led() -> None:
+    """Negative control: the `open source` exclusion must not blunt real imperative use
+    of "open" -- only the specific "open source" collision is excluded."""
+
+    assert is_action_led_capability_title("Open documents and extract text")
+    assert is_action_led_capability_title("Open a document from a stream")
+
+
+def test_pre_fix_open_source_reproduces_the_live_false_positive(monkeypatch) -> None:
+    """Negative control for the regex itself: reverting the `(?!\\s+source)` exclusion
+    reproduces the exact live misclassification this fix corrects."""
+
+    import re
+
+    import readme_agent.readme.capability_semantics as module
+
+    pre_fix_pattern = module._ACTION_VERBS.pattern.replace("open(?![\\s-]+source)", "open")
+    monkeypatch.setattr(module, "_ACTION_VERBS", re.compile(pre_fix_pattern))
+
+    assert module.is_action_led_capability_title("open source PDF generation for Go developers")
+
+
 def test_capability_rows_are_action_led_matches_the_validator_row_shape() -> None:
     """Compiled-presentation validation reads titles from `- **Title** - ` rows and
     rejects the whole candidate when one is not action-led. The pre-adoption check

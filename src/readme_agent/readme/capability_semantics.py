@@ -58,7 +58,14 @@ _ACTION_VERBS = re.compile(
     r"compare|compress|concatenate|configure|construct|convert|copy|count|create|crop|decode|"
     r"decrypt|define|deform|delete|detect|edit|embed|encode|encrypt|export|extract|extrude|filter|"
     r"flatten|format|generate|group|highlight|host|import|index|insert|inspect|load|manage|measure|"
-    r"manipulate|merge|model|modify|navigate|normali[sz]e|open|optimi[sz]e|parse|perform|position|print|"
+    # `open` is excluded when immediately followed by `source`: "open source" is this
+    # domain's single most common noun phrase (every FOSS product's own SEO keyword
+    # data describes it as "open source"), not an instance of the verb "open" -- found
+    # live via `aspose.relevant_seo_keywords`/`aspose.seo_keywords`, both of which lead
+    # with "open source ..." phrases that this accept-list wrongly certified as
+    # action-led.
+    r"manipulate|merge|model|modify|navigate|normali[sz]e|open(?![\s-]+source)|optimi[sz]e|parse|"
+    r"perform|position|print|"
     r"process|project|protect|read|redact|remove|render|reorder|replace|resize|rotate|run|save|"
     r"scale|search|select|seriali[sz]e|sign|sort|split|stream|style|subdivide|summari[sz]e|"
     r"tessellate|transform|translate|traverse|triangulate|update|validate|verify|watermark|work|"
