@@ -1552,6 +1552,22 @@ def grounding_retry_context(
             "polarity_result=contradicts and exact accepted-fact evidence. If no contradiction "
             "exists, choose the verdict supported by the corrected findings."
         )
+    if "quoted span does not contain the exact literal named by the claim" in joined_errors:
+        # PWD-016: this error had no bespoke correction rule at all -- the model saw only the
+        # generic error text plus its own prior claim/quote, with nothing telling it *how* to
+        # fix a claim that legitimately names more than one real candidate literal (e.g.
+        # comparing several near-duplicate headings). Observed live: the same repository
+        # regenerated a new claim tripping this identical check on every one of 3 retry
+        # attempts -- a pattern weakness, not a one-off mistake it was failing to correct.
+        output_contract_rules.append(
+            "Every quoted or backticked literal named in a finding's claim text must be "
+            "literally present inside that finding's own quoted_candidate_span -- not merely "
+            "present somewhere else in the candidate. If the claim compares multiple distinct "
+            "pieces of candidate text (e.g. several similar headings), widen "
+            "quoted_candidate_span to one contiguous span that literally contains every "
+            "literal the claim names, or rewrite the claim to name only the literal(s) actually "
+            "inside the current quoted_candidate_span."
+        )
 
     disproven_ids = deterministically_disproven_finding_ids(errors)
     selected_fact_ids = (product_facts or {}).get("selected_fact_ids", {})

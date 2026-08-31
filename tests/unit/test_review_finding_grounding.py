@@ -598,6 +598,59 @@ def test_provenance_binding_with_no_fact_ids_at_all_is_rejected_not_vacuously_ac
     assert any("binds no facts" in error for error in result.errors)
 
 
+def test_claim_literal_mismatch_retry_gets_an_explicit_correction_rule():
+    """PWD-016: this error had no bespoke retry guidance at all -- the model saw only the
+    generic error text and its own prior claim/quote, with nothing explaining *how* to widen
+    quoted_candidate_span to cover every literal its claim names. Live on
+    aspose-cells-foss/…Python, the same repository regenerated a new claim tripping this
+    identical check on every one of 3 retry attempts."""
+
+    finding = GroundedReviewFindingV1(
+        finding_id="quality.misaligned-summary",
+        kind="quality",
+        criterion="clarity",
+        section="additional-examples",
+        claim="The summary 'View additional examples and results' is generic.",
+        quoted_candidate_span="The examples cover loading models and exporting scenes.",
+        disposition="requires_repair",
+        polarity_result="not_applicable",
+        required_repair="Replace the summary with a workflow preview.",
+    )
+
+    retry = json.loads(
+        grounding_retry_context(
+            errors=[
+                "quality.misaligned-summary:quoted span does not contain the exact literal "
+                "named by the claim"
+            ],
+            candidate_text="irrelevant",
+            product_facts=None,
+            findings=(finding,),
+        )
+    )
+
+    assert any(
+        "literally present inside that finding's own quoted_candidate_span" in rule
+        for rule in retry["required_correction"]["output_contract_rules"]
+    )
+
+
+def test_unrelated_retry_errors_do_not_add_the_claim_literal_correction_rule():
+    retry = json.loads(
+        grounding_retry_context(
+            errors=["factual.install:evidence location disagrees with cited fact"],
+            candidate_text="irrelevant",
+            product_facts=None,
+            findings=(),
+        )
+    )
+
+    assert not any(
+        "literally present inside that finding's own quoted_candidate_span" in rule
+        for rule in retry["required_correction"]["output_contract_rules"]
+    )
+
+
 def test_supported_finding_requires_exact_fact_location():
     supported = _finding(
         disposition="supports_acceptance",
