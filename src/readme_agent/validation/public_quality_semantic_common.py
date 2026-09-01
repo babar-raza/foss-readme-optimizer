@@ -32,7 +32,17 @@ _NEGATIVE_CUE = re.compile(
     r"throw(?:s|ing)?\b.{0,80}\b(?:UnsupportedOperationException|NotImplementedError|"
     r"PlatformNotSupportedException|NotSupportedException)|"
     r"unavailable|limit(?:ed)?\s+to|restrict(?:ed)?\s+to|remain(?:s)?\s+incomplete|"
-    r"out\s+of\s+scope|only\b.{0,80}\bsupported)\b"
+    r"out\s+of\s+scope|only\b.{0,80}\bsupported|"
+    # Same false-positive family as the throw(...)Exception fix above: an EXTERNAL package/
+    # dependency runtime requirement is a caveat, not a plain capability claim. Real bug found on
+    # aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript's own limitation fact ("3MF import/export
+    # (`ThreeMfImporter`/`ThreeMfExporter`) requires the `adm-zip` package at runtime ..."): the
+    # sentence's own "import/export" tripped `_POSITIVE_CUE` with nothing here to exempt it, so
+    # the limitation bullet that states this exact caveat was flagged as contradicting itself.
+    # Deliberately scoped to the literal word "package" (not "requires" generally, which also
+    # covers unrelated API-argument/parameter constraints like "requires at least 1 argument" or
+    # "requires an XML-backed table" that must NOT be exempted from this check).
+    r"requires\s+(?:the\s+|an?\s+)?[`'\"]?[\w.-]+[`'\"]?\s+package)\b"
 )
 _SCOPE_QUALIFIER = re.compile(
     r"(?i)\b(?:through\s+the\s+public\s+api|in\s+this\s+build|in\s+this\s+edition|"

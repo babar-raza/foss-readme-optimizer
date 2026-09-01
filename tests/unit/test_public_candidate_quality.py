@@ -285,6 +285,45 @@ def test_claim_grounding_treats_bare_not_supported_exception_as_negative() -> No
     assert "claim_grounding_negative_fact" not in _check_ids(report)
 
 
+def test_claim_grounding_treats_a_package_runtime_requirement_as_negative() -> None:
+    """PWD-049: `aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript`'s real, only limitation --
+    "3MF import/export (`ThreeMfImporter`/`ThreeMfExporter`) requires the `adm-zip`
+    package at runtime -- see [upstream-issues.md](upstream-issues.md) for a real
+    packaging gap ..." -- was not recognized as a negative cue: the bullet's own
+    "import/export" tripped the positive cue with nothing here to exempt it, so the
+    limitation bullet that STATES this exact caveat was flagged as contradicting
+    itself once PWD-047/PWD-048 let it actually reach the candidate document."""
+
+    limitation = (
+        "3MF import/export (`ThreeMfImporter`/`ThreeMfExporter`) requires the `adm-zip` "
+        "package at runtime -- see [upstream-issues.md](upstream-issues.md) for a real "
+        "packaging gap that affects consumers of the published package."
+    )
+    candidate = f"# 3D Toolkit\n\n## Scope and Limitations\n\n- {limitation}\n"
+    facts = _facts(_fact("product.limitations", [limitation]))
+
+    report = evaluate_public_candidate_quality(candidate, facts=facts)
+
+    assert "claim_grounding_negative_fact" not in _check_ids(report)
+
+
+def test_claim_grounding_still_flags_a_dependency_requirement_without_the_word_package() -> None:
+    """Negative control: `aspose-note-foss/Aspose.Note-FOSS-for-Python`'s real limitation
+    phrasing ("PDF export requires reportlab") is ALSO a package/dependency requirement
+    caveat, but without the literal word "package" this fix's deliberately narrow regex
+    does not recognize it -- it must still be flagged exactly as before, proving the fix
+    does not broaden "requires" generally (which would also wrongly exempt genuine API-
+    argument/parameter constraints like "requires at least 1 argument")."""
+
+    limitation = "PDF export requires reportlab."
+    candidate = f"# Note Toolkit\n\n## Scope and Limitations\n\n- {limitation}\n"
+    facts = _facts(_fact("product.limitations", [limitation]))
+
+    report = evaluate_public_candidate_quality(candidate, facts=facts)
+
+    assert "claim_grounding_negative_fact" in _check_ids(report)
+
+
 def test_same_input_twice_produces_a_byte_identical_report() -> None:
     candidate = """# Product
 

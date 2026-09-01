@@ -11,7 +11,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 from readme_agent.readme.claim_accountability_models import StructuredFactCoordinateV1
 from readme_agent.readme.document_structure import Heading
 
-PUBLIC_QUALITY_CHECKS_VERSION = 11
+PUBLIC_QUALITY_CHECKS_VERSION = 12
 
 
 class _StrictModel(BaseModel):
