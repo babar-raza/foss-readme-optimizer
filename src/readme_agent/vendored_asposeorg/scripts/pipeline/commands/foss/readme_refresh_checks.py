@@ -8675,7 +8675,13 @@ _UNQUALIFIED_DEPENDENCY_CLAIM_PATTERNS = [
     # real candidate: "the minimal, self-contained pattern for getting started" also
     # describes the Quick Start code, not the product -- "pattern" is another
     # reasonable synonym the original list didn't anticipate.
-    r"\bself[- ]contained\b(?!\s+(?:example|snippet|sample|version|illustration|demo"
+    # Real bug found running this against a later aspose-pdf-foss/Aspose.PDF-FOSS-
+    # for-.NET candidate: "the minimal, self-contained usage pattern for getting
+    # started" was flagged anyway -- the lookahead required the excluded noun to
+    # immediately follow "self-contained", but here "usage" (a reasonable qualifier
+    # a composer can insert before any of these nouns) sits in between. Tolerate one
+    # optional qualifying word before the excluded noun, never a bare "self-contained".
+    r"\bself[- ]contained\b(?!\s+(?:\w+\s+)?(?:example|snippet|sample|version|illustration|demo"
     r"|demonstration|walkthrough|showcase|script|pattern))",
     r"\bno third[- ]party (?:code|software)\b(?!\s+(?:crate|package|library|dependenc))",
 ]

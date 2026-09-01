@@ -40,6 +40,19 @@ def test_self_contained_pattern_is_not_flagged() -> None:
     assert _phrases("It provides the minimal, self-contained pattern for getting started.") == []
 
 
+def test_self_contained_usage_pattern_is_not_flagged() -> None:
+    """PWD-059: `aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET`'s real candidate later reads
+    "It provides the minimal, self-contained usage pattern for getting started with
+    Aspose.PDF FOSS for Net." -- the same PWD-040 sentence, but with "usage" now
+    inserted before "pattern". The exclusion lookahead required the excluded noun to
+    immediately follow "self-contained", so this one extra qualifying word broke the
+    PWD-040 fix again."""
+
+    assert (
+        _phrases("It provides the minimal, self-contained usage pattern for getting started.") == []
+    )
+
+
 def test_self_contained_product_claim_is_still_flagged() -> None:
     """Negative control: a real unqualified dependency-absence claim about the
     product itself must still fire -- the fix only widens the noun exclusion
