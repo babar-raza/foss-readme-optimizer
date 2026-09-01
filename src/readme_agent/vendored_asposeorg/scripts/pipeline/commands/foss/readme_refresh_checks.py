@@ -3741,6 +3741,15 @@ _BARE_WORD_RE = re.compile(r"(?<![./\w])([A-Za-z]{2,10})\b")
 _GENERIC_ACRONYM_STOPLIST = {
     "FOSS", "LICENSE", "API", "CLI", "URL", "SDK", "README", "CI", "FAQ", "TODO",
     "GUI", "MIT", "OSI", "ID",
+    # "ONE" is a real registry format token (OneNote's ".one" files, per
+    # `_DIAGRAM_SUPPLEMENTARY_FORMAT_NAMES`'s own "ONE", "ONENOTE" entries) but is also the
+    # ordinary English number word "one" -- unlike every other stoplist entry above, it
+    # always has real, correct lowercase prose occurrences ("one example", "one of the
+    # following") alongside any unrelated all-caps use elsewhere in the same file (a heading,
+    # emphasis, a numbered option label). Real bug found live on aspose-email-foss/Aspose.
+    # Email-FOSS-for-Python (an email library with no OneNote relevance at all): flagged
+    # `{"ONE", "one"}` as a casing inconsistency purely from this coincidence.
+    "ONE",
 }
 # A different, narrower kind of exception (2026-08-08, found live in 3d/python/3d/typescript
 # after a portfolio-wide diagram-redraw + heading-title-case pass): a format whose real,

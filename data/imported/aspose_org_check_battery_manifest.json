@@ -1,5 +1,5 @@
 {
-  "aggregate_sha256": "495c3811302a3a13739c0e95d730183381a471b38bd71a72146638c260fbee99",
+  "aggregate_sha256": "e692908bfad017796c259fdc1d60d9532374c8e841d7ae2b8a210ae16930cd2a",
   "files": [
     {
       "destination_path": "src/readme_agent/vendored_asposeorg/scripts/pipeline/commands/foss/readme_refresh_checks.py",
@@ -21,9 +21,15 @@
           "date": "2026-09-01",
           "reason": "_UNQUALIFIED_DEPENDENCY_CLAIM_PATTERNS's self-contained-noun exclusion list widened again to cover 'pattern' after a real false positive: aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET's Quick Start prose described its introductory example as 'the minimal, self-contained pattern for getting started', which the exclusion list (already covering example/snippet/sample/version/illustration/demo/demonstration/walkthrough/showcase/script) did not yet cover, wrongly flagging a claim about the example code as an absolute dependency-absence claim about the product. Verified by test at landing time.",
           "verified_against_source_commit": false
+        },
+        {
+          "commit": "PWD-045-FOLLOWUP will record this commit's real hash immediately after landing",
+          "date": "2026-09-01",
+          "reason": "_GENERIC_ACRONYM_STOPLIST widened to add 'ONE' after a real false positive: aspose-email-foss/Aspose.Email-FOSS-for-Python's candidate (an email library with no OneNote relevance) was flagged for a 'ONE'/'one' casing inconsistency purely because 'ONE' is a real registry format token (OneNote) that also happens to be the ordinary English number word, which always has genuine lowercase prose occurrences alongside any unrelated all-caps use elsewhere in the same file. Verified by test at landing time.",
+          "verified_against_source_commit": false
         }
       ],
-      "sha256": "f5cdb54992b2bf7eb06b457e425c7eac8bc7d2283b9b7e3c7ed16a590a8696e9",
+      "sha256": "236e4dbcf41a1d2b8d68415b983399533755ae5f81e4e0fb3fb46ab70b9ab5fa",
       "source_path": "scripts/pipeline/commands/foss/readme_refresh_checks.py"
     },
     {
