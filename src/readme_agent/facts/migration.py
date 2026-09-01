@@ -31,6 +31,7 @@ SURFACE_DEPENDENCIES = {
     "repository.implementation_components": ["readme.opening", "readme.api_reference"],
     "repository.public_guidance": ["readme.opening", "readme.examples"],
     "development.assets": ["readme.development"],
+    "development.project_structure": ["readme.development"],
     "development.commands": ["readme.development", "readme.contributing"],
     "development.golden_workflow": ["readme.development"],
     "repository.documentation_assets": ["readme.resources", "readme.limitations"],

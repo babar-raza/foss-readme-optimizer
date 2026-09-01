@@ -726,6 +726,7 @@ def build_verified_template_draft(
             _accepted_fields(
                 facts,
                 "development.assets",
+                "development.project_structure",
                 "development.commands",
                 "development.golden_workflow",
                 "aspose.dev_test_artifacts",

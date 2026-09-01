@@ -3,6 +3,7 @@
 import hashlib
 import json
 import os
+import shutil
 import subprocess
 from pathlib import Path
 from types import SimpleNamespace
@@ -20,6 +21,7 @@ from readme_agent.facts.curated_python_readme import (
     verified_readme_examples,
 )
 from readme_agent.facts.curated_readme_evidence import curated_repository_fact_candidates
+from readme_agent.facts.curated_repository_assets import repository_project_structure
 from readme_agent.facts.curated_repository_guidance import repository_contribution_guidance
 from readme_agent.repository_snapshot import RepositorySnapshotV1, SnapshotProvenanceV1
 
@@ -1940,3 +1942,77 @@ def test_runtime_verification_attempts_are_bounded() -> None:
     _runtime_verify_quick_start_examples([], withheld, _fake_snapshot(), verify_fn=verify_fn)
 
     assert len(calls) == _MAX_RUNTIME_VERIFICATION_ATTEMPTS
+
+
+_PROJECT_STRUCTURE_README = (
+    "# Acme Cells\n\n"
+    "## Project Structure\n\n"
+    "The public API lives under `src/main/java/org/acme/cells/`, with integration tests,\n"
+    "unit tests, and generated Javadoc alongside it at the repository root:\n\n"
+    "```\n"
+    "├── src/main/java/org/acme/cells/  # Public API: Workbook, Worksheet, Cell\n"
+    "│   ├── core/                      #   Internal workbook and style models\n"
+    "│   └── validation/                #   Workbook validation helpers\n"
+    "├── src/test/java/org/acme/cells/  # Integration tests\n"
+    "│   └── unit/                      #   Fast unit tests\n"
+    "└── docs/apidocs/                  # Generated Javadoc\n"
+    "```\n\n"
+    "## API Reference\n\n"
+    "More content.\n"
+)
+
+
+def _write_project_structure_tree(root: Path) -> None:
+    _write(root, "README.md", _PROJECT_STRUCTURE_README)
+    for relative in (
+        "src/main/java/org/acme/cells/core",
+        "src/main/java/org/acme/cells/validation",
+        "src/test/java/org/acme/cells/unit",
+        "docs/apidocs",
+    ):
+        (root / relative).mkdir(parents=True, exist_ok=True)
+
+
+def test_verified_directory_tree_diagram_is_promoted_as_a_fact(tmp_path: Path) -> None:
+    _write_project_structure_tree(tmp_path)
+
+    result = repository_project_structure(tmp_path)
+
+    assert result is not None
+    value, locations = result
+    assert locations == ["README.md"]
+    assert "├── src/main/java/org/acme/cells/" in value["diagram"]
+    assert value["diagram"].startswith("```")
+    assert value["diagram"].endswith("```")
+
+    selected = {
+        fact.field: fact for fact in curated_repository_fact_candidates(tmp_path, "abc123", None)
+    }
+    assert "development.project_structure" in selected
+    assert selected["development.project_structure"].value == value
+
+
+def test_directory_tree_diagram_with_one_nonexistent_path_is_dropped_entirely(
+    tmp_path: Path,
+) -> None:
+    _write_project_structure_tree(tmp_path)
+    shutil.rmtree(tmp_path / "src/main/java/org/acme/cells/validation")
+
+    assert repository_project_structure(tmp_path) is None
+
+
+def test_directory_tree_diagram_with_unparseable_line_is_dropped_entirely(tmp_path: Path) -> None:
+    _write(
+        tmp_path,
+        "README.md",
+        "# Acme\n\n## Project Structure\n\n```\nsrc/ (no tree markers here)\n```\n",
+    )
+    (tmp_path / "src").mkdir()
+
+    assert repository_project_structure(tmp_path) is None
+
+
+def test_readme_without_project_structure_heading_yields_no_fact(tmp_path: Path) -> None:
+    _write(tmp_path, "README.md", "# Acme\n\n## Usage\n\nSome text.\n")
+
+    assert repository_project_structure(tmp_path) is None

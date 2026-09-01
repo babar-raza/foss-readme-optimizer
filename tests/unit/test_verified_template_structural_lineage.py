@@ -616,6 +616,84 @@ def test_imported_development_fallback_has_exact_fact_authority() -> None:
     )
 
 
+def test_verified_project_structure_diagram_claims_gain_exact_fact_authority() -> None:
+    facts = _facts()
+    development = facts.selected_fact("development.assets")
+    diagram = (
+        "```\n"
+        "├── aspose/threed/  # Public API\n"
+        "│   └── animation/  # Animation curve helpers\n"
+        "└── docs/apidocs/   # Generated documentation\n"
+        "```"
+    )
+    structure = FactRecordV2(
+        fact_id="development.project_structure:structural-lineage-test",
+        field="development.project_structure",
+        value={"diagram": diagram},
+        source=development.source,
+        verification_state="verified",
+        authoritative_owner="repository-owner",
+        confidence=1.0,
+        affected_surfaces=["readme.development_and_testing"],
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [*facts.facts, structure],
+            "selected_fact_ids": {
+                **facts.selected_fact_ids,
+                structure.field: structure.fact_id,
+            },
+        }
+    )
+    markdown = development_markdown(facts)
+    assert markdown is not None
+    assert diagram in markdown
+    template_input = _template_input(facts)
+    template_input = template_input.model_copy(
+        update={
+            "sections": {
+                **template_input.sections,
+                "development_and_testing": _bound(
+                    facts,
+                    markdown,
+                    "development.assets",
+                    "development.project_structure",
+                    standards=("readme.development_and_testing",),
+                ),
+            }
+        }
+    )
+    candidate = compile_repository_presentation(template_input)
+    provenance = build_template_provenance(candidate, template_input, facts)
+    heading = next(
+        item for item in parse_headings(candidate) if item.title == "Development and Testing"
+    )
+    claims = [
+        claim
+        for claim in assess_material_claims(candidate)
+        if len(candidate[: heading.heading_end].encode("utf-8")) <= claim.source_byte_start
+        and claim.source_byte_end <= len(candidate[: heading.section_end].encode("utf-8"))
+        and any(
+            marker
+            in candidate.encode("utf-8")[claim.source_byte_start : claim.source_byte_end].decode(
+                "utf-8"
+            )
+            for marker in ("aspose/threed/", "animation/", "docs/apidocs/")
+        )
+    ]
+
+    assert claims
+    assert all(
+        any(
+            binding.candidate_byte_start <= claim.source_byte_start
+            and claim.source_byte_end <= binding.candidate_byte_end
+            and structure.fact_id in binding.fact_ids
+            for binding in provenance
+        )
+        for claim in claims
+    )
+
+
 def test_source_tree_installation_is_bound_inside_authored_orientation() -> None:
     facts = _facts()
     template_input = _template_input(facts)

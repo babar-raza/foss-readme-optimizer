@@ -24,6 +24,7 @@ from readme_agent.facts.curated_python_pdf_guidance import (
 from readme_agent.facts.curated_repository_assets import (
     development_assets,
     repository_ci,
+    repository_project_structure,
     third_party_notices,
 )
 from readme_agent.facts.curated_repository_guidance import (
@@ -139,6 +140,12 @@ def curated_repository_fact_candidates(
             "repository-inventory",
             "mechanical_repository",
             development_assets,
+        ),
+        (
+            "development.project_structure",
+            "repository-inventory",
+            "mechanical_repository",
+            repository_project_structure,
         ),
         (
             "development.commands",

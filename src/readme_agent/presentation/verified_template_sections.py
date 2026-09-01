@@ -458,6 +458,14 @@ def development_markdown(facts: ProductFactsV2) -> str | None:
     assets = fact.value if fact is not None and isinstance(fact.value, dict) else {}
     counts: list[str] = []
     body: list[str] = []
+    structure = _accepted(facts, "development.project_structure")
+    structure_value = (
+        structure.value if structure is not None and isinstance(structure.value, dict) else {}
+    )
+    diagram = structure_value.get("diagram")
+    if isinstance(diagram, str) and diagram.strip():
+        body.extend(["### Project Structure", "", diagram.strip(), ""])
+        counts.append("a verified repository layout diagram")
     golden_workflow = golden_workflow_development(facts)
     labels = {"tests": "test files", "tools": "maintenance tools", "goldens": "golden assets"}
     singular = {"tests": "test file", "tools": "maintenance tool", "goldens": "golden asset"}

@@ -10,6 +10,10 @@ from pathlib import Path
 _IGNORED_DIRECTORIES = {".git", ".venv", "__pycache__", "node_modules"}
 _MAX_REPRESENTATIVES = 8
 
+_PROJECT_STRUCTURE_HEADING = re.compile(r"(?m)^##[ \t]+Project Structure[ \t]*$")
+_FENCED_BLOCK = re.compile(r"```[^\n]*\n(?P<body>.*?)```", re.DOTALL)
+_TREE_LINE = re.compile(r"^(?P<indent>(?:│[ ]{3}|[ ]{4})*)(?P<marker>[├└]── )(?P<rest>\S.*)$")
+
 
 def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -91,3 +95,45 @@ def repository_ci(root: Path) -> tuple[object, list[str]] | None:
         if path.is_file():
             return {"path": relative, "sha256": _sha256(path)}, [relative]
     return None
+
+
+def repository_project_structure(root: Path) -> tuple[object, list[str]] | None:
+    """Return the maintainer's own directory-tree diagram, verified path-by-path.
+
+    Every entry the diagram names must resolve to a real file or directory under
+    ``root``; a single unverifiable or unparseable line drops the whole fact rather
+    than risk rendering an invented or stale layout.
+    """
+    readme = root / "README.md"
+    if not readme.is_file():
+        return None
+    text = readme.read_text(encoding="utf-8", errors="replace")
+    heading = _PROJECT_STRUCTURE_HEADING.search(text)
+    if heading is None:
+        return None
+    block = _FENCED_BLOCK.search(text, heading.end())
+    if block is None:
+        return None
+    stack: dict[int, str] = {}
+    verified_any = False
+    for line in block.group("body").splitlines():
+        if not line.strip():
+            continue
+        line_match = _TREE_LINE.match(line)
+        if line_match is None:
+            return None
+        depth = len(line_match.group("indent")) // 4
+        fragment = re.split(r"\s{2,}", line_match.group("rest"), maxsplit=1)[0].strip().rstrip("/")
+        if not fragment:
+            return None
+        stack[depth] = fragment
+        try:
+            full_path = "/".join(stack[level] for level in range(depth + 1))
+        except KeyError:
+            return None
+        if not (root / full_path).exists():
+            return None
+        verified_any = True
+    if not verified_any:
+        return None
+    return {"diagram": block.group(0)}, ["README.md"]
