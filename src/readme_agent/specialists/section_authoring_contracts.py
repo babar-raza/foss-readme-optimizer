@@ -26,7 +26,7 @@ from readme_agent.llm.schema import Usage
 from readme_agent.llm.section_authoring_prompts import SectionAuthoringTaskFamily
 
 MAX_ACCEPTED_FACTS = 4
-SECTION_AUTHORING_CONTRACT_VERSION = "section-authoring-v14"
+SECTION_AUTHORING_CONTRACT_VERSION = "section-authoring-v15"
 
 
 class _StrictModel(BaseModel):
