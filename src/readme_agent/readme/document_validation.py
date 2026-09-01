@@ -38,6 +38,7 @@ from readme_agent.readme.claim_map import build_readme_claim_map
 from readme_agent.readme.claim_map_capability_validation import (
     api_capability_claims_without_implementation_evidence,
 )
+from readme_agent.readme.code_fence_presentation import normalize_code_snippet
 from readme_agent.readme.composition_lineage_validation import composition_ledger_errors
 from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.readme.document_renderer import (
@@ -442,7 +443,7 @@ def validate_readme_document_candidate(
     selected_example = facts.selected_fact("example.minimal")
     example = _accepted(facts, "example.minimal")
     example_value = selected_example.value if isinstance(selected_example.value, dict) else {}
-    exact_example = str(example_value.get("code", "")).rstrip()
+    exact_example = normalize_code_snippet(str(example_value.get("code", "")))
     example_is_present = bool(exact_example and exact_example in candidate_inner)
     # A narrowly blocked example may be omitted while unrelated README work
     # continues. It may never be rendered, though: its code is still untrusted

@@ -15,6 +15,7 @@ from readme_agent.facts.acquisition_schema import AcquisitionDecisionV1
 from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.acquisition_contracts import matching_coordinate_row
+from readme_agent.readme.code_fence_presentation import normalize_code_snippet
 
 _PROJECT_ROOT = Path(__file__).resolve().parents[3]
 TEMPLATE_ROOT = _PROJECT_ROOT / "templates" / "readme"
@@ -45,6 +46,7 @@ DOCUMENT_CONTRACT_IMPLEMENTATION_PATHS = (
     "src/readme_agent/readme/document_legal.py",
     "src/readme_agent/readme/document_links.py",
     "src/readme_agent/readme/document_structure.py",
+    "src/readme_agent/readme/code_fence_presentation.py",
     "src/readme_agent/readme/document_validation.py",
     "src/readme_agent/readme/example_assurance_validation.py",
     "src/readme_agent/readme/presentation_lint.py",
@@ -372,7 +374,7 @@ def example_text(facts: ProductFactsV2, source_revision: str) -> str:
         load_template("verified-minimal-example.md")
         .format(
             language=value.get("language", "text"),
-            code=str(value.get("code", "")).rstrip(),
+            code=normalize_code_snippet(str(value.get("code", ""))),
             source_revision=source_revision,
             prerequisites=prerequisites,
         )

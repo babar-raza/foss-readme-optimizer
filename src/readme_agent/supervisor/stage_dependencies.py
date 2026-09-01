@@ -95,6 +95,7 @@ _CANDIDATE_DEPENDENCY_GROUPS: dict[
             "src/readme_agent/presentation/verified_template_runtime.py",
             "src/readme_agent/presentation/verified_template_sections.py",
             "src/readme_agent/readme/acquisition_contracts.py",
+            "src/readme_agent/readme/code_fence_presentation.py",
             "src/readme_agent/readme/public_limitations.py",
             "src/readme_agent/readme/document_acquisition.py",
             "src/readme_agent/readme/document_renderer.py",

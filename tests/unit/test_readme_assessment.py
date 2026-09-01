@@ -912,6 +912,120 @@ def test_verified_example_uses_the_verified_code_without_generated_fixture_narra
     assert 'workbook.save("hello.xlsx")' in rendered
 
 
+def test_example_text_normalizes_trailing_whitespace_and_repeated_blank_lines() -> None:
+    """Live on 5 repos (aspose-cells-foss-for-Go/Rust, aspose-pdf-foss-for-Go/.NET,
+
+    aspose-slides-foss-for-Java): the verified minimal example's own code, sampled
+    from real repository source, can carry trailing line whitespace or repeated
+    blank lines that `presentation.code_fence_spacing` correctly rejects -- every
+    other code-fence-producing path in this codebase calls `normalize_code_snippet`
+    before rendering except this one, the most universally-used of all of them."""
+
+    from readme_agent.readme.code_fence_presentation import inspect_code_fences
+
+    facts, revision = _java_facts()
+    example = facts.selected_fact("example.minimal")
+    example_value = dict(example.value)
+    example_value["code"] = 'workbook = Workbook()   \n\n\nworkbook.save("hello.xlsx")\n'
+    with_messy_code = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": example_value})
+                if fact.fact_id == example.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    rendered = example_text(with_messy_code, revision)
+
+    assert "   \n" not in rendered
+    assert "\n\n\n" not in rendered
+    assert inspect_code_fences(rendered) == []
+
+
+def test_pre_fix_example_text_reproduces_the_live_code_fence_spacing_finding(
+    monkeypatch,
+) -> None:
+    """Negative control: reverting to the pre-fix whole-block `.rstrip()` reproduces
+
+    the exact live `code_fence_spacing` finding this fix corrects."""
+
+    import readme_agent.readme.document_templates as module
+    from readme_agent.readme.code_fence_presentation import inspect_code_fences
+
+    facts, revision = _java_facts()
+    example = facts.selected_fact("example.minimal")
+    example_value = dict(example.value)
+    example_value["code"] = 'workbook = Workbook()   \n\n\nworkbook.save("hello.xlsx")\n'
+    with_messy_code = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": example_value})
+                if fact.fact_id == example.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    def pre_fix_example_text(facts: ProductFactsV2, source_revision: str) -> str:
+        example = module.accepted_fact(facts, "example.minimal")
+        value = example.value if isinstance(example.value, dict) else {}
+        return (
+            module.load_template("verified-minimal-example.md")
+            .format(
+                language=value.get("language", "text"),
+                code=str(value.get("code", "")).rstrip(),
+                source_revision=source_revision,
+                prerequisites="",
+            )
+            .strip()
+        )
+
+    rendered = pre_fix_example_text(with_messy_code, revision)
+
+    assert [issue.rule_id for issue in inspect_code_fences(rendered)] == ["code_fence_spacing"]
+
+
+def test_verified_example_present_check_matches_the_normalized_rendered_code() -> None:
+    """Companion fix: `verified_example_present` used to recompute its own expected
+
+    string with a bare `.rstrip()`, drifting from what `example_text()` now
+    actually renders (`normalize_code_snippet`). Live symptom on aspose-cells-foss/
+    Aspose.Cells-FOSS-for-Go: fixing `code_fence_spacing` alone made this check
+    start reporting "selected verified minimal example is absent" for an example
+    that was, in fact, present -- just not byte-identical to the stale comparison
+    string anymore."""
+
+    facts, revision = _java_facts()
+    example = facts.selected_fact("example.minimal")
+    example_value = dict(example.value)
+    example_value["code"] = 'workbook = Workbook()   \n\n\nworkbook.save("hello.xlsx")\n'
+    with_messy_code = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": example_value})
+                if fact.fact_id == example.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    source = "# Aspose.Cells FOSS for Java\n\nExisting maintainer introduction.\n"
+    candidate, plan = build_readme_document_candidate(
+        with_messy_code.org_repo,
+        source,
+        with_messy_code,
+        base_revision=revision,
+    )
+
+    validation = validate_readme_document_candidate(source, candidate, plan, with_messy_code)
+
+    assert validation.checks["verified_example_present"] is True
+
+
 def test_python_source_build_fails_closed_for_blocked_incomplete_or_mismatched_proof():
     facts, revision = _java_facts()
     python_facts = _python_source_build_facts(facts, revision)
