@@ -43,6 +43,42 @@ _DIRECTIONAL_FORMAT_VALUE = re.compile(
 )
 _INPUT_FORMAT_CLAIM = re.compile(r"(?i)\b(?:input|import|load|open|read)(?:s|ed|ing)?\b")
 _OUTPUT_FORMAT_CLAIM = re.compile(r"(?i)\b(?:export|output|save|write)(?:s|ed|ing)?\b")
+_FORMAT_RESERVATION_EXEMPT_SECTIONS = frozenset({"scope_and_limitations"})
+
+
+def _is_reservation_exempt_limitation_unit(
+    packet: SectionAuthoringPacketV1,
+    cited_facts: list[SectionAuthoringFactV1],
+) -> bool:
+    """PWD-047: a real limitation naming an already-authorized format alongside import/export-
+    shaped wording (e.g. "3MF import/export ... requires the `adm-zip` package at runtime") is
+    not a competing capability claim -- it assumes the capability and describes a caveat, so it
+    must not be rejected as "crossing the deterministic format-rendering boundary".
+
+    Deliberately narrower than "the whole `scope_and_limitations` section is exempt": this
+    section can also carry a genuinely fabricated capability claim wearing a limitation-shaped
+    disguise (`test_reserved_directional_unit_is_removed_without_reauthoring_valid_siblings`'s
+    "Export scenes to DAE files" unit, citing an unrelated `relationship.commercial_foss` fact,
+    is exactly this -- and must still be rejected). The exemption is scoped to units whose cited
+    facts are *exclusively* `product.limitations`, confirmed via a full run-history sweep
+    (`runs/readme-poc/*/*/assurance/section_authoring/document.json`) to be the exact shape of
+    every real occurrence: all 13 "reserved for deterministic rendering" rejections of a
+    `product.limitations` fact across 8 repositories happened in this section, and every
+    occurrence in any *other* section, or citing any *other* fact type, involved a different,
+    non-limitation fact (identity/audience/capabilities/problems_solved/relationship). A
+    genuinely fabricated directional claim smuggled through a real limitation fact is still
+    independently caught downstream by `presentation_lint_format_directions.py`/`format_role_
+    truth.py`, which re-verify every directional claim in the final candidate against
+    `product.formats` regardless of which section authored it.
+    """
+
+    return (
+        packet.target_section_id in _FORMAT_RESERVATION_EXEMPT_SECTIONS
+        and bool(cited_facts)
+        and all(fact.field == "product.limitations" for fact in cited_facts)
+    )
+
+
 _AMBIGUOUS_LOWERCASE_FORMAT_WORDS = frozenset({"one"})
 _NON_EXECUTION_PREDICATES = frozenset(
     {"allow", "contain", "enable", "include", "provide", "support"}
@@ -412,6 +448,9 @@ def remove_reserved_directional_units(
     those values. Retrying a whole cluster can repeat that defect and discard unrelated accepted
     prose. Keep the valid units, retain only hashes of rejected public units in the receipt, and
     let normal acceptance trigger recovery when removing a unit leaves a fact undisposed.
+
+    See `_is_reservation_exempt_limitation_unit()` for why a real limitation unit is exempt
+    (PWD-047).
     """
 
     if not any(fact.field == "product.formats" for fact in packet.do_not_claim):
@@ -423,6 +462,9 @@ def remove_reserved_directional_units(
     rejected_fact_ids: set[str] = set()
     for unit in result.units:
         cited = [fact for fact in packet.accepted_facts if fact.fact_id in unit.fact_ids]
+        if _is_reservation_exempt_limitation_unit(packet, cited):
+            retained.append(unit)
+            continue
         errors = _unsupported_format_errors(
             unit, cited, all_facts, forbidden_ids, packet.public_product_name
         )
@@ -500,15 +542,24 @@ def section_authoring_fact_errors(
     ):
         errors.append("public prose contains replacement characters or UTF-8 mojibake")
     errors.extend(_unsupported_operation_errors(unit, cited_facts, task_family=packet.task_family))
-    errors.extend(
-        _unsupported_format_errors(
-            unit,
-            cited_facts,
-            (*packet.accepted_facts, *packet.do_not_claim),
-            {fact.fact_id for fact in packet.do_not_claim},
-            packet.public_product_name,
-        )
+    format_errors = _unsupported_format_errors(
+        unit,
+        cited_facts,
+        (*packet.accepted_facts, *packet.do_not_claim),
+        {fact.fact_id for fact in packet.do_not_claim},
+        packet.public_product_name,
     )
+    if _is_reservation_exempt_limitation_unit(packet, cited_facts):
+        # See `_is_reservation_exempt_limitation_unit()` (PWD-047): a genuine limitation naming an
+        # already-authorized format is not a competing capability claim. This is the per-unit
+        # acceptance gate `section_cluster_authoring.py::_validate_acceptance()` calls right
+        # after `remove_reserved_directional_units()` retains a unit that check already exempted
+        # -- without the identical exemption here, this gate would immediately re-reject the same
+        # unit for the same reason, one call later.
+        format_errors = [
+            error for error in format_errors if "reserved for deterministic rendering" not in error
+        ]
+    errors.extend(format_errors)
     if re.search(r"(?i)\baspose\b", public_text):
         if packet.public_product_name not in unit.text:
             errors.append(
