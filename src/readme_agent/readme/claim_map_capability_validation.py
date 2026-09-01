@@ -24,6 +24,25 @@ _CAPABILITY_VERB_RE = re.compile(
     r"serializes?|exports?|imports?)\b",
     re.IGNORECASE,
 )
+_BACKTICK_CODE_SPAN = re.compile(r"`[^`\n]*`")
+
+
+def _prose_outside_code_spans(text: str) -> str:
+    """Blank out backtick-quoted code references before scanning for capability wording.
+
+    Real bug found on aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python: a stub member
+    whose own name happens to also be a capability verb (`render`) makes its own honest,
+    correctly-neutral disclosure self-trigger -- "Declares the `render` operation on
+    `Renderer` (not yet implemented)." matches `_CAPABILITY_VERB_RE` on "render" purely
+    because that word is also the method's own name inside a backtick code reference, not
+    because the sentence describes an action the product performs. `test_neutral_stub_
+    description_is_not_a_violation`'s existing fixture ("to_mesh") never exposed this,
+    since "to_mesh" does not coincide with any capability-verb word. Blanking backtick
+    spans first means only genuine prose wording -- describing what the product does,
+    never a bare code/identifier reference -- can ever satisfy this check.
+    """
+
+    return _BACKTICK_CODE_SPAN.sub(" ", text)
 
 
 def _stub_members(facts: ProductFactsV2, fact_id: str) -> dict[str, set[str]]:
@@ -83,7 +102,7 @@ def api_capability_claims_without_implementation_evidence(
         if not stub_members:
             continue
         text = candidate_bytes[claim.byte_start : claim.byte_end].decode("utf-8", errors="ignore")
-        if not _CAPABILITY_VERB_RE.search(text):
+        if not _CAPABILITY_VERB_RE.search(_prose_outside_code_spans(text)):
             continue
         for name, kinds in sorted(stub_members.items()):
             if _mentions_stub_member(text, name, kinds):

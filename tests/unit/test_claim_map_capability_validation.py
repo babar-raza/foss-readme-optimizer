@@ -162,6 +162,47 @@ def test_namespace_or_prose_token_does_not_impersonate_a_stub_method_reference()
     assert violations == []
 
 
+def test_stub_member_named_after_a_capability_verb_does_not_self_trigger():
+    """PWD-043: `aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python`'s real API Method Index
+    row reads "| `Renderer` | `Renderer.render(symbol, layout, options) -> RenderedArtifact`
+    | Declares the `render` operation on `Renderer` (not yet implemented). |" -- an honest,
+    correctly-neutral disclosure. Unlike `test_neutral_stub_description_is_not_a_violation`'s
+    "to_mesh" fixture, "render" is *itself* one of `_CAPABILITY_VERB_RE`'s own words, so the
+    row's own backtick-quoted method signature (`Renderer.render(...)`) was self-triggering
+    the capability-verb scan even though the row's actual prose is a plain disclosure."""
+
+    facts = _api_public_surface_facts([{"name": "render", "kind": "method", "implemented": False}])
+    candidate_text = (
+        "| `Renderer` | `Renderer.render(symbol, layout, options) -> RenderedArtifact` | "
+        "Declares the `render` operation on `Renderer` (not yet implemented). |"
+    )
+    claim = _claim("api.public_surface:python-exports", candidate_text, byte_start=0)
+
+    violations = api_capability_claims_without_implementation_evidence(
+        _claim_map([claim]), facts, candidate_text
+    )
+
+    assert violations == []
+
+
+def test_real_capability_verb_named_stub_is_still_caught_outside_code_spans():
+    """Negative control: a genuine capability claim about the same verb-named stub member,
+    with the capability wording in real prose rather than only inside the member's own code
+    reference, must still be caught -- the fix only excludes backtick-quoted code spans from
+    the wording scan, it does not weaken the check."""
+
+    facts = _api_public_surface_facts([{"name": "render", "kind": "method", "implemented": False}])
+    candidate_text = "Renders barcodes to PDF through `PdfRenderer.render(symbol, layout, options)`"
+    claim = _claim("api.public_surface:python-exports", candidate_text, byte_start=0)
+
+    violations = api_capability_claims_without_implementation_evidence(
+        _claim_map([claim]), facts, candidate_text
+    )
+
+    assert violations
+    assert "render" in violations[0]
+
+
 def test_preserved_source_span_claims_are_out_of_scope():
     """Only newly rendered (`candidate_utf8`) bindings are checked --
     preserved source text is a separate accountability concern."""
