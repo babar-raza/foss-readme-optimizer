@@ -129,7 +129,8 @@ def _comment_failures(candidate_text: str) -> list[str]:
     for token in MarkdownIt("commonmark").parse(candidate_text):
         if token.type != "fence":
             continue
-        language = token.info.strip().split(maxsplit=1)[0]
+        info_words = token.info.strip().split(maxsplit=1)
+        language = info_words[0] if info_words else ""
         if (
             language
             and language.casefold() != "mermaid"
