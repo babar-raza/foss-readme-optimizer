@@ -52,6 +52,30 @@ class TestProductExplanationOffset:
         assert offset is not None
         assert text[offset:].startswith("Pure-Python font workflow automation")
 
+    def test_recognizes_past_tense_passive_voice_product_descriptions(self):
+        """PWD-046: `aspose-email-foss/Aspose.Email-FOSS-for-Python`'s real opening reads
+        "...to construct email messages... When a new message is created from scratch, the
+        library automatically applies..." -- passive-voice/past-tense phrasing that
+        `_CONCRETE_PHRASES` did not recognize (every verb had a base/3rd-person/gerund form
+        but none had a past-tense/past-participle form), making `product_explanation_offset`
+        wrongly return `None` for a real, clearly concrete product description. This
+        cascaded into a `promotional_imbalance` false positive: the check's own "commercial
+        link appears before the explanation" branch treats a `None` offset as "no
+        explanation was ever found", so a single, legitimate, deep-in-the-document Enterprise
+        Edition contextual link (in Scope and Limitations) was wrongly flagged as preceding
+        the product's own explanation."""
+
+        text = (
+            "# Aspose.Email FOSS for Python\n\n"
+            "When a new message is created from scratch, the library automatically applies "
+            "Outlook-oriented compatibility defaults.\n"
+        )
+
+        offset = product_explanation_offset(text)
+
+        assert offset is not None
+        assert text[offset:].startswith("When a new message is created")
+
 
 class TestDetectPresentation:
     def test_explains_product_in_opening(self):
