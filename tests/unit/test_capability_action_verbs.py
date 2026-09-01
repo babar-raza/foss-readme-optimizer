@@ -141,3 +141,36 @@ def test_capability_rows_predicate_ignores_non_row_markdown() -> None:
 
     assert capability_rows_are_action_led("")
     assert capability_rows_are_action_led("Some introductory sentence.")
+
+
+def test_execute_titles_are_action_led() -> None:
+    """Live on aspose-html-foss/Aspose.HTML-FOSS-for-Python: "Execute JavaScript against
+
+    a parsed DOM" was rejected as not action-led before "execute" was added to the
+    accept-list -- the same missing-verb false-positive family as PWD-008's geometry
+    verbs and PWD-054's "enables"."""
+
+    assert is_action_led_capability_title("Execute JavaScript against a parsed DOM")
+    assert is_action_led_capability_title("Execute a compiled script")
+
+
+def test_executive_noun_is_not_mistaken_for_the_execute_verb() -> None:
+    """Word-boundary regression: "execute" must not match inside "executive"."""
+
+    assert not is_action_led_capability_title("Executive summary of features")
+
+
+def test_pre_fix_missing_execute_reproduces_the_live_false_positive(monkeypatch) -> None:
+    """Negative control: removing "execute" from the accept-list reproduces the exact
+    live misclassification this fix corrects."""
+
+    import re
+
+    import readme_agent.readme.capability_semantics as module
+
+    pre_fix_pattern = module._ACTION_VERBS.pattern.replace(
+        "encrypt|execute|export", "encrypt|export"
+    )
+    monkeypatch.setattr(module, "_ACTION_VERBS", re.compile(pre_fix_pattern))
+
+    assert not module.is_action_led_capability_title("Execute JavaScript against a parsed DOM")

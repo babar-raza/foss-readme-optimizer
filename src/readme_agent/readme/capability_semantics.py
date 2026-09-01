@@ -56,8 +56,9 @@ _GENERIC_NOUNS = re.compile(
 _ACTION_VERBS = re.compile(
     r"(?i)\b(?:access|add|aggregate|analy[sz]e|animate|annotate|append|apply|assign|attach|build|"
     r"compare|compress|concatenate|configure|construct|convert|copy|count|create|crop|decode|"
-    r"decrypt|define|deform|delete|detect|edit|embed|encode|encrypt|export|extract|extrude|filter|"
-    r"flatten|format|generate|group|highlight|host|import|index|insert|inspect|load|manage|measure|"
+    r"decrypt|define|deform|delete|detect|edit|embed|encode|encrypt|execute|export|extract|extrude|"
+    r"filter|flatten|format|generate|group|highlight|host|import|index|insert|inspect|load|manage|"
+    r"measure|"
     # `open` is excluded when immediately followed by `source`: "open source" is this
     # domain's single most common noun phrase (every FOSS product's own SEO keyword
     # data describes it as "open source"), not an instance of the verb "open" -- found
