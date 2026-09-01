@@ -324,6 +324,70 @@ def test_claim_grounding_still_flags_a_dependency_requirement_without_the_word_p
     assert "claim_grounding_negative_fact" in _check_ids(report)
 
 
+def test_claim_grounding_treats_a_does_not_verb_list_negation_as_negative() -> None:
+    """PWD-053: `aspose-cells-foss/Aspose.Cells-FOSS-for-.NET`'s real limitation bullet --
+    "`Cell.Formula` stores the formula as a string verbatim; the library does not parse,
+    evaluate, or recalculate it -- results come from whatever the application that opens the
+    file computes." -- was not recognized as a negative cue: "parse" is one of `_POSITIVE_CUE`'s
+    own action verbs, so its negation ("does not parse") was invisible to the old pattern (which
+    only recognized "not supported/implemented/available/reachable", not "not <action verb>"
+    generally), and the sentence fell through to the positive match on "parse" itself."""
+
+    limitation = (
+        "No formula calculation engine. `Cell.Formula` stores the formula as a string "
+        "verbatim; the library does not parse, evaluate, or recalculate it -- results come "
+        "from whatever the application that opens the file computes."
+    )
+    candidate = f"# Cells Toolkit\n\n## Scope and Limitations\n\n- {limitation}\n"
+    facts = _facts(_fact("product.limitations", [limitation]))
+
+    report = evaluate_public_candidate_quality(candidate, facts=facts)
+
+    assert "claim_grounding_negative_fact" not in _check_ids(report)
+
+
+def test_claim_grounding_treats_a_does_not_rasterize_negation_as_negative() -> None:
+    """Same real repository, second limitation bullet in the same run: "Charts are created and
+    embedded as real chart objects (...) with series data and anchoring, but the library does
+    not rasterize a chart to an image ..." -- the sentence's own true positive clause ("Charts
+    are created") tripped `_POSITIVE_CUE`, and "rasterize" (the actual limitation) was not
+    recognized as a negative cue at all before this fix."""
+
+    limitation = (
+        "Charts are created and embedded as real chart objects (`Chart`/`ChartCollection`) "
+        "with series data and anchoring, but the library does not rasterize a chart to an "
+        "image -- that rendering happens in whatever application opens the workbook."
+    )
+    candidate = f"# Cells Toolkit\n\n## Scope and Limitations\n\n- {limitation}\n"
+    facts = _facts(_fact("product.limitations", [limitation]))
+
+    report = evaluate_public_candidate_quality(candidate, facts=facts)
+
+    assert "claim_grounding_negative_fact" not in _check_ids(report)
+
+
+def test_claim_grounding_still_flags_an_unqualified_parse_claim() -> None:
+    """Negative control: a genuinely unqualified, non-negated "parses" claim contradicting a
+    real limitation must still be caught by the contradiction-detection family -- proves the fix
+    only recognizes "does not <verb>", not "<verb>" generally (which would silently exempt every
+    genuine positive claim using one of these verbs, defeating the whole check family). Caught
+    here by the sibling `contradiction_capability_phrase` check rather than `claim_grounding_
+    negative_fact` itself (which additionally requires `same_public_capability()` to consider
+    the two sentences a close-enough match) -- either is proof the contradiction still surfaces."""
+
+    limitation = "Legacy XYZ format parsing is not supported."
+    capability = "The library parses legacy XYZ format files automatically."
+    candidate = (
+        f"# Toolkit\n\n## Key Capabilities\n\n{capability}\n\n"
+        f"## Scope and Limitations\n\n- {limitation}\n"
+    )
+    facts = _facts(_fact("product.limitations", [limitation]))
+
+    report = evaluate_public_candidate_quality(candidate, facts=facts)
+
+    assert {"claim_grounding_negative_fact", "contradiction_capability_phrase"} & _check_ids(report)
+
+
 def test_same_input_twice_produces_a_byte_identical_report() -> None:
     candidate = """# Product
 

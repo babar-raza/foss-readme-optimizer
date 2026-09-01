@@ -42,7 +42,17 @@ _NEGATIVE_CUE = re.compile(
     # Deliberately scoped to the literal word "package" (not "requires" generally, which also
     # covers unrelated API-argument/parameter constraints like "requires at least 1 argument" or
     # "requires an XML-backed table" that must NOT be exempted from this check).
-    r"requires\s+(?:the\s+|an?\s+)?[`'\"]?[\w.-]+[`'\"]?\s+package)\b"
+    r"requires\s+(?:the\s+|an?\s+)?[`'\"]?[\w.-]+[`'\"]?\s+package|"
+    # Real bug found on aspose-cells-foss/Aspose.Cells-FOSS-for-.NET's own limitation bullets:
+    # "the library does not parse, evaluate, or recalculate it" and "the library does not
+    # rasterize a chart to an image" -- "parse" is one of `_POSITIVE_CUE`'s own action verbs, so
+    # the first sentence's negation was invisible to this pattern (which only recognized "not
+    # supported/implemented/available/reachable", not "not <action verb>" generally) and fell
+    # through to the positive match on "parse" itself; "rasterize"/"evaluate"/"recalculate" are
+    # narrower verbs from the same two real sentences, not previously recognized at all. Bounded
+    # lookahead (matching the throw(...)Exception pattern's own style above) handles the real
+    # comma-separated list shape ("does not parse, evaluate, or recalculate it").
+    r"does\s+not\b.{0,60}\b(?:parse|evaluate|recalculate|calculate|rasteriz(?:e|ing)))\b"
 )
 _SCOPE_QUALIFIER = re.compile(
     r"(?i)\b(?:through\s+the\s+public\s+api|in\s+this\s+build|in\s+this\s+edition|"
