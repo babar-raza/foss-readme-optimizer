@@ -114,6 +114,7 @@ def repository_project_structure(root: Path) -> tuple[object, list[str]] | None:
     block = _FENCED_BLOCK.search(text, heading.end())
     if block is None:
         return None
+    intro = text[heading.end() : block.start()].strip()
     stack: dict[int, str] = {}
     verified_any = False
     for line in block.group("body").splitlines():
@@ -136,4 +137,7 @@ def repository_project_structure(root: Path) -> tuple[object, list[str]] | None:
         verified_any = True
     if not verified_any:
         return None
-    return {"diagram": block.group(0)}, ["README.md"]
+    value: dict[str, str] = {"tree": block.group("body").rstrip("\n")}
+    if intro:
+        value["intro"] = intro
+    return value, ["README.md"]

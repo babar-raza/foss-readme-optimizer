@@ -619,17 +619,19 @@ def test_imported_development_fallback_has_exact_fact_authority() -> None:
 def test_verified_project_structure_diagram_claims_gain_exact_fact_authority() -> None:
     facts = _facts()
     development = facts.selected_fact("development.assets")
-    diagram = (
-        "```\n"
+    tree = (
         "├── aspose/threed/  # Public API\n"
         "│   └── animation/  # Animation curve helpers\n"
-        "└── docs/apidocs/   # Generated documentation\n"
-        "```"
+        "└── docs/apidocs/   # Generated documentation"
+    )
+    intro = (
+        "The public API lives under `aspose/threed/`, with generated documentation "
+        "alongside it at the repository root:"
     )
     structure = FactRecordV2(
         fact_id="development.project_structure:structural-lineage-test",
         field="development.project_structure",
-        value={"diagram": diagram},
+        value={"tree": tree, "intro": intro},
         source=development.source,
         verification_state="verified",
         authoritative_owner="repository-owner",
@@ -647,7 +649,8 @@ def test_verified_project_structure_diagram_claims_gain_exact_fact_authority() -
     )
     markdown = development_markdown(facts)
     assert markdown is not None
-    assert diagram in markdown
+    assert intro in markdown
+    assert "```text\n" + tree + "\n```" in markdown
     template_input = _template_input(facts)
     template_input = template_input.model_copy(
         update={
@@ -678,7 +681,12 @@ def test_verified_project_structure_diagram_claims_gain_exact_fact_authority() -
             in candidate.encode("utf-8")[claim.source_byte_start : claim.source_byte_end].decode(
                 "utf-8"
             )
-            for marker in ("aspose/threed/", "animation/", "docs/apidocs/")
+            for marker in (
+                "aspose/threed/",
+                "animation/",
+                "docs/apidocs/",
+                "generated documentation",
+            )
         )
     ]
 

@@ -1981,9 +1981,10 @@ def test_verified_directory_tree_diagram_is_promoted_as_a_fact(tmp_path: Path) -
     assert result is not None
     value, locations = result
     assert locations == ["README.md"]
-    assert "├── src/main/java/org/acme/cells/" in value["diagram"]
-    assert value["diagram"].startswith("```")
-    assert value["diagram"].endswith("```")
+    assert "├── src/main/java/org/acme/cells/" in value["tree"]
+    assert "```" not in value["tree"]
+    assert value["intro"].startswith("The public API lives under")
+    assert value["intro"].endswith("repository root:")
 
     selected = {
         fact.field: fact for fact in curated_repository_fact_candidates(tmp_path, "abc123", None)
@@ -2016,3 +2017,20 @@ def test_readme_without_project_structure_heading_yields_no_fact(tmp_path: Path)
     _write(tmp_path, "README.md", "# Acme\n\n## Usage\n\nSome text.\n")
 
     assert repository_project_structure(tmp_path) is None
+
+
+def test_directory_tree_diagram_without_an_intro_sentence_omits_the_intro_key(
+    tmp_path: Path,
+) -> None:
+    _write(
+        tmp_path,
+        "README.md",
+        "# Acme\n\n## Project Structure\n\n```\n└── src/\n```\n",
+    )
+    (tmp_path / "src").mkdir()
+
+    result = repository_project_structure(tmp_path)
+
+    assert result is not None
+    value, _locations = result
+    assert "intro" not in value
