@@ -76,6 +76,27 @@ class TestProductExplanationOffset:
         assert offset is not None
         assert text[offset:].startswith("When a new message is created")
 
+    def test_recognizes_enables_as_a_concrete_product_description(self):
+        """PWD-054: `aspose-cells-foss/Aspose.Cells-FOSS-for-.NET`'s real opening reads
+        "Aspose.Cells FOSS for Net enables developers using .NET to access worksheet cells,
+        rows, columns, and merged ranges." -- "enables" was not in `_CONCRETE_PHRASES`, making
+        `product_explanation_offset` wrongly return `None` for a real, clearly concrete
+        product description. This cascaded into `promotional_imbalance` flagging EVERY
+        commercial link in the whole document (not just one near the top) as preceding a
+        nonexistent explanation, including the standard, otherwise-safe Enterprise Edition
+        contextual link deep in Scope and Limitations."""
+
+        text = (
+            "# Aspose.Cells FOSS for .NET\n\n"
+            "Aspose.Cells FOSS for Net enables developers using .NET to access worksheet "
+            "cells, rows, columns, and merged ranges.\n"
+        )
+
+        offset = product_explanation_offset(text)
+
+        assert offset is not None
+        assert text[offset:].startswith("Aspose.Cells FOSS for Net enables")
+
 
 class TestDetectPresentation:
     def test_explains_product_in_opening(self):

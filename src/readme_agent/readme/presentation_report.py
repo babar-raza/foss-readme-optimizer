@@ -110,6 +110,16 @@ _CONCRETE_PHRASES = (
     "provides",
     "toolkit for",
     "sdk for",
+    # PWD-054: aspose-cells-foss/Aspose.Cells-FOSS-for-.NET's real opening reads "...enables
+    # developers using .NET to access worksheet cells, rows, columns, and merged ranges." --
+    # "enables" (and "access" it governs) weren't recognized, so this offset stayed None and
+    # cascaded into promotional_imbalance flagging EVERY commercial link in the whole document
+    # (including the standard, otherwise-safe Enterprise Edition link deep in Scope and
+    # Limitations) as preceding a nonexistent explanation.
+    "enable",
+    "enables",
+    "enabled",
+    "enabling",
 )
 _ECOSYSTEM_KEYWORDS = {
     "java": ("java",),
