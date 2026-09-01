@@ -21,6 +21,7 @@ from readme_agent.llm.section_author_client import LiveSectionClusterAuthorClien
 from readme_agent.specialists.section_authoring_packet import build_section_authoring_packet
 from readme_agent.specialists.section_cluster_authoring import (
     SectionAuthoringAcceptanceError,
+    _targeted_repair_action,
     execute_section_cluster_authoring,
 )
 
@@ -1719,3 +1720,63 @@ def test_worst_case_composed_bound_is_exactly_six_physical_calls_for_one_cluster
     assert physical_calls["n"] == 6  # the documented worst-case ceiling, exactly reached
     assert outcome.receipt.logical_call_count == 3
     assert outcome.receipt.semantic_retry_used is True
+
+
+class TestTargetedRepairActionForItemizedRecovery:
+    """PWD-051: `_reconcile_itemized_alias_coverage()`'s three rejection messages had no
+    matching branch in `_targeted_repair_action()`, so every itemized-recovery retry got only
+    the generic "Fix only the named acceptance failure" repair hint -- no concrete correction
+    action -- even though the sibling-conflation shape is exactly the same failure the
+    first-pass "combines"/"independent sibling items" branch already handles specifically.
+    Confirmed live: `aspose-words-foss/Aspose.Words-FOSS-for-Python`'s `key_capabilities`
+    cluster failed acceptance 3/3 attempts with `SectionAuthoringDocumentError: ... itemized
+    capability recovery combined multiple sibling aliases in unit(s): ['Export to multiple
+    formats using SaveFormat']` -- a generic summarizing phrase, not a literal 'and'/'or'/slash
+    join, which the pre-existing first-pass hint's wording didn't anticipate either."""
+
+    def test_combined_sibling_aliases_gets_a_concrete_split_instruction(self) -> None:
+        exc = SectionAuthoringAcceptanceError(
+            "itemized capability recovery combined multiple sibling aliases in unit(s): "
+            "['Export to multiple formats using SaveFormat']"
+        )
+
+        action = _targeted_repair_action(exc)
+
+        assert "Split the conflicting unit into separate units" in action
+        assert "generic summary phrase" in action
+
+    def test_undisposed_sibling_aliases_gets_a_concrete_disposition_instruction(self) -> None:
+        exc = SectionAuthoringAcceptanceError(
+            "itemized capability recovery left sibling alias(es) undisposed: ['F2']"
+        )
+
+        action = _targeted_repair_action(exc)
+
+        assert "own disposition" in action
+
+    def test_unsupported_alias_gets_a_concrete_correction_instruction(self) -> None:
+        exc = SectionAuthoringAcceptanceError(
+            "itemized capability recovery cited unsupported alias(es): ['F9']"
+        )
+
+        action = _targeted_repair_action(exc)
+
+        assert "exact fact_id values" in action
+
+    def test_first_pass_sibling_conflation_hint_also_names_generic_summary_phrases(self) -> None:
+        """The pre-existing first-pass hint only warned about literal 'and'/'or'/slash joins --
+        confirmed insufficient by the real failure above, which used neither. Both hints must
+        now warn about the generic-summary-phrase evasion, not just literal conjunctions."""
+
+        exc = SectionAuthoringAcceptanceError(
+            "unit 'Export formats' combines 2 independent sibling items"
+        )
+
+        action = _targeted_repair_action(exc)
+
+        assert "generic summary phrase" in action
+
+    def test_unrecognized_error_still_falls_back_to_the_generic_action(self) -> None:
+        exc = SectionAuthoringAcceptanceError("some completely different acceptance failure")
+
+        assert _targeted_repair_action(exc) == "Fix only the named acceptance failure."

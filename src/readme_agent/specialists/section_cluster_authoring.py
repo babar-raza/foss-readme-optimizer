@@ -661,8 +661,28 @@ def _targeted_repair_action(exc: Exception) -> str:
         return (
             "Split the conflicting capability into separate units. Each unit must describe "
             "exactly one sibling item from the accepted list; do not join two sibling items "
-            "with 'and', 'or', a slash, or an inferred relationship. The separate units may "
-            "cite the same list fact alias."
+            "with 'and', 'or', a slash, an inferred relationship, or a generic summary phrase "
+            "like 'multiple formats' or 'various options' -- name each item's own specific "
+            "content in its own unit instead. The separate units may cite the same list fact "
+            "alias."
+        )
+    if "itemized capability recovery combined multiple sibling aliases" in message:
+        return (
+            "Split the conflicting unit into separate units, one per sibling alias. Each unit "
+            "must cite exactly one alias and describe only that alias's own specific content; "
+            "do not join two aliases with 'and', 'or', a slash, an inferred relationship, or a "
+            "generic summary phrase like 'multiple formats' or 'various options'."
+        )
+    if "itemized capability recovery left sibling alias(es) undisposed" in message:
+        return (
+            "Every sibling alias listed in the error needs its own disposition: cite it in "
+            "exactly one unit, or add an omitted entry for it with a concrete reason. Do not "
+            "leave any listed alias out of both the units and the omitted list."
+        )
+    if "itemized capability recovery cited unsupported alias(es)" in message:
+        return (
+            "Cite only the exact fact_id values given in the accepted facts list. Remove any "
+            "fact_id not in that list from every unit and omitted entry."
         )
     if "structured fact coordinates" in message:
         return "Rewrite only the conflicting unit to agree literally with the structured values."
