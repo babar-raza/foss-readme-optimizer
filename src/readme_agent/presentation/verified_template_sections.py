@@ -470,7 +470,6 @@ def development_markdown(facts: ProductFactsV2) -> str | None:
         if isinstance(intro, str) and intro.strip():
             body.extend([intro.strip(), ""])
         body.extend(["```text", tree.rstrip("\n"), "```", ""])
-        counts.append("a verified repository layout diagram")
     golden_workflow = golden_workflow_development(facts)
     labels = {"tests": "test files", "tools": "maintenance tools", "goldens": "golden assets"}
     singular = {"tests": "test file", "tools": "maintenance tool", "goldens": "golden asset"}
