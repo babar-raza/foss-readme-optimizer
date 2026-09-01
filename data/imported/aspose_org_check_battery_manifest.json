@@ -29,7 +29,7 @@
           "verified_against_source_commit": false
         },
         {
-          "commit": "PWD-059-FOLLOWUP will record this commit's real hash immediately after landing",
+          "commit": "61cba693c303178bc134555a2d39a4534f6eb4fe",
           "date": "2026-09-01",
           "reason": "_UNQUALIFIED_DEPENDENCY_CLAIM_PATTERNS's self-contained-noun exclusion lookahead widened to tolerate one optional qualifying word before the excluded noun, after PWD-040's 'pattern' fix broke again on the same repository: aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET's Quick Start prose later read 'the minimal, self-contained usage pattern for getting started', with 'usage' now inserted between 'self-contained' and 'pattern'. The lookahead required the excluded noun to immediately follow 'self-contained', so this one extra qualifying word wrongly flagged the sentence again as an absolute dependency-absence claim about the product. Verified by test at landing time.",
           "verified_against_source_commit": false
