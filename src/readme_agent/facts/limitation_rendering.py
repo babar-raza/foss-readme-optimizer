@@ -13,6 +13,11 @@ _INTERNAL_PATH_RE = re.compile(
     flags=re.IGNORECASE,
 )
 _KEY_VALUE_RE = re.compile(r"^[a-z][a-z0-9_]*\s*[:=]")
+# A well-formed inline markdown link's own `[text](target)` brackets are safe, public-facing
+# syntax -- not the raw list/dict-literal shape ("['a', 'b']", "{'k': 'v'}") the bare `{}[]`
+# check below exists to catch. Stripped out before that one check only, so a genuine internal
+# artifact literal is still rejected exactly as before.
+_MARKDOWN_LINK_RE = re.compile(r"\[[^\[\]\n]+\]\([^\s()]+\)")
 
 
 def _is_visitor_limitation_phrase(value: str) -> bool:
@@ -24,7 +29,7 @@ def _is_visitor_limitation_phrase(value: str) -> bool:
         and _INTERNAL_TOKEN_RE.fullmatch(phrase) is None
         and not _KEY_VALUE_RE.search(phrase)
         and not _INTERNAL_PATH_RE.search(phrase)
-        and not any(character in phrase for character in "{}[]")
+        and not any(character in _MARKDOWN_LINK_RE.sub("", phrase) for character in "{}[]")
         and len(re.findall(r"[A-Za-z0-9]+", phrase)) >= 2
     )
 
