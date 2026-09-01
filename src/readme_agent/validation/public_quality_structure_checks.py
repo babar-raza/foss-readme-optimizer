@@ -27,6 +27,14 @@ _API_TABLE_SUMMARY = re.compile(
 )
 _API_TABLE_ROW = re.compile(r"(?m)^\| `[^`]+` \| [^|]+ \|$")
 _API_NAMESPACE_HEADING = re.compile(r"(?m)^### [^\r\n]+ Namespace \(`[^`]+`\)\s*$")
+# Scopes row-counting to the generated `| Type | Description |` table immediately under each
+# namespace heading -- source-preserved content elsewhere in the same section (e.g. a repository's
+# own pre-existing `| Class | Description |` method index) can share the same `| \`X\` | text |`
+# row shape and must not be counted as part of the declared namespace summary.
+_NAMESPACE_TABLE_BLOCK = re.compile(
+    r"(?m)^### [^\r\n]+ Namespace \(`[^`]+`\)\s*\n\n\| Type \| Description \|\n\| --- \| --- \|\n"
+    r"(?P<rows>(?:\| `[^`]+` \| [^|]+ \|\n?)*)"
+)
 
 # ---------------------------------------------------------------------------------------------
 # Structural quality (always advisory) -- relative outliers, never a fixed length limit
@@ -220,7 +228,10 @@ def _check_numeric_list_consistency(
     metric = _API_TABLE_SUMMARY.search(api_body)
     if metric is None:
         return findings
-    actual_entries = len(_API_TABLE_ROW.findall(api_body))
+    actual_entries = sum(
+        len(_API_TABLE_ROW.findall(block.group("rows")))
+        for block in _NAMESPACE_TABLE_BLOCK.finditer(api_body)
+    )
     actual_namespaces = len(_API_NAMESPACE_HEADING.findall(api_body))
     declared_entries = int(metric.group("count"))
     declared_namespaces = int(metric.group("namespaces"))

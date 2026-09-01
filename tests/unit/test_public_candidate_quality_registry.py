@@ -137,6 +137,43 @@ def test_api_table_entry_summary_must_match_rendered_rows_and_namespaces() -> No
     assert "declared 3/2 but rendered 1/1" in finding.message
 
 
+def test_source_preserved_method_index_does_not_inflate_the_declared_entry_count() -> None:
+    """A repository's own preserved `| Class | Description |` table shares the generated
+
+    namespace table's `| \\`X\\` | text |` row shape but is not part of the declared count
+    (regression for the aspose-email-foss/Python live finding: declared 30/2, spuriously
+    rendered 54/2 because this second table's 24 rows were counted too).
+    """
+
+    report = evaluate_public_candidate_quality(
+        "# Product\n\n## API Reference\n\n"
+        "The package reference presents 1 API table entries across 1 namespaces.\n\n"
+        "### Product Namespace (`product`)\n\n"
+        "| Type | Description |\n| --- | --- |\n"
+        "| `Scene` | Represents a scene and loads content. |\n\n"
+        "| Class | Description |\n|---|---|\n"
+        "| `Scene` | Preserved detail from the repository's own README. |\n"
+        "| `Loader` | Preserved detail from the repository's own README. |\n"
+    )
+
+    assert all(item.check_id != "numeric_list_consistency" for item in report.findings)
+
+
+def test_a_real_mismatch_is_still_caught_alongside_a_preserved_method_index() -> None:
+    report = evaluate_public_candidate_quality(
+        "# Product\n\n## API Reference\n\n"
+        "The package reference presents 2 API table entries across 1 namespaces.\n\n"
+        "### Product Namespace (`product`)\n\n"
+        "| Type | Description |\n| --- | --- |\n"
+        "| `Scene` | Represents a scene and loads content. |\n\n"
+        "| Class | Description |\n|---|---|\n"
+        "| `Scene` | Preserved detail from the repository's own README. |\n"
+    )
+
+    finding = next(item for item in report.findings if item.check_id == "numeric_list_consistency")
+    assert "declared 2/1 but rendered 1/1" in finding.message
+
+
 # --- regression controls -------------------------------------------------------------------
 
 
@@ -155,4 +192,4 @@ def test_checks_source_hash_matches_recorded_version() -> None:
     """
 
     assert compute_checks_source_hash() == _CHECKS_SOURCE_HASH_AT_VERSION
-    assert PUBLIC_QUALITY_CHECKS_VERSION == 13
+    assert PUBLIC_QUALITY_CHECKS_VERSION == 14

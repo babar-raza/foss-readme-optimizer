@@ -86,12 +86,14 @@ DOCUMENT_CONTRACT_IMPLEMENTATION_PATHS = (
     "src/readme_agent/readme/composition_operation_origins.py",
     "src/readme_agent/readme/composition_lineage_validation.py",
     "src/readme_agent/validation/presentation_template.py",
+    "src/readme_agent/validation/public_candidate_quality.py",
     "src/readme_agent/registry/loader.py",
     "src/readme_agent/registry/models.py",
 )
 DOCUMENT_CONTRACT_IMPLEMENTATION_GLOBS = (
     "src/readme_agent/links/*.py",
     "src/readme_agent/presentation/verified_*.py",
+    "src/readme_agent/validation/public_quality_*.py",
     "src/readme_agent/readme/claim_*.py",
     "src/readme_agent/readme/source_claim_*.py",
 )

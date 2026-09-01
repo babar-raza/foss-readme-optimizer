@@ -105,7 +105,7 @@ _CHECKS: tuple[tuple[str, PublicQualityCategory, bool, _CheckFn], ...] = (
 # recomputes the live hash of every check function's source and fails loudly if it no longer
 # matches this recorded value, forcing a conscious "does PUBLIC_QUALITY_CHECKS_VERSION need to
 # move" decision on every detection-logic edit instead of a silent, unreviewed drift.
-_CHECKS_SOURCE_HASH_AT_VERSION = "01699b09ff12db4e39e1a10cae0f3bfb20d837a6146a46f7570b4788a6df7f06"
+_CHECKS_SOURCE_HASH_AT_VERSION = "cd810742b75bc7ce3170f2f56ad44ca87593d0f2e0c51aee5c417f1e625c3d89"
 
 
 def compute_checks_source_hash() -> str:
