@@ -31,6 +31,10 @@ _ASPOSE_FOSS_PRODUCT = re.compile(r"\bAspose\.([A-Za-z0-9]+)\s+FOSS\b")
 def _contains_emoji(text: str) -> bool:
     for character in text:
         codepoint = ord(character)
+        if 0x2500 <= codepoint <= 0x257F:
+            # Box Drawing: ├ │ └ ─ etc. -- verified directory-tree diagrams
+            # ("Project Structure"), not emoji.
+            continue
         if (
             0x1F000 <= codepoint <= 0x1FAFF
             or 0x2600 <= codepoint <= 0x27BF

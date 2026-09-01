@@ -2441,6 +2441,25 @@ def test_comments_emoji_duplicate_mermaid_edge_and_copyright_fail() -> None:
     assert "candidate contains a default copyright declaration" in errors
 
 
+def test_box_drawing_directory_tree_is_not_flagged_as_emoji_but_real_emoji_still_is() -> None:
+    template_input = _page_input()
+    candidate = compile_repository_presentation(template_input)
+    with_tree = candidate + (
+        "\n```\n"
+        "├── src/  # Public API\n"
+        "│   └── core/  # Internal models\n"
+        "└── docs/  # Documentation\n"
+        "```\n"
+    )
+
+    assert "candidate contains emoji" not in validate_repository_presentation(
+        with_tree, template_input
+    )
+    assert "candidate contains emoji" in validate_repository_presentation(
+        with_tree + "\nStatus: 🚀\n", template_input
+    )
+
+
 def test_capability_examples_and_api_style_regressions_fail() -> None:
     template_input = _page_input()
     candidate = compile_repository_presentation(template_input)
