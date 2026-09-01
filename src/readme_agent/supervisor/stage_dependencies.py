@@ -222,6 +222,7 @@ _CANDIDATE_DEPENDENCY_GROUPS: dict[
             "src/readme_agent/specialists/bounded_review_packers.py",
             "src/readme_agent/specialists/bounded_review_packets.py",
             "src/readme_agent/specialists/bounded_review_structure.py",
+            "src/readme_agent/specialists/review_finding_grounding.py",
             "src/readme_agent/supervisor/candidate_llm_accounting.py",
             "src/readme_agent/supervisor/local_poc_evidence.py",
             "src/readme_agent/supervisor/local_poc_snapshot_evidence.py",

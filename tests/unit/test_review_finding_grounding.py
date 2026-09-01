@@ -669,3 +669,44 @@ def test_supported_finding_requires_exact_fact_location():
 
     assert not result.valid
     assert any("evidence location disagrees" in error for error in result.errors)
+
+
+def test_multiline_dict_fact_evidence_is_bound_despite_real_newlines():
+    """PWD-060-FOLLOWUP4: a reviewer quoting a multi-line dict-valued fact verbatim
+    (real newlines) previously never matched, because the fallback evidence string
+    was `str(fact["value"])`, whose repr escapes each newline to a literal ``\\n`` --
+    two characters that can never appear inside a real quoted excerpt."""
+
+    tree = "├── src/  # Public API\n└── docs/  # Documentation"
+    facts = {
+        "selected_fact_ids": {"development.project_structure": "fact.tree"},
+        "facts": [
+            {
+                "fact_id": "fact.tree",
+                "verification_state": "verified",
+                "value": {"tree": tree, "intro": "See the layout below:"},
+                "source": {"location": "repository://README.md"},
+                "conflicts": [],
+            }
+        ],
+    }
+    candidate = f"# Example\n\n## Development and Testing\n\n```text\n{tree}\n```\n"
+    finding = _finding(
+        fact_id="fact.tree",
+        quoted_candidate_span=tree,
+        evidence_excerpt=tree,
+        evidence_location="repository://README.md",
+        disposition="supports_acceptance",
+        polarity_result="supports",
+        expected_polarity="positive_implementation",
+        observed_polarity="positive_implementation",
+        required_repair="",
+    )
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=facts,
+        findings=[finding],
+    )
+
+    assert result.valid, result.errors

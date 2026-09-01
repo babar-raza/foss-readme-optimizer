@@ -146,6 +146,7 @@ def _fact_evidence_strings(fact: dict) -> set[str]:
     values = {
         str(fact.get("value", "")),
         str((fact.get("source") or {}).get("location", "")),
+        *fact_strings(fact.get("value")),
     }
     for assessment in fact.get("evidence_assessments") or []:
         values.update(
