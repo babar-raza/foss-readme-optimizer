@@ -110,9 +110,18 @@ def _persist_ratchet_entry(path: Path, content_sha256: str, verdict: dict) -> No
 # default truncated mid-JSON (`finish_reason='length'`), raising an
 # uncaught LLMError. The initial 1,600-token calibration was later disproved by
 # the real TypeScript canary: its one-verdict response was truncated at JSON
-# character 1,929. Keep a bounded 2,400-token ceiling so the same forced-tool
-# transaction can finish without retrying identical request bytes.
-_MAX_TOKENS = 2400
+# character 1,929. The follow-up 2,400-token ceiling was itself disproved live
+# (2026-09-01, aspose-cells-foss/Aspose.Cells-FOSS-for-.NET): `LLMTruncatedResponseError:
+# forced tool call response was truncated: Expecting ',' delimiter: line 1136 column 1
+# (char 2908) (completion_tokens=2400)` -- a real, larger repository genuinely needed more
+# room than the second calibration allowed. Rather than re-calibrate a third bespoke number
+# only to find a fourth real case exceeds it too, reuse the same 18,000-token large-content
+# ceiling already proven safe for this project's other big forced-tool-call jobs
+# (`agentic_composition.py`'s composition retry, `reviewer_client.py`'s factual/trusted
+# review, `section_cluster_authoring.py`'s truncation-retry headroom) -- one consistent,
+# already-validated ceiling project-wide, not another arbitrary number likely to need a
+# fifth bump later.
+_MAX_TOKENS = 18000
 
 
 def default_claim_disposition_client() -> ForcedToolClient:

@@ -393,13 +393,19 @@ def test_resolve_claim_disposition_context_returns_the_standard_three_values() -
 
 
 def test_default_claim_disposition_client_uses_observed_non_truncating_ceiling() -> None:
+    """PWD-052: the prior 2,400-token ceiling was itself disproved live (aspose-cells-foss/
+    Aspose.Cells-FOSS-for-.NET truncated a real forced-tool-call response at exactly that
+    ceiling) -- bumped to this project's already-proven-safe 18,000-token large-content
+    ceiling shared with agentic_composition.py/reviewer_client.py/section_cluster_
+    authoring.py, rather than calibrating yet another bespoke number."""
+
     from readme_agent.readme.claim_accountability_llm_disposition import (
         default_claim_disposition_client,
     )
 
     client = default_claim_disposition_client()
 
-    assert client.max_tokens == 2400
+    assert client.max_tokens == 18000
 
 
 def test_resolve_claim_disposition_context_fails_closed_for_an_unlisted_repo() -> None:
